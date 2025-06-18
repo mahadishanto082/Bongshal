@@ -148,7 +148,9 @@
                                             @endif
                                         </div>
                                     </div>
+
                                 @endif
+
                             </div>
                             @if($product->size)
                                 @php
@@ -220,10 +222,20 @@
     <!--                                <div class="col-4 col-lg-auto">
                                         &lt;!&ndash; Wishlist &ndash;&gt;
                                         <button class="btn custom-height btn-default btn-block mb-2 text-dark" data-toggle="button">
-                                            <i class="lni lni-heart mr-2"></i>Wishlist
+                                            </i>Wishlist
                                         </button>
                                     </div>-->
                                 </div>
+                                <div class="prt_04 mb-4">
+                                <button  type="button" @click="addToWishlist('{{ route(name: 'wishlist') }}" class="btn btn-sm text-white" style="background-color: orange; border-radius: 10px;">
+                                    <i class="lni lni-heart mr-2"></i> Add to Wishlist
+                                </button>
+
+                                <button type="button" class="btn btn-sm text-white" style="background-color: #007bff; border-radius: 10px;">
+                                    <i class="lni lni-balance mr-2"></i> Add to compare
+                                </button>
+                                  
+                            </div>
                             </div>
                         </div>
                     </div>
