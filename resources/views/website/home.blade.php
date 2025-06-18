@@ -80,7 +80,7 @@
                         </div>
                     </div>
 
-                    @if(count($category->products) > 0)
+                    <!-- @if(count($category->products) > 0)
                     Products
                         <div class="row">
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
@@ -151,7 +151,62 @@
                                 </div>
                             </div>
                         </div>
-                    @endif
+                     @endif-->
+                     
+
+
+                     
+                     <div class="card border-0 shadow-sm position-relative" style="width: 18rem;">
+    {{-- Horizontal Staff Pick Badge --}}
+    <div class="position-absolute top-0 end-0 me-2 mt-2 bg-info text-white px-2 py-1 rounded">
+        <small class="fw-bold text-uppercase">Staff Pick</small>
+    </div>
+
+    {{-- Product Image --}}
+    <a href="{{ route('web.products.details', $product->slug) }}">
+        <img class="card-img-top" src="{{ asset('storage/products/' . $product->image) }}" alt="{{ $product->name }}">
+    </a>
+
+    {{-- Card Body --}}
+    <div class="card-body text-center p-2">
+        <h6 class="fw-semibold mb-2">{{ $product->name }}</h6>
+
+        {{-- Price Section --}}
+        <div>
+            @if($product->discount_value > 0)
+                <div class="mb-1">
+                    <span class="fw-bold fs-5 text-danger">${{ discountCal($product->price, $product->discount_type, $product->discount_value) }}</span>
+                    <span class="text-muted text-decoration-line-through small">${{ $product->price }}</span>
+                </div>
+                <span class="badge bg-danger">Save {{ $product->discount_type === 'Taka' ? $product->discount_value . ' Tk' : $product->discount_value . '%' }}</span>
+            @else
+                <div class="mb-2 fw-bold fs-5 text-dark">${{ $product->price }}</div>
+            @endif
+        </div>
+
+        {{-- Free Shipping --}}
+        <div class="d-flex align-items-center justify-content-center small mt-2">
+            <i class="fas fa-shipping-fast text-dark me-1"></i> Free Shipping
+        </div>
+
+        {{-- Rating --}}
+        <div class="mt-1">
+            @php $rating = $product->rating ?? 4; @endphp
+            @for ($i = 1; $i <= 5; $i++)
+                @if($i <= $rating)
+                    <i class="fas fa-star text-warning"></i>
+                @else
+                    <i class="far fa-star text-muted"></i>
+                @endif
+            @endfor
+            <span class="small text-muted">({{ number_format($rating, 1) }}/5)</span>
+        </div>
+    </div>
+</div>
+
+
+
+
 
               
                 </div>
