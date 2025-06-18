@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ## .:: BookShop  ::.
 
 #### Downloading composer package and dumping
@@ -65,3 +66,6 @@ Name: Rashiqul Rony
 Email: rashiqulrony@gmail.com
 Github: https://github.com/RashiqulRony
 ~~~
+=======
+# Bongshal
+>>>>>>> d7d1425f53e117d67c63787297dc924890c6b718
