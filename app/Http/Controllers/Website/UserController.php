@@ -1,0 +1,152 @@
+<?php
+
+namespace App\Http\Controllers\Website;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Web\PasswordUpdateRequest;
+use App\Http\Requests\Web\ProfileUpdateRequest;
+use App\Models\Order;
+use App\Models\User;
+use App\Models\UserPoint;
+use App\Services\UserService;
+use Illuminate\Http\Request;
+
+class UserController extends Controller
+{
+    /**
+     * The UserService instance.
+     *
+     * @var UserService $userService
+     */
+    private UserService $userService;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @param void
+     * @return void
+     */
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function orders()
+    {
+        $result = $this->userService->orders();
+
+        if ($result['success']) {
+            return view('website.user.orders', $result['data']);
+        } else {
+            return redirect()
+                ->back()
+                ->withError($result['message']);
+        }
+    }
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function wishlist()
+    {
+        return view('website.user.wishlist');
+    }
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function profile()
+    {
+        return view('website.user.profile');
+    }
+    /**
+     * Display a listing of the resource.
+     */
+    public function pointHistory()
+    {
+        $points = UserPoint::with('product')->where('user_id', auth('web')->id())->latest()->paginate(20);
+        return view('website.user.point-history', compact('points'));
+    }
+
+    public function withdrawRequest(Request $request)
+    {
+        $user = auth('web')->user();
+        $this->validate($request, [
+            'withdraw_point' => 'required|integer|min:100|max:'.$user->point,
+            'type' => 'required|in:Bkash,Nagad,Recharge',
+            'payment_number' => 'required|min:11|max:14',
+        ]);
+
+        UserPoint::create([
+            'user_id' => $user->id,
+            'point' => $request->withdraw_point,
+            'type' => $request->type,
+            'payment_number' => $request->payment_number,
+            'flag' => 'Withdraw',
+            'notes' => 'Point Withdraw',
+        ]);
+
+        User::find($user->id)->update([
+            'point' => $user->point - $request->withdraw_point,
+        ]);
+
+        return redirect()->back()->with('success', 'Your withdraw request successfully!!');
+    }
+
+    /**
+     * Update user's password.
+     */
+    public function passwordUpdate(PasswordUpdateRequest $request)
+    {
+        $result = $this->userService->passwordUpdate($request->validated());
+
+        if ($result['success']) {
+            return redirect()
+                ->back()
+                ->withSuccess('Password updated successfully.');
+        } else {
+            return redirect()
+                ->back()
+                ->withErrors(['password' => $result['message']]);
+        }
+    }
+
+    /**
+     * Update user's profile.
+     */
+    public function profileUpdate(ProfileUpdateRequest $request)
+    {
+        $result = $this->userService->profileUpdate($request->validated());
+
+        if ($result['success']) {
+            return redirect()
+                ->back()
+                ->withSuccess('Profile updated successfully.');
+        } else {
+            return redirect()
+                ->back()
+                ->withError($result['message']);
+        }
+    }
+
+    /**
+     * Cancel user's order.
+     */
+    public function cancelOrder(Order $order)
+    {
+        $result = $this->userService->cancelOrder($order);
+
+        if ($result['success']) {
+            return redirect()
+                ->back()
+                ->withSuccess('Order canceled successfully.');
+        } else {
+            return redirect()
+                ->back()
+                ->withError($result['message']);
+        }
+    }
+}
