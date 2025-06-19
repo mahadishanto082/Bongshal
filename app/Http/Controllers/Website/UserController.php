@@ -55,6 +55,17 @@ class UserController extends Controller
         return view('website.user.wishlist');
     }
 
+    public function addTowishlist($id)
+    {
+        $user = auth('web')->user();
+        if ($user) {
+            $user->wishlist()->toggle($id);
+            return redirect()->back()->with('success', 'Product added to wishlist successfully!');
+        } else {
+            return redirect()->back()->with('error', 'You need to login first!');
+        }
+    }
+
     /**
      * Display a listing of the resource.
      */
