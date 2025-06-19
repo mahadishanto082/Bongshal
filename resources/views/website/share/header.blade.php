@@ -77,7 +77,21 @@
                     </div>
                     <div class="headd-sty-last">
                         <ul class="nav-menu nav-menu-social align-to-right align-items-center d-flex">
-                            <li>
+                        <li>
+    <a href="wishlist" onclick="openWishlist()">
+        <div class="d-flex align-items-center justify-content-between">
+            <i class="lni lni-heart fs-lg"></i>
+            <span class="dn-counter theme-bg">@{{ wishlist_count_total }}</span>
+            <div class="text-left ml-1">
+                <div class="text-muted small lh-1">Items</div>
+                <div class="primary-text wishlist-subtotal">
+                    <span class="fs-md ft-medium">Wishlist</span>
+                </div>
+            </div>
+        </div>
+    </a>
+</li>
+
                                 <a href="#" onclick="openCart()">
                                     <div class="d-flex align-items-center justify-content-between">
                                         <i class="fas fa-shopping-basket fs-lg"></i><span class="dn-counter theme-bg">@{{ cart_count_total }}</span>
@@ -88,6 +102,8 @@
                                     </div>
                                 </a>
                             </li>
+
+                           
                         </ul>
                     </div>
                     <div class="mobile_nav">
