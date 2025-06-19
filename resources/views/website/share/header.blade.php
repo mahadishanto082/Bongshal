@@ -78,7 +78,7 @@
                     <div class="headd-sty-last">
                         <ul class="nav-menu nav-menu-social align-to-right align-items-center d-flex">
                         <li>
-    <a href="wishlist" onclick="openWishlist()">
+    <a href="{{ route('web.user.wishlist') }}" onclick="openWishlist()">
         <div class="d-flex align-items-center justify-content-between">
             <i class="lni lni-heart fs-lg"></i>
             <span class="dn-counter theme-bg">@{{ wishlist_count_total }}</span>
