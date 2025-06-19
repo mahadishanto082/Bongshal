@@ -6,10 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Wishlist;
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+
 
     /**
      * The attributes that are mass assignable.
@@ -59,6 +61,10 @@ class User extends Authenticatable
     public function wishlist()
 {
     return $this->belongsToMany(Product::class, 'wishlists');
+}
+public function wishlists()
+{
+        return $this->hasMany(Wishlist::class);
 }
 
 }

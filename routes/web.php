@@ -47,6 +47,7 @@ Route::group(['as' => 'web.'], function () {
             Route::post('orders/{order}/cancel', [UserController::class, 'cancelOrder'])->name('orders.cancel');
             Route::get('wishlist', [UserController::class, 'wishlist'])->name('wishlist');
             Route::post('wishlist/add/{id}', [UserController::class, 'addToWishlist'])->name('wishlist.add');
+           
             Route::get('profile', [UserController::class, 'profile'])->name('profile');
             Route::get('point-history', [UserController::class, 'pointHistory'])->name('pointHistory');
             Route::post('withdraw-request', [UserController::class, 'withdrawRequest'])->name('withdrawRequest');
