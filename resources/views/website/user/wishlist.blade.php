@@ -68,6 +68,23 @@
                                                     <span class="ft-bold theme-cl fs-md">${{ $product->price }}</span>
                                                 </div>
                                             </div>
+                                            <div class="pb-5">
+                                <a href="{{ route('web.products.details', $product->slug) }}" class="btn btn-block btn-sm btn-order">
+                                    <i class="lni lni-cart"></i> Order
+                                </a>
+                                @if($product->size || $product->color)
+                                    <a href="javascript:void(0)" onclick="productQuckView('{{ route('web.products.quickView', $product->slug) }}')"  class="btn btn-block btn-sm btn-cart">
+                                        <i class="lni lni-shopping-basket"></i> Add to cart
+                                    </a>
+                                @else
+                                    <a href="javascript:void(0)" @click="addToCart('{{ route('web.cart.add', $product->slug) }}')" class="btn btn-block btn-sm btn-cart">
+                                        <i class="lni lni-shopping-basket"></i> Add to cart
+                                    </a>
+                                @endif
+                                <a class="btn btn-block btn-sm btn-detail" href="{{ route('web.products.details', $product->slug) }}">
+                                    <i class="lni lni-text-align-justify"></i> Details
+                                </a>
+                            </div>
                                         </div>
 
                                     </div>
