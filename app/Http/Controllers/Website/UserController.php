@@ -10,7 +10,7 @@ use App\Models\User;
 use App\Models\UserPoint;
 use App\Services\UserService;
 use Illuminate\Http\Request;
-
+use App\Models\Wishlist;
 class UserController extends Controller
 {
     /**
@@ -50,9 +50,16 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function wishlist()
+    public function wishlistItems()
     {
-        return view('website.user.wishlist');
+        $user = auth('web')->user();
+        if($user){
+            $wishlistItems = Wishlist::with('product')->where('user_id', auth()->id())->get();
+
+            return view('website.user.wishlist', compact('wishlistItems'));
+        }
+
+        // return view('website.user.wishlist');
     }
 
     public function addTowishlist($id)
@@ -66,6 +73,38 @@ class UserController extends Controller
         }
     }
 
+    public function removeWishlist($id)
+{
+    $user = auth('web')->user();
+
+    if ($user) {
+        $wishlistItem = Wishlist::where('user_id', $user->id)
+                                ->where('product_id', $id)
+                                ->first();
+
+        if ($wishlistItem) {
+            $wishlistItem->delete();
+            return redirect()->back()->with('success', 'Product removed from wishlist.');
+        }
+    }
+
+    return redirect()->back()->with('error', 'Something went wrong.');
+}
+public function checkWishlist($id)
+{
+    $user = auth('web')->user();    
+
+if ($user) {
+        $wishlistItem = Wishlist::where('user_id', $user->id)
+                                ->where('product_id', $id)
+                                ->first();
+
+        if ($wishlistItem) {
+            return response()->json(['exists' => true]);
+        }
+    }
+    return response()->json(['exists' => false]);
+}
     /**
      * Display a listing of the resource.
      */
