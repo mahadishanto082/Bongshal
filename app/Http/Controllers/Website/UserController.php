@@ -122,11 +122,23 @@ if ($user) {
     return response()->json(['exists' => false]);
 }
 
+
+public function compare()
+{
+    $user = auth('web')->user();
+
+    if ($user) {
+        $compareItems = \App\Models\Compare::with('product')->where('user_id', $user->id)->get();
+        return view('website.user.compare', compact('compareItems'));
+    }
+
+    return redirect()->route('home')->with('error', 'You must be logged in to view compare items.');
+}
 public function addToCompare()
 {
-    if(auth('web')->check()) {
+    if (auth('web')->check()) {
         $user = auth('web')->user();
-        $productId = request()->id;
+        $productId = $id;
 
         // Check if the product is already in the compare list
         $compareItem = Compare::where('user_id', $user->id)
@@ -145,6 +157,21 @@ public function addToCompare()
     } else {
         return redirect()->back()->with('error', 'You need to login first!');
     }
+}
+public function removeCompare($id)
+{
+    $user = auth('web')->user();
+    if ($user) {
+        $compareItem = Compare::where('user_id', $user->id)
+                              ->where('product_id', $id)
+                              ->first();
+
+        if ($compareItem) {
+            $compareItem->delete();
+            return redirect()->back()->with('success', 'Product removed from compare list.');
+        }
+    }
+    return redirect()->back()->with('error', 'Something went wrong.');
 }
 
     /**
