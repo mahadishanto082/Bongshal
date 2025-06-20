@@ -241,9 +241,15 @@
     </button>
 
 
-                                    <button type="button" class="btn btn-sm text-white" style="background-color: #007bff; border-radius: 10px;">
-                                        <i class="lni lni-balance mr-2"></i> Add to compare
-                                    </button>
+    <form action="{{ route('web.user.compare.add', $product->id) }}" method="POST">
+    @csrf
+    <button type="submit" class="btn btn-sm text-white" style="background-color: #007bff; border-radius: 10px;">
+        <i class="lni lni-balance mr-2"></i> Add to Compare
+    </button>
+</form>
+
+
+
 
                                 </div>
                                 </div>

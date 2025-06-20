@@ -11,6 +11,7 @@ use App\Models\UserPoint;
 use App\Services\UserService;
 use Illuminate\Http\Request;
 use App\Models\Wishlist;
+use App\Models\Compare;
 class UserController extends Controller
 {
     /**
@@ -121,15 +122,29 @@ if ($user) {
     return response()->json(['exists' => false]);
 }
 
-public function compare()
+public function addToCompare()
 {
-    $user = auth('web')->user();
-    
-    if($user){
-        $compareItems = Compare::with('product')->where('user_id', auth()->id())->get();
-        return view('website.user.compare', compact('compareItems'));
+    if(auth('web')->check()) {
+        $user = auth('web')->user();
+        $productId = request()->id;
+
+        // Check if the product is already in the compare list
+        $compareItem = Compare::where('user_id', $user->id)
+                              ->where('product_id', $productId)
+                              ->first();
+
+        if (!$compareItem) {
+            Compare::create([
+                'user_id' => $user->id,
+                'product_id' => $productId,
+            ]);
+            return redirect()->back()->with('success', 'Product added to compare list successfully!');
+        } else {
+            return redirect()->back()->with('info', 'Product is already in your compare list.');
+        }
+    } else {
+        return redirect()->back()->with('error', 'You need to login first!');
     }
-    // return view('website.user.compare');
 }
 
     /**

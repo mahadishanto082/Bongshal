@@ -49,8 +49,11 @@ Route::group(['as' => 'web.'], function () {
             Route::post('wishlist/remove/{id}', [UserController::class, 'removeWishlist'])->name('wishlist.remove');
 
             Route::post('wishlist/add/{id}', [UserController::class, 'addToWishlist'])->name('wishlist.add');
+            Route::post('compare/add/{id}', [UserController::class, 'addToCompare'])->name('compare.add');
            Route::get('wishlist/check/{id}', [UserController::class, 'checkWishlist'])->name('wishlist.check');
-            Route::get('compare', [UserController::class, 'compare'])->name('compare');
+
+           Route::get('compare', [UserController::class, 'compare'])->name('compare');
+
            Route::get('profile', [UserController::class, 'profile'])->name('profile');
             Route::get('point-history', [UserController::class, 'pointHistory'])->name('pointHistory');
             Route::post('withdraw-request', [UserController::class, 'withdrawRequest'])->name('withdrawRequest');
