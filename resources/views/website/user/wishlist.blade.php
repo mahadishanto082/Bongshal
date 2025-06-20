@@ -51,7 +51,7 @@
                                         <div class="card-body p-0">
                                             <div class="shop_thumb position-relative">
                                                 <a class="card-img-top d-block overflow-hidden" href="{{ route('web.user.wishlist', $product->id) }}">
-                                                    <img class="card-img-top" src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
+                                                    <img class="card-img-top" src="{{ asset('storage/products/' . $product->image) }}" alt="{{ $product->name }}">
                                                 </a>
                                             </div>
                                         </div>
