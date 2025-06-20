@@ -120,6 +120,18 @@ if ($user) {
     }
     return response()->json(['exists' => false]);
 }
+
+public function compare()
+{
+    $user = auth('web')->user();
+    
+    if($user){
+        $compareItems = Compare::with('product')->where('user_id', auth()->id())->get();
+        return view('website.user.compare', compact('compareItems'));
+    }
+    // return view('website.user.compare');
+}
+
     /**
      * Display a listing of the resource.
      */
