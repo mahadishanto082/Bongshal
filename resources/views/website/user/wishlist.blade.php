@@ -42,9 +42,10 @@
                                         @endif
 
                                         <form action="{{ route('web.user.wishlist.remove', $product->id) }}" method="POST" class="position-absolute ab-right">
-    @csrf
-    <button type="submit" class="btn btn-danger btn-sm"><i class="lni lni-close"></i></button>
-</form>
+                                            @csrf
+                                              <button type="submit" class="btn btn-danger btn-sm"><i class="lni lni-close"></i>
+                                            </button>
+                                         </form>
 
 
                                         <div class="card-body p-0">

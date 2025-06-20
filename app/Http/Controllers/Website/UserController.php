@@ -46,7 +46,22 @@ class UserController extends Controller
                 ->withError($result['message']);
         }
     }
+public function countWishlist(){
+    
+    $user = auth('web')->user();
+    $wishlistCount = 0;
+   
 
+    if ($user) {
+        $wishlistCount = Wishlist::where('user_id', $user->id)->count();
+       
+    }
+
+    return view('website.wishlist', [
+        'wishlist_count_total' => $wishlistCount,
+       
+    ]);
+}
     /**
      * Display a listing of the resource.
      */
