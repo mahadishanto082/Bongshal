@@ -25,6 +25,18 @@
                         </span>
                     </td>
                     <td>
+                        <a href="{{ route('admin.approval.show', $approval->id) }}" class="btn btn-info btn-sm">View</a>
+                        <a href="{{ route('admin.approval.edit', $approval->id) }}" class="btn btn-primary btn-sm">Edit</a>
+                        <form action="{{ route('admin.approval.destroy', $approval->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this approval request?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                        <!-- You can add approve/reject buttons here if needed -->
+
+                        <a href="{{ route('admin.approval.approve', $approval->id) }}" class="btn btn-success btn-sm">Approve</a>
+                        <a href="{{ route('admin.approval.reject', $approval->id) }}" class="btn btn-danger btn-sm">Reject</a>
+                        
                         <!-- Add your approve/reject buttons or actions here -->
                     </td>
                 </tr>

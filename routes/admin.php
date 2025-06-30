@@ -29,6 +29,8 @@ Route::group(['middleware' => ['auth:admin']], function () {
     Route::resource('merchants', 'MerchantController');
    Route::resource('approval', 'ProductApprovalController');
      Route::get('approval', [ProductApprovalController::class, 'index'])->name('approval.index');
+    Route::post('approval/{product}/approve', [ProductApprovalController::class, 'approve'])->name('approval.approve');
+    Route::post('approval/{product}/reject', [ProductApprovalController::class, 'reject'])->name('approval.reject');
     // Route::post('approval/{product}/approve', [ProductApprovalController::class, 'approve'])->name('approval.approve');
     
      Route::resource('orders', 'OrderController')->only('index', 'show', 'update', 'destroy');
