@@ -106,7 +106,11 @@
                                                     </div>
                              </a>
                          </li>
+                         
+                         
                         <!-- Cart count total -->
+                        
+                            <li>
                                 <a href="#" onclick="openCart()">
                                     <div class="d-flex align-items-center justify-content-between">
                                         <i class="fas fa-shopping-basket fs-lg"></i><span class="dn-counter theme-bg">@{{ cart_count_total }}</span>
@@ -117,6 +121,8 @@
                                     </div>
                                 </a>
                             </li>
+                        </ul>
+                    </div>
 
                            
                         </ul>
