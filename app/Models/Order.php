@@ -65,4 +65,17 @@ class Order extends Model
     {
         return $this->belongsTo(User::class, 'ref_agent_id', 'id');
     }
+    protected $guarded = [];
+
+    // Order এর product relation
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
+
+    // Optional: order এর vendor relation (convenience)
+    public function vendor()
+    {
+        return $this->product->vendor();
+    }
 }

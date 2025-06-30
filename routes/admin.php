@@ -3,7 +3,8 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ReportController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\OrderApprovalController;
+// use App\Http\Controllers\Admin\OrderApprovalController;
+use App\Http\Controllers\Admin\ProductApprovalController;
 
 # Admin auth routes...
 Route::group(['namespace' => 'Auth'], function () {
@@ -26,19 +27,28 @@ Route::group(['middleware' => ['auth:admin']], function () {
     Route::resource('brands', 'BrandController');
     Route::resource('writers', 'WriterController');
     Route::resource('merchants', 'MerchantController');
+   Route::resource('approval', 'ProductApprovalController');
+     Route::get('approval', [ProductApprovalController::class, 'index'])->name('approval.index');
+    // Route::post('approval/{product}/approve', [ProductApprovalController::class, 'approve'])->name('approval.approve');
     
-    
-    Route::resource('orders', 'OrderController')->only('index', 'show', 'update', 'destroy');
+     Route::resource('orders', 'OrderController')->only('index', 'show', 'update', 'destroy');
 
     Route::delete('products/image/delete/{image_id}', 'ProductController@imageDelete')->name('products.imageDelete');
     Route::post('products/sortable', 'ProductController@sortable')->name('products.sortable');
     Route::resource('products', 'ProductController');
-    Route::resource('approval','OrderApprovalController');
-    Route::prefix('admin/product')->name('admin.product.')->group(function () {
-        Route::get('approval', [OrderApprovalController::class, 'index'])->name('approval.index');
-        Route::post('approval/{product}/approve', [OrderApprovalController::class, 'approve'])->name('approval.approve');
-        Route::post('approval/{product}/reject', [OrderApprovalController::class, 'reject'])->name('approval.reject');
-    });
+    // Route::resource('approval','OrderApprovalController');
+
+    // Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function () {
+    //     Route::get('/order-approvals', [App\Http\Controllers\Admin\OrderApprovalController::class, 'index'])->name('order_approval.index');
+    //     Route::put('/order-approvals/{id}/approve', [App\Http\Controllers\Admin\OrderApprovalController::class, 'approve'])->name('order_approval.approve');
+    //     Route::put('/order-approvals/{id}/reject', [App\Http\Controllers\Admin\OrderApprovalController::class, 'reject'])->name('order_approval.reject');
+    // });
+    
+    // Route::prefix('admin/product')->name('admin.product.')->group(function () {
+    //     Route::get('approval', [OrderApprovalController::class, 'index'])->name('approval.index');
+    //     Route::post('approval/{product}/approve', [OrderApprovalController::class, 'approve'])->name('approval.approve');
+    //     Route::post('approval/{product}/reject', [OrderApprovalController::class, 'reject'])->name('approval.reject');
+    // });
     
    
     Route::resource('sliders', 'SliderController');

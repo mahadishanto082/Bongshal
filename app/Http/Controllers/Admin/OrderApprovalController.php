@@ -1,36 +1,35 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\OrderApproval;
 
 class OrderApprovalController extends Controller
 {
-    // Show list of orders to approve/reject
     public function index()
     {
-        $orders = OrderApproval::paginate(10);
-        return view('admin.approval.index', compact('orders'));
+        // সব Pending বা যেই রিকুয়েস্টগুলো এসেছে
+        $approvals = OrderApproval::with(['order', 'vendor'])->paginate(10);
 
-
+        return view('admin.approval.index', compact('approvals'));
     }
 
-    public function approve(OrderApproval $orderApproval)
+    public function approve($id)
     {
-        if ($orderApproval->status === 'pending') {
-            $orderApproval->update(['status' => 'approved']);
-            return redirect()->back()->with('success', 'Order approved.');
+        $approval = OrderApproval::findOrFail($id);
+        if ($approval->status === 'pending') {
+            $approval->update(['status' => 'approved']);
+            return redirect()->back()->with('success', 'Order approved successfully.');
         }
         return redirect()->back()->with('error', 'Order already processed.');
     }
 
-    public function reject(OrderApproval $orderApproval)
+    public function reject($id)
     {
-        if ($orderApproval->status === 'pending') {
-            $orderApproval->update(['status' => 'rejected']);
-            return redirect()->back()->with('success', 'Order rejected.');
+        $approval = OrderApproval::findOrFail($id);
+        if ($approval->status === 'pending') {
+            $approval->update(['status' => 'rejected']);
+            return redirect()->back()->with('success', 'Order rejected successfully.');
         }
         return redirect()->back()->with('error', 'Order already processed.');
     }

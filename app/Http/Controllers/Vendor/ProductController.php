@@ -60,7 +60,7 @@ class ProductController extends Controller
     
         // Set approval_status manually
         $validated['approval_status'] = 'pending';
-    
+        $validated['vendor_id'] = auth('vendor')->id();
         $product = Product::create($validated);
     
         if ($request->hasFile('image')) {

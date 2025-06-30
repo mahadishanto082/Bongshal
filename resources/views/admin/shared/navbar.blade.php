@@ -91,16 +91,15 @@
         </li>
 
         <li class="br-menu-item">
-            <a href="{{ route('admin.approval.index') }}"
-               class="br-menu-link {{ Request::routeIs('admin.orders*') ? 'active' : '' }}"><i
-                    class="menu-item-icon icon ion-android-send tx-24"></i>
-                <span class="menu-item-label">Product Approval</span>
-                @if(count(newOrderCount()) > 0)
-                    <span class="badge badge-danger">{{ count(newOrderCount()) }}</span>
-                @endif
-
-            </a>
-        </li>
+    <a href="{{ route('admin.approval.index') }}"
+       class="br-menu-link {{ Request::routeIs('approval.*') ? 'active' : '' }}">
+        <i class="menu-item-icon icon ion-android-send tx-24"></i>
+        <span class="menu-item-label">Product Approval</span>
+        @if(count(newOrderCount()) > 0)
+            <span class="badge badge-danger">{{ count(newOrderCount()) }}</span>
+        @endif
+    </a>
+</li>
 
         <li class="br-menu-item">
             <a href="{{ route('admin.orders.index') }}"
