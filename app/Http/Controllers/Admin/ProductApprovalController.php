@@ -35,7 +35,9 @@ class ProductApprovalController extends Controller
     public function approve(Product $product)
     {
         if ($product->approval_status === 'pending') {
+            
             $product->update(['approval_status' => 'approved']);
+
             return redirect()->back()->with('success', 'Product approved successfully.');
         }
 

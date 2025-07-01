@@ -21,6 +21,8 @@ class ProductController extends Controller
 
     public function index(Request $request)
     {
+
+        $products = product::where('approval_status','approved')-> where('status', 'Active')->orderBy('sort', 'ASC')->paginate($request->item_number ?? 15);
         $categories = Category::where('status', 'Active')->get();
         $brands = Brand::where('status', 'Active')->get();
         $productSql = Product::with('category', 'brand', 'merchant', 'writer');
