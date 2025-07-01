@@ -44,7 +44,7 @@ class ProductController extends Controller
         } else {
             $lastSortNumber = 1;
         }
-
+       
 
         return view('website.vendor.products.create', compact('categories', 'brands', 'merchants', 'lastSortNumber'));
 
@@ -54,44 +54,51 @@ class ProductController extends Controller
      * Store a new product submitted by vendor
      */
     public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'code' => 'required|string|max:100|unique:products,code',
-            'category_id' => 'required|exists:categories,id',
-            'brand_id' => 'nullable|exists:brands,id',
-            'price' => 'required|numeric|min:0',
-            'description' => 'nullable|string',
-            
-            'sort' => 'nullable|integer|min:0',
-        ]);
-    
-        // Set approval_status manually
-        $validated['approval_status'] = 'pending';
-        $validated['vendor_id'] = auth('vendor')->id();
-        $product = Product::create($validated);
-        if ($product) {
-            if (!empty($request->product_images)) {
-                $productImages = [];
-                foreach ($request->product_images as $product_image) {
-                    $imageInfo = $this->imageUpload($product_image, $this->ASSET_PATH . '/products' . $product->id);
-                    $productImages[] = [
-                        'product_id' => $product->id,
-                        'name' => $imageInfo['name'],
-                        'url' => $imageInfo['url'],
-                        'size' => $imageInfo['size'],
-                    ];
-                }
-                ProductImage::insert($productImages);
-            }
+{
+    $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'code' => 'required|string|max:100|unique:products,code',
+        'category_id' => 'required|exists:categories,id',
+        'brand_id' => 'nullable|exists:brands,id',
+        'price' => 'required|numeric|min:0',
+        'description' => 'nullable|string',
+        'sort' => 'nullable|integer|min:0',
+        'image' => 'required|image|max:2048', // validation for image
+    ]);
+
+    // Upload image if present
+    if ($request->hasFile('image')) {
+        $image = $this->imageUpload($request->file('image'), $this->ASSET_PATH);
+        $validated['image'] = $image['name']; // Save only filename
+    }
+
+    // Set approval and vendor ID
+    $validated['approval_status'] = 'pending';
+    $validated['vendor_id'] = auth('vendor')->id();
+
+    // Save product
+    $product = Product::create($validated);
+
+    // Optional: Save additional product images if you have multiple upload
+    if ($request->hasFile('product_images')) {
+        $productImages = [];
+        foreach ($request->file('product_images') as $product_image) {
+            $imageInfo = $this->imageUpload($product_image, $this->ASSET_PATH . '/products/' . $product->id);
+            $productImages[] = [
+                'product_id' => $product->id,
+                'name' => $imageInfo['name'],
+                'url' => $imageInfo['url'],
+                'size' => $imageInfo['size'],
+            ];
         }
-        //  if ($request->hasFile('image')) {
-        //      $this->uploadMedia($request->file('image'), $product, $this->ASSET_PATH);
-        //  }
-    
-                 return redirect()->route('vendor.products.index')
-            ->with('success', 'Product submitted for approval.');
-        }
+        ProductImage::insert($productImages);
+    }
+
+    return redirect()->route('vendor.products.index')
+        ->with('success', 'Product submitted for approval.');
+}
+
+
     
 
     

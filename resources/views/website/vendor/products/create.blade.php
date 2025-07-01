@@ -44,7 +44,7 @@
                                                 <label for="General">General Products</label>
 
                                                 <input type="radio" id="Book" name="type" value="Book" {{ old('type') == 'Book' ? 'checked' : '' }} />
-                                                <label for="Book">Book Products</label>
+                                              
                                             </div>
                                         </div>
                                     </div>
@@ -201,21 +201,7 @@
                                     <div class="col-md-12 BookProducts">
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label class="form-control-label">Select writers</label>
-                                                    <select class="form-control select2" name="writer_id" style="width: 100%">
-                                                        <option value="" selected hidden disabled></option>
-                                                        @if(!empty($writers))
-                                                            @foreach($writers as $writer)
-                                                                <option value="{{ $writer->id }}" {{ old('writer_id') == $writer->id ? 'selected' : '' }}>{{ $writer->name }}</option>
-                                                            @endforeach
-                                                        @endif
-                                                    </select>
-                                                    @error('writer_id')
-                                                        <small class="text-danger">{{ $message }}</small>
-                                                    @enderror
-                                                </div>
-                                            </div>
+                                                                                           </div>
 
                                             <div class="col-md-4">
                                                 <div class="form-group">
@@ -227,15 +213,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label class="form-control-label">Language</label>
-                                                    <input class="form-control" type="text" name="language" value="{{ old('language') }}">
-                                                    @error('language')
-                                                        <small class="text-danger">{{ $message }}</small>
-                                                    @enderror
-                                                </div>
-                                            </div>
+                                           
                                         </div>
                                     </div>
 

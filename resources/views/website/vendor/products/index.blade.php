@@ -104,13 +104,17 @@
                             </tr>
                             </thead>
                             <tbody id="tablecontents">
-                            @if(!empty($products) && count($products))                                @foreach($products as $key => $product)
+                            @if(!empty($products) && count($products))                          
+                                  @foreach($products as $key => $product)
                                     <tr class="row1" data-id="{{ $product->id }}">
                                         <th scope="row">{{ ++$key }}</th>
                                         <td>
-                                            @if($product->image)
-                                                <img width="50" src="{{ asset('storage/products/'. $product->image) }}" alt="{{  $product->name }}">
-                                            @endif
+                                        @if($product->image)
+    <img src="{{ asset('storage/products/' . $product->image) }}" alt="..." width="50">
+@else
+    <img src="{{ asset('default.png') }}" alt="No image" width="50">
+@endif
+
                                         </td>
                                         <td>{{ $product->name }}</td>
                                         <td>{{ $product->code }}</td>
