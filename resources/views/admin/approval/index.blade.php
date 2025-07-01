@@ -16,10 +16,10 @@
             <tbody>
                 @forelse($approvals as $approval)
                 <tr>
-                    <td>{{ $approval->id }}</td>
-                    <td>{{ $approval->vendor->name ?? 'N/A' }}</td>
-                    <td>{{ $approval->product->name ?? 'N/A' }}</td>
-                    <td>
+                <td>{{ $approval->id }}</td>
+<td>{{ $approval->vendor->name ?? 'N/A' }}</td>
+<td>{{ $approval->name ?? 'N/A' }}</td>
+<td>
                         <span class="badge badge-{{ $approval->status == 'pending' ? 'warning' : ($approval->status == 'approved' ? 'success' : 'danger') }}">
                             {{ ucfirst($approval->status) }}
                         </span>

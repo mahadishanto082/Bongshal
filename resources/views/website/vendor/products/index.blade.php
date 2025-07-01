@@ -162,7 +162,7 @@
                                 <tfoot>
                                 <tr>
                                     <td colspan="9">
-                                        {{ $products->appends(request()->all())->links('vendor.shared._paginate') }}
+                                    {{ $products->appends(request()->all())->links('admin.shared._paginate') }}
                                     </td>
                                 </tr>
                                 </tfoot>

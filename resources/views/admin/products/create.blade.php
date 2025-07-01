@@ -301,7 +301,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-12">
+                                    <!-- <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="form-control-label">Delivery Info</label>
                                             <input class="form-control" type="text" name="delivery_info" value="{{ old('delivery_info') }}">
@@ -312,14 +312,7 @@
                                     </div>
 
                                     <div class="col-md-6">
-        <div class="form-group">
-            <label class="form-control-label">Image Thumb<span class="tx-danger">*</span></label>
-            <input class="form-control" type="file" name="image" id="imageInput" accept="image/*" required>
-            <img id="imagePreview" src="#" alt="Preview" style="display: none; max-height: 150px; margin-top: 10px;">
-            @error('image')
-                <small class="text-danger">{{ $message }}</small>
-            @enderror
-        </div>
+     
     </div>
 
                                     <div class="col-md-4">
@@ -360,8 +353,15 @@
                                         </div>
                                     </div>
 
-                                </div>
-
+                                </div> -->
+                                <div class="form-group">
+            <label class="form-control-label">Image Thumb<span class="tx-danger">*</span></label>
+            <input class="form-control" type="file" name="image" id="imageInput" accept="image/*" required>
+            <img id="imagePreview" src="#" alt="Preview" style="display: none; max-height: 150px; margin-top: 10px;">
+            @error('image')
+                <small class="text-danger">{{ $message }}</small>
+            @enderror
+        </div>
                                 <div class="form-layout-footer">
                                     <button type="submit" class="btn btn-info">Submit</button>
                                 </div><!-- form-layout-footer -->

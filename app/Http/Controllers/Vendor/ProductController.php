@@ -10,6 +10,7 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Brand;
 use App\Models\Merchant;
+use App\Models\ProductImage; // Assuming you have a ProductImage model
 
  // Assuming you have a Merchant model
 
@@ -37,9 +38,15 @@ class ProductController extends Controller
         $brands = Brand::all();// Categories created by admin
         $merchants = Merchant::all();
         
-        
+        $pro = Product::select('sort')->orderBy('sort', 'DESC')->first();
+        if ($pro) {
+            $lastSortNumber = $pro->sort + 1;
+        } else {
+            $lastSortNumber = 1;
+        }
 
-        return view('website.vendor.products.create', compact('categories', 'brands', 'merchants'));
+
+        return view('website.vendor.products.create', compact('categories', 'brands', 'merchants', 'lastSortNumber'));
 
     }
 
@@ -55,17 +62,32 @@ class ProductController extends Controller
             'brand_id' => 'nullable|exists:brands,id',
             'price' => 'required|numeric|min:0',
             'description' => 'nullable|string',
-            'image' => 'nullable|image|max:2048',
+            
+            'sort' => 'nullable|integer|min:0',
         ]);
     
         // Set approval_status manually
         $validated['approval_status'] = 'pending';
         $validated['vendor_id'] = auth('vendor')->id();
         $product = Product::create($validated);
-    
-        if ($request->hasFile('image')) {
-            $this->uploadMedia($request->file('image'), $product, $this->ASSET_PATH);
+        if ($product) {
+            if (!empty($request->product_images)) {
+                $productImages = [];
+                foreach ($request->product_images as $product_image) {
+                    $imageInfo = $this->imageUpload($product_image, $this->ASSET_PATH . '/products' . $product->id);
+                    $productImages[] = [
+                        'product_id' => $product->id,
+                        'name' => $imageInfo['name'],
+                        'url' => $imageInfo['url'],
+                        'size' => $imageInfo['size'],
+                    ];
+                }
+                ProductImage::insert($productImages);
+            }
         }
+        //  if ($request->hasFile('image')) {
+        //      $this->uploadMedia($request->file('image'), $product, $this->ASSET_PATH);
+        //  }
     
                  return redirect()->route('vendor.products.index')
             ->with('success', 'Product submitted for approval.');
@@ -118,7 +140,7 @@ $products = Product::where('vendor_id', $vendorId)->paginate(10);
             $product->image = $filename;
             $product->save();
         }
-        
+       
 
         // if ($request->hasFile('image')) {
         //     $this->uploadMedia($request->file('image'), $product, $this->ASSET_PATH);
