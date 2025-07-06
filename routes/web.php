@@ -8,6 +8,7 @@ use App\Http\Controllers\Website\HomeController;
 use App\Http\Controllers\Website\CartController;
 use App\Http\Controllers\Website\ProductController;
 use App\Http\Controllers\Website\OrderController;
+use App\Http\Controllers\BkashTokenizePaymentController;
 
 Auth::routes();
 Auth::routes(['verify' => true]);
@@ -41,9 +42,15 @@ Route::group(['as' => 'web.'], function () {
 
     Route::post('orders/track-check', [OrderController::class, 'trackCheck'])->name('orders.trackCheck');
     Route::get('orders/{order:uuid}/track', [OrderController::class, 'trackOrder'])->name('orders.track');
-    Route::resource('checkout', 'Website\OrderController');
-    
+    Route::resource('checkout', 'Website\OrderController');        
     Route::get('order-completed/{order_id}', [OrderController::class, 'orderCompleted'])->name('orderCompleted');
+    Route::get('order-cancelled/{order_id}', [OrderController::class, 'orderCancelled'])->name('orderCancelled');
+    Route::get('order-failed/{order_id}', [OrderController::class, 'orderFailed'])->name('orderFailed');
+    // Bkash Tokenize Payment
+    Route::resource('bkash','BkashTokenizePaymentController');
+    Route::get('bkash-payment', [BkashTokenizePaymentController::class, 'index'])->name('bkashPayment');
+    Route::post('bkash-payment/create', [BkashTokenizePaymentController::class, 'createPayment'])->name('bkashPayment.create');
+    Route::get('bkash/callback', [BkashTokenizePaymentController::class, 'callBack'])->name('bkash.callback');
 
     Route::group(['middleware' => ['auth:web', 'verified']], function () {
         Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['auth:web', 'verified']], function () {
@@ -52,6 +59,8 @@ Route::group(['as' => 'web.'], function () {
             Route::get('wishlist', [UserController::class, 'wishlistItems'])->name('wishlist');
             Route::post('wishlist/remove/{id}', [UserController::class, 'removeWishlist'])->name('wishlist.remove');
             Route::post('compare/remove/{id}', [UserController::class, 'removeCompare'])->name('compare.remove');
+
+            
 
             Route::post('wishlist/add/{id}', [UserController::class, 'addToWishlist'])->name('wishlist.add');
             Route::post('compare/add/{id}', [UserController::class, 'addToCompare'])->name('compare.add');

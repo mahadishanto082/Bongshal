@@ -349,19 +349,26 @@
 </div>
 
 <!-- Online Payment: Dashboard -->
-<div id="onlinePaymentSection" style="display: none;">
-    <div class="card p-3 mt-3 shadow-sm">
-        <h5>Online Payment</h5>
-       
-        <!-- This is just a dummy placeholder -->
-        <div class="form-group">
-            <label for="cardNumber"></label>
-           <img src="{{ asset('Bkash.png') }}" alt="Bkash" width="100">
-          
-        
-        
+    <div id="onlinePaymentSection" style="display: none;">
+        <div class="card p-3 mt-3 shadow-sm">
+            <h5>Online Payment</h5>
+            <p class="text-muted">Please select your preferred online payment method below:</p>
+
+<form method="post" action="{{ route('web.bkashPayment.create') }}">
+    @csrf
+    <div class="form-group">
+        <!-- Optional Label -->
+        <label for="cardNumber">Bkash Payment</label>
+
+        <!-- Bkash Button with Image -->
+        <button type="submit" class="btn custom-white-outline">
+            <img src="{{ asset('Bkash.png') }}" alt="Bkash" width="100">
+        </button>
     </div>
-</div>
+</form>
+
+        </div>
+    </div>
 
 
 
