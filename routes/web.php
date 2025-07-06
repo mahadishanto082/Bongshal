@@ -41,7 +41,8 @@ Route::group(['as' => 'web.'], function () {
 
     Route::post('orders/track-check', [OrderController::class, 'trackCheck'])->name('orders.trackCheck');
     Route::get('orders/{order:uuid}/track', [OrderController::class, 'trackOrder'])->name('orders.track');
-    Route::resource('checkout', 'Website\OrderController')->only('index', 'store');
+    Route::resource('checkout', 'Website\OrderController');
+    
     Route::get('order-completed/{order_id}', [OrderController::class, 'orderCompleted'])->name('orderCompleted');
 
     Route::group(['middleware' => ['auth:web', 'verified']], function () {

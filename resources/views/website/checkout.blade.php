@@ -159,7 +159,7 @@
                         <div class="row mb-4 d-none" id="billing-details">
                             <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12">
                                 <div class="form-group">
-                                    <label class="text-dark">নাম *</label>
+                                    <label class="text-dark">Name *</label>
 
                                     <input type="text" name="billing_name"
                                            class="form-control @error('billing_name') is-invalid @enderror"
@@ -248,15 +248,7 @@
                             </div>
 
                         </div>
-                        <h5 class="mb-4 ft-medium">Payment</h5>
-                        <div class="row mb-4">
-                            <div class="col-12 col-lg-12 col-xl-12 col-md-12">
-                                <input id="transaction_type" class="radio-custom" name="transaction_type"
-                                       value="Cash on delivery"
-                                       type="radio" checked>
-                                <label for="transaction_type" class="radio-custom-label">Cash on delivery</label>
-                            </div>
-                        </div>
+                       
                     </div>
 
                     <!-- Sidebar -->
@@ -338,7 +330,42 @@
 
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-block btn-dark mb-3">Place Order</button>
+                       <!-- Payment Method Selection -->
+<div class="form-group">
+    <label><strong>Select Payment Method</strong></label><br>
+
+    <!-- COD Option -->
+    <input type="radio" id="payment_cod" name="payment_method" value="cod" onchange="handlePaymentChange(this)">
+    <label for="payment_cod">Cash on Delivery</label><br>
+
+    <!-- Online Payment Option -->
+    <input type="radio" id="payment_online" name="payment_method" value="online" onchange="handlePaymentChange(this)">
+    <label for="payment_online">Online Payment</label>
+</div>
+
+<!-- COD: Place Order Button -->
+<div id="codSection" style="display: none;">
+    <button class="btn btn-dark" onclick="submitCOD()">Place Order</button>
+</div>
+
+<!-- Online Payment: Dashboard -->
+<div id="onlinePaymentSection" style="display: none;">
+    <div class="card p-3 mt-3 shadow-sm">
+        <h5>Online Payment</h5>
+       
+        <!-- This is just a dummy placeholder -->
+        <div class="form-group">
+            <label for="cardNumber"></label>
+           <img src="{{ asset('Bkash.png') }}" alt="Bkash" width="100">
+          
+        
+        
+    </div>
+</div>
+
+
+
+                        <!-- <button type="submit" class="btn btn-block btn-dark mb-3">Place Order</button> -->
                     </div>
                 </div>
             </form>
@@ -359,4 +386,25 @@
             }
         }
     </script>
+    <script>
+    function handlePaymentChange(radio) {
+        const codSection = document.getElementById('codSection');
+        const onlineSection = document.getElementById('onlinePaymentSection');
+
+        if (radio.value === 'cod') {
+            codSection.style.display = 'block';
+            onlineSection.style.display = 'none';
+        } else if (radio.value === 'online') {
+            codSection.style.display = 'none';
+            onlineSection.style.display = 'block';
+        }
+    }
+
+    function submitCOD() {
+        alert("Order placed via COD!");
+        // You can trigger form submit or Laravel POST route here
+        // document.getElementById('yourFormID').submit();
+    }
+</script>
+
 @endpush

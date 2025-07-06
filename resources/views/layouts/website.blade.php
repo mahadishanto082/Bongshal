@@ -165,6 +165,7 @@
 
     });
 </script>
+
 @stack('_js')
 </body>
 </html>
