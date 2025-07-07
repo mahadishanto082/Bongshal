@@ -44,7 +44,7 @@
                                                 <label for="General">General Products</label>
 
                                                 <input type="radio" id="Book" name="type" value="Book" {{ old('type') == 'Book' ? 'checked' : '' }} />
-                                                <label for="Book">Book Products</label>
+                                              
                                             </div>
                                         </div>
                                     </div>
@@ -201,21 +201,7 @@
                                     <div class="col-md-12 BookProducts">
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label class="form-control-label">Select writers</label>
-                                                    <select class="form-control select2" name="writer_id" style="width: 100%">
-                                                        <option value="" selected hidden disabled></option>
-                                                        @if(!empty($writers))
-                                                            @foreach($writers as $writer)
-                                                                <option value="{{ $writer->id }}" {{ old('writer_id') == $writer->id ? 'selected' : '' }}>{{ $writer->name }}</option>
-                                                            @endforeach
-                                                        @endif
-                                                    </select>
-                                                    @error('writer_id')
-                                                        <small class="text-danger">{{ $message }}</small>
-                                                    @enderror
-                                                </div>
-                                            </div>
+                                                                                           </div>
 
                                             <div class="col-md-4">
                                                 <div class="form-group">
@@ -227,15 +213,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label class="form-control-label">Language</label>
-                                                    <input class="form-control" type="text" name="language" value="{{ old('language') }}">
-                                                    @error('language')
-                                                        <small class="text-danger">{{ $message }}</small>
-                                                    @enderror
-                                                </div>
-                                            </div>
+                                           
                                         </div>
                                     </div>
 
@@ -301,8 +279,18 @@
                                         </div>
                                     </div>
 
-                                   
-                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-control-label">Delivery Info</label>
+                                            <input class="form-control" type="text" name="delivery_info" value="{{ old('delivery_info') }}">
+                                            @error('delivery_info')
+                                                <small class="text-danger">{{ $message }}</small>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+        <div class="form-group">
             <label class="form-control-label">Image Thumb<span class="tx-danger">*</span></label>
             <input class="form-control" type="file" name="image" id="imageInput" accept="image/*" required>
             <img id="imagePreview" src="#" alt="Preview" style="display: none; max-height: 150px; margin-top: 10px;">
@@ -310,6 +298,48 @@
                 <small class="text-danger">{{ $message }}</small>
             @enderror
         </div>
+    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-control-label">Feature <small class="text-danger">(For Home Page)</small></label>
+                                            <select class="form-control select2" name="feature">
+                                                <option value="" selected hidden disabled></option>
+                                                <option value="Yes" {{ old('feature') == 'Yes' ? 'selected' : '' }}>Yes</option>
+                                                <option value="No" {{ old('feature') == 'No' ? 'selected' : '' }}>No</option>
+                                            </select>
+                                            @error('feature')
+                                                <small class="text-danger">{{ $message }}</small>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-control-label">Status</label>
+                                            <select class="form-control select2" name="status">
+                                                <option value="" selected hidden disabled></option>
+                                                <option value="Active" {{ old('status') == 'Active' ? 'selected' : '' }}>Active</option>
+                                                <option value="Inactive" {{ old('status') == 'Inactive' ? 'selected' : '' }}>Inactive</option>
+                                            </select>
+                                            @error('status')
+                                                <small class="text-danger">{{ $message }}</small>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-control-label">Sort Number</label>
+                                            <input class="form-control" type="number" min="0" name="sort" value="{{ old('sort', $lastSortNumber) }}">
+                                            @error('sort')
+                                                <small class="text-danger">{{ $message }}</small>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                </div>
+
                                 <div class="form-layout-footer">
                                     <button type="submit" class="btn btn-info">Submit</button>
                                 </div><!-- form-layout-footer -->

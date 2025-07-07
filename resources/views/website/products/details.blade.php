@@ -317,48 +317,58 @@
                                                         @endif
                                                     </div>
                                                 @endif
-
-                                                <div class="card-body p-0">
+                                             @if (!empty($product-> slug))
+                                             <div class="card-body p-0">
                                                     <div class="shop_thumb position-relative">
                                                         <a class="card-img-top d-block overflow-hidden" href="{{ route('web.products.details', $product->slug) }}">
                                                             <img class="card-img-top" src="{{ asset('storage/products/' . $product->image) }}" alt="{{ $product->name }}">
                                                         </a>
                                                     </div>
                                                 </div>
+                                               
+                                             @endif   
                                                 <div class="card-footer b-0 p-3 pb-0 d-flex align-items-start justify-content-center bg-white">
                                                     <div class="text-left">
+                                                    @if (!empty($product-> slug))
                                                         <div class="text-center">
+                                                        
                                                             <h5 class="fw-bolder fs-md mb-0 lh-1 mb-1"><a href="{{ route('web.products.details', $product->slug) }}">{{ $product->name }}</a></h5>
-                                                            @if($product->discount_value > 0 && $product->discount_type)
-                                                                <div class="elis_rty">
-                                                                    <span class="text-muted ft-medium line-through mr-2">Tk. {{ $product->price }}</span>
-                                                                    <span class="ft-bold theme-cl fs-md">Tk. {{ discountCal($product->price, $product->discount_type, $product->discount_value) }}</span>
-                                                                </div>
-                                                            @else
-                                                                <div class="elis_rty">
-                                                                    <span class="ft-bold text-dark fs-sm">Tk. {{ $product->price }}</span>
-                                                                </div>
-                                                            @endif
+                                                                @if($product->discount_value > 0 && $product->discount_type)
+                                                                    <div class="elis_rty">
+                                                                        <span class="text-muted ft-medium line-through mr-2">Tk. {{ $product->price }}</span>
+                                                                        <span class="ft-bold theme-cl fs-md">Tk. {{ discountCal($product->price, $product->discount_type, $product->discount_value) }}</span>
+                                                                    </div>
+                                                                @else
+                                                                     <div class="elis_rty">
+                                                                        <span class="ft-bold text-dark fs-sm">Tk. {{ $product->price }}</span>
+                                                                    </div>
+                                                                @endif
+                                                                @endif
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="pb-5">
+                                                @if (!empty($product-> slug))
                                                     <a href="{{ route('web.products.details', $product->slug) }}" class="btn btn-block btn-sm btn-order">
                                                         <i class="lni lni-cart"></i> Order
                                                     </a>
-
+                                                @endif
                                                     @if($product['size'] || $product['color'])
                                                         <a href="javascript:void(0)" onclick="productQuckView('{{ route('web.products.quickView', $product->slug) }}')"  class="btn btn-block btn-sm btn-cart">
                                                             <i class="lni lni-shopping-basket"></i> Add to Cart
                                                         </a>
                                                     @else
-                                                        <a href="javascript:void(0)" @click="addToCart('{{ route('web.cart.add', $product['slug']) }}')" class="btn btn-block btn-sm btn-cart">
-                                                            <i class="lni lni-shopping-basket"></i> Add to cart
+                                                        @if (!empty($product-> slug))  
+                                                                <a href="javascript:void(0)" @click="addToCart('{{ route('web.cart.add', $product['slug']) }}')" class="btn btn-block btn-sm btn-cart">
+                                                                    <i class="lni lni-shopping-basket"></i> Add to cart
+                                                                </a>
+                                                        @endif
+                                                    @endif
+                                                    @if (!empty($product-> slug))
+                                                        <a class="btn btn-block btn-sm btn-detail" href="{{ route('web.products.details', $product->slug) }}">
+                                                            <i class="lni lni-text-align-justify"></i> Details
                                                         </a>
                                                     @endif
-                                                    <a class="btn btn-block btn-sm btn-detail" href="{{ route('web.products.details', $product->slug) }}">
-                                                        <i class="lni lni-text-align-justify"></i> Details
-                                                    </a>
                                                 </div>
                                             </div>
                                         </div>

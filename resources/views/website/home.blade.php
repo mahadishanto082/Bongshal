@@ -90,14 +90,12 @@
                          </div>
 
                          @if(!empty($product->slug))
-    <a href="{{ route('web.products.details', $product->slug) }}">
-        <img class="card-img-top" src="{{ asset('storage/products/' . $product->image) }}" alt="{{ $product->name }}">
-    </a>
-@else
-    <img class="card-img-top" src="{{ asset('storage/products/' . $product->image) }}" alt="{{ $product->name }}">
-@endif
-
-
+                            <a href="{{ route('web.products.details', $product->slug) }}">
+                                <img class="card-img-top" src="{{ asset('storage/products/' . $product->image) }}" alt="{{ $product->name }}">
+                            </a>
+                        @else
+                            <img class="card-img-top" src="{{ asset('storage/products/' . $product->image) }}" alt="{{ $product->name }}">
+                        @endif
                     {{-- Card Body --}}
                     <div class="card-body text-center p-2">
                         <h6 class="fw-semibold mb-2">{{ $product->name }}</h6>
