@@ -204,7 +204,7 @@ class ProductController extends Controller
             'category_id' => 'required|exists:categories,id',
             'brand_id' => 'nullable|exists:brands,id',
             'merchant_id' => 'nullable|exists:merchants,id',
-            'writer_id' => 'nullable|exists:writers,id',
+            
             'code' => 'required|max:30',
             'name' => 'required|max:256',
             'buy_price' => 'required|numeric|between:0,999999.99',
@@ -259,10 +259,7 @@ class ProductController extends Controller
                 'stock' => $request->stock,
                 /* 'shipping_in_dhaka'  => $request->shipping_in_dhaka,
                  'shipping_out_dhaka' => $request->shipping_out_dhaka,*/
-                'writer_id' => $request->writer_id ?? 0,
-                'first_release' => $request->first_release,
-                'language' => $request->language,
-                'size' => $size ?? $data->size,
+                    'size' => $size ?? $data->size,
                 'color' => $color ?? $data->color,
                 'fabrics' => $fabrics ?? $data->fabrics,
                 'weight' => $request->weight,

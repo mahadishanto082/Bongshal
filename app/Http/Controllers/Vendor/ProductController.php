@@ -60,10 +60,18 @@ class ProductController extends Controller
         'code' => 'required|string|max:100|unique:products,code',
         'category_id' => 'required|exists:categories,id',
         'brand_id' => 'nullable|exists:brands,id',
+        'buy_price' => 'required|numeric|between:0,999999.99',
         'price' => 'required|numeric|min:0',
+        'discount_type' => 'nullable|in:Taka,Percentage',
+        'discount_value' => 'nullable|numeric|min:0',
+
+        'discount' => 'nullable|numeric|min:0',
         'description' => 'nullable|string',
         'sort' => 'nullable|integer|min:0',
-        'image' => 'required|image|max:2048', // validation for image
+        'image' => 'required|image|max:2048',
+         // validation for image
+          'status' => 'required|in:Active,Inactive',
+            'feature' => 'required|in:Yes,No',
     ]);
 
     // Upload image if present
@@ -133,6 +141,11 @@ $products = Product::where('vendor_id', $vendorId)->paginate(10);
             'category_id' => 'required|exists:categories,id',
             'brand_id' => 'nullable|exists:brands,id',
             'price' => 'required|numeric|min:0',
+            'buy_price' => 'required|numeric|between:0,999999.99',
+            'discount_type' => 'nullable|in:Taka,Percentage',
+            'discount_value' => 'nullable|numeric|min:0',
+            'discount' => 'nullable|numeric|min:0',
+            
             'description' => 'nullable|string',
             'image' => 'nullable|image|max:2048',
         ]);
