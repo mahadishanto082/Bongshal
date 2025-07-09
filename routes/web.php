@@ -27,6 +27,7 @@ Route::group(['as' => 'web.'], function () {
         Route::get('/', [ProductController::class, 'index'])->name('index');
         Route::get('/{slug}', [ProductController::class, 'details'])->name('details');
         Route::get('/quick-view/{slug}', [ProductController::class, 'quickView'])->name('quickView');
+        Route::get('/new-arrivals/ajax', [ProductController::class, 'fetchNewArrivals']);
     });
 
     Route::group(['prefix' => 'cart', 'as' => 'cart.'], function () {
@@ -39,6 +40,7 @@ Route::group(['as' => 'web.'], function () {
 
         Route::post('quick-add-to-cart/{product_slug}', [CartController::class, 'quickAddCart'])->name('quickAddCart');
     });
+
 
     Route::post('orders/track-check', [OrderController::class, 'trackCheck'])->name('orders.trackCheck');
     Route::get('orders/{order:uuid}/track', [OrderController::class, 'trackOrder'])->name('orders.track');

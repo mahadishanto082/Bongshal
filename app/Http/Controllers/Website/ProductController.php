@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Website;
 use App\Http\Controllers\Controller;
 use App\Services\ProductService;
 use Illuminate\Http\Request;
+use App\Models\Product;
 
 class ProductController extends Controller
 {
@@ -65,5 +66,25 @@ class ProductController extends Controller
             ]);
         }
     }
+    // ProductController.php
+
+public function fetchNewArrivals(Request $request)
+{
+    $perPage = 4 ; // প্রতি পেজে কত প্রোডাক্ট দেখাবে
+    $page = $request->input('page', 1);
+
+        $products = Product::where('is_new_arrival', true)
+        ->skip(($page - 1) * $perPage)
+        ->take($perPage)
+        ->get();
+
+    // যদি প্রোডাক্ট না থাকে তাহলে খালি রেসপন্স দিবে
+    return response()->json([
+        'products' => $products,
+        'page' => $page,
+        'hasMore' => Product::where('is_new_arrival', true)->skip($page * $perPage)->exists(),
+    ]);
+}
+
 
 }

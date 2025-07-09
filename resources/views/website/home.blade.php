@@ -141,7 +141,7 @@
                              </div>
                           @endforeach
                       </div>
-                @endif
+                    @endif
                 </div>
             </section>
         @endforeach
@@ -167,68 +167,100 @@
             </div>
 
             <div class="row align-items-center rows-products">
+
+<!-- New Arrival Products Section -->
+<!-- This section displays new arrival products in a grid layout -->
+
+
+            <!-- Loop through new arrival products -->
+         <div id="product-container" class="d-flex flex-wrap gap-3">
+         
+         
                 @foreach($new_arrival_products as $product)
                     <div class="col-xl-3 col-lg-4 col-md-6 col-6">
-                        <div class="product_grid card b-0 mb-0">
-                            @if($product->stock > 0)
-                                <div class="badge bg-info text-white position-absolute ft-regular ab-left text-upper">Sale</div>
+
+
+
+
+
+                                            <div class="card border-0 shadow-sm position-relative mb-4" 
+                            style="width: 280px; height: 380px; display: flex; flex-direction: column; transition: transform 0.3s ease, box-shadow 0.3s ease;"
+                            onmouseover="this.style.transform='scale(1.03)'; this.style.boxShadow='0 0.5rem 1rem rgba(0,0,0,0.15)'"
+                            onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 0.125rem 0.25rem rgba(0,0,0,0.075)'">
+                            
+                            {{-- Badge --}}
+                            <div class="position-absolute top-0 end-0 me-2 mt-2 bg-info text-white px-2 py-1 rounded" style="z-index: 10;">
+                                <small class="fw-bold text-uppercase">
+                                    {{ $product->stock > 0 ? 'Staff Pick' : 'Out of Stock' }}
+                                </small>
+                            </div>
+
+                            {{-- Image --}}
+                            @if(!empty($product->slug))
+                                <a href="{{ route('web.products.details', $product->slug) }}" style="flex-shrink: 0;">
+                                    <img class="card-img-top" 
+                                        src="{{ asset('storage/products/' . $product->image) }}" 
+                                        alt="{{ $product->name }}" 
+                                        style="height: 200px; width: 100%; object-fit: cover;">
+                                </a>
                             @else
-                                <div class="badge bg-info text-white position-absolute ft-regular ab-left text-upper">Out Of Stock</div>
+                                <img class="card-img-top" 
+                                    src="{{ asset('storage/products/' . $product->image) }}" 
+                                    alt="{{ $product->name }}" 
+                                    style="height: 200px; width: 100%; object-fit: cover;">
                             @endif
 
-                            @if($product->discount_value > 0 && $product->discount_type)
-                                <div class="badge bg-danger text-white position-absolute ft-regular ab-right text-upper">
-                                    @if($product->discount_type == 'Taka')
-                                        -{{ $product->discount_value }} Tk
+                            {{-- Content --}}
+                            <div class="card-body text-center p-2" style="flex-grow: 1;">
+                                <h6 class="fw-semibold mb-2" style="margin-bottom: 0.5rem;">{{ $product->name }}</h6>
+
+                                {{-- Price --}}
+                                <div>
+                                    @if($product->discount_value > 0)
+                                        <div class="mb-1">
+                                            <span class="fw-bold fs-5 text-danger" style="font-weight: 700; font-size: 1.25rem; color: #dc3545;">
+                                                Tk. {{ discountCal($product->price, $product->discount_type, $product->discount_value) }}
+                                            </span>
+                                            <span class="text-muted text-decoration-line-through small" style="text-decoration: line-through; font-size: 0.875rem; color: #6c757d; margin-left: 0.5rem;">
+                                                Tk. {{ $product->price }}
+                                            </span>
+                                        </div>
+                                        <span class="badge bg-danger" style="background-color: #dc3545; color: white; padding: 0.25em 0.5em; border-radius: 0.25rem; font-size: 0.75rem;">
+                                            Save {{ $product->discount_type === 'Taka' ? $product->discount_value . ' Tk' : $product->discount_value . '%' }}
+                                        </span>
                                     @else
-                                        -{{ $product->discount_value }}%
+                                        <div class="mb-2 fw-bold fs-5 text-dark">
+                                            Tk. {{ $product->price }}
+                                        </div>
                                     @endif
                                 </div>
-                            @endif
-                            <div class="card-body p-0">
-                                <div class="shop_thumb position-relative">
-                                    <a class="card-img-top d-block overflow-hidden" href="#">
-                                        <img class="card-img-top" src="{{ asset('storage/products/'. $product->image) }}" alt="{{ $product->name }}">
-                                    </a>
+
+                                {{-- Free Shipping --}}
+                                <div style="font-size: 0.875rem; margin-top: 0.5rem; color: #212529;">
+                                    <i class="fas fa-shipping-fast text-dark me-1"></i> Free Shipping
                                 </div>
-                            </div>
-                            <div class="card-footer b-0 p-3 pb-0 d-flex align-items-start justify-content-center bg-white">
-                                <div class="text-left">
-                                    <div class="text-center">
-                                        <h5 class="fw-bolder fs-md mb-0 lh-1 mb-1"><a href="#">{{ $product->name }}</a></h5>
-                                        @if($product->discount_value > 0 && $product->discount_type)
-                                            <div class="elis_rty">
-                                                <span class="text-muted ft-medium line-through mr-2">Tk. {{ $product->price }}</span>
-                                                <span class="ft-bold theme-cl fs-md">Tk. {{ discountCal($product->price, $product->discount_type, $product->discount_value) }}</span>
-                                            </div>
+
+                                {{-- Rating --}}
+                                <div class="mt-1">
+                                    @php $rating = $product->rating ?? 4; @endphp
+                                    @for ($i = 1; $i <= 5; $i++)
+                                        @if($i <= $rating)
+                                            <i class="fas fa-star text-warning" style="color: #ffc107;"></i>
                                         @else
-                                            <div class="elis_rty">
-                                                <span class="ft-bold text-dark fs-sm">Tk. {{ $product->price }}</span>
-                                            </div>
+                                            <i class="far fa-star text-muted" style="color: #6c757d;"></i>
                                         @endif
-                                    </div>
+                                    @endfor
+                                    <span class="small text-muted" style="font-size: 0.75rem; color: #6c757d;">({{ number_format($rating, 1) }}/5)</span>
                                 </div>
-                            </div>
-                            <div class="pb-5">
-                                <a href="#" class="btn btn-block btn-sm btn-order">
-                                    <i class="lni lni-cart"></i> Order
-                                </a>
-                                @if($product->size || $product->color)
-                                    <a href="javascript:void(0)" onclick="productQuckView('{{ route('web.products.quickView', $product->slug) }}')"  class="btn btn-block btn-sm btn-cart">
-                                        <i class="lni lni-shopping-basket"></i> Add to cart
-                                    </a>
-                                @else
-                                    <a href="javascript:void(0)" @click="addToCart('#')" class="btn btn-block btn-sm btn-cart">
-                                        <i class="lni lni-shopping-basket"></i> Add to cart
-                                    </a>
-                                @endif
-                                <a class="btn btn-block btn-sm btn-detail" href="#">
-                                    <i class="lni lni-text-align-justify"></i> Details
-                                </a>
                             </div>
                         </div>
-                    </div>
-                @endforeach
+
+                  </div>
+                @endforeach 
+
+                {{ $new_arrival_products->links('website.share.pagination') }}
+
+              
             </div>
         </div>
     </section>
@@ -237,3 +269,4 @@
     @include('website.share.user-custom-feature')
 
 @endsection
+

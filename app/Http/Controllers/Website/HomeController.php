@@ -10,7 +10,7 @@ use App\Models\User;
 use App\Services\HomeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-
+use App\Models\Product;
 class HomeController extends Controller
 {
     private HomeService $homeService;
@@ -26,7 +26,15 @@ class HomeController extends Controller
             'sliders' => $this->homeService->getAllSliders(),
             'feature_categories' => $this->homeService->featureCategoryWithProducts(),
             'categories' => $this->homeService->getAllCategories(),
-            'new_arrival_products' => $this->homeService->newArrivalProducts(),
+            
+            'new_arrival_products' => Product::where('status', 1)->latest()->paginate(4)
+
+            // 'new_arrival_products' => $this->homeService->getNewArrivalProducts(),
+
+            // 'best_selling_products' => $this->homeService->getBestSellingProducts(),
+            
+
+           
         ];
 
         return view('website.home', $data);

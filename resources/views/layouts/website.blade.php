@@ -14,6 +14,9 @@
     <link href="{{ asset('assets/website/css/custom.css' . $assetVersion) }}" rel="stylesheet">
     <link href="{{ asset('assets/website/toastr/toastr.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/website/plugins/sweetalert2/sweetalert2.all.min.css') }}" rel="stylesheet">
+    <!-- Swiper CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
     @yield('_css')
 </head>
 <body>
@@ -167,5 +170,8 @@
 </script>
 
 @stack('_js')
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
 </body>
 </html>
