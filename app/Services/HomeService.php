@@ -60,12 +60,25 @@ class HomeService
 
     public function newArrivalProducts()
     {
-        $products = Product::select('products.slug', 'products.name', 'products.description', 'products.image', 'products.price', 'products.discount_type', 'products.discount_value', 'products.point', 'products.stock', 'products.size', 'products.color', 'categories.name as category_name')
+        return Product::select(
+                'products.slug',
+                'products.name',
+                'products.description',
+                'products.image',
+                'products.price',
+                'products.discount_type',
+                'products.discount_value',
+                'products.point',
+                'products.stock',
+                'products.size',
+                'products.color',
+                'categories.name as category_name'
+            )
             ->join('categories', 'products.category_id', '=', 'categories.id')
+            ->where('products.status', 'Active') // ✅ Filter by active
             ->orderBy('products.sort', 'ASC')
             ->take(12)
             ->get();
-
-        return $products;
     }
+    
 }

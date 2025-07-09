@@ -185,13 +185,11 @@
                                     @endif
                                 </div>
                             @endif
-
                             <div class="card-body p-0">
                                 <div class="shop_thumb position-relative">
-                                <a class="card-img-top d-block overflow-hidden" href="#">
-    <img class="card-img-top" src="{{ asset('storage/products/'. $product->image) }}" alt="{{ $product->name }}">
-</a>
-
+                                    <a class="card-img-top d-block overflow-hidden" href="#">
+                                        <img class="card-img-top" src="{{ asset('storage/products/'. $product->image) }}" alt="{{ $product->name }}">
+                                    </a>
                                 </div>
                             </div>
                             <div class="card-footer b-0 p-3 pb-0 d-flex align-items-start justify-content-center bg-white">

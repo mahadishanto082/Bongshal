@@ -120,9 +120,12 @@
 
                                     <div class="card-body p-0">
                                         <div class="shop_thumb position-relative">
+                                            @if (!empty($product['slug']))
                                             <a class="card-img-top d-block overflow-hidden" href="{{ route('web.products.details', $product['slug']) }}">
                                                 <img class="card-img-top" src="{{ asset('storage/products/' . $product['image']) }}" alt="{{ $product['name'] }}">
                                             </a>
+                                            @endif
+                                            
                                         </div>
                                     </div>
                                     <div class="card-footer b-0 p-3 pb-0 d-flex align-items-start justify-content-center bg-white">
@@ -143,24 +146,31 @@
                                         </div>
                                     </div>
                                     <div class="pb-5">
+                                    @if (!empty($product['slug']))
                                         <a href="{{ route('web.products.details', $product['slug']) }}" class="btn btn-block btn-sm btn-order">
                                             <i class="lni lni-cart"></i> Order
                                         </a>
+                                    @endif
+                                    
                                         @if($product['size'] || $product['color'])
                                             <span onclick="productQuckView('{{ route('web.products.quickView', $product['slug']) }}')"  class="btn btn-block btn-sm btn-cart">
                                                 <i class="lni lni-shopping-basket"></i> Add to Cart
                                             </span>
                                         @else
+                                        @if (!empty($product['slug']))
                                             <form action="{{ route('web.cart.quickAddCart', $product['slug']) }}" method="post">
                                                 @csrf
                                                 <button type="submit" class="btn btn-block btn-sm btn-cart">
                                                     <i class="lni lni-shopping-basket"></i> Add to Cart
                                                 </button>
                                             </form>
+                                            @endif
                                         @endif
+                                        @if (!empty($product['slug']))
                                         <a class="btn btn-block btn-sm btn-detail" href="{{ route('web.products.details', $product['slug']) }}">
                                             <i class="lni lni-text-align-justify"></i> Details
                                         </a>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
