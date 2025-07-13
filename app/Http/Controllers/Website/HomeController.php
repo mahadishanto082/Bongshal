@@ -27,16 +27,11 @@ class HomeController extends Controller
             'feature_categories' => $this->homeService->featureCategoryWithProducts(),
             'categories' => $this->homeService->getAllCategories(),
             
-            'new_arrival_products' => Product::where('status', 1)->latest()->paginate(4)
+            'new_arrival_products' => Product::where('status', 1)->latest()->get(),
 
-            // 'new_arrival_products' => $this->homeService->getNewArrivalProducts(),
-
-            // 'best_selling_products' => $this->homeService->getBestSellingProducts(),
-            
-
-           
+      
         ];
-
+ 
         return view('website.home', $data);
     }
 

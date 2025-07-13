@@ -77,7 +77,7 @@ class HomeService
             ->join('categories', 'products.category_id', '=', 'categories.id')
             ->where('products.status', 'Active') // ✅ Filter by active
             ->orderBy('products.sort', 'ASC')
-            ->take(4)
+            ->take(12)
             ->get();
             
     }
