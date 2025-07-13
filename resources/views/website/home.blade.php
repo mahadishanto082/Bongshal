@@ -24,7 +24,28 @@
             font-size: 12px!important;
         }
 
+       
+        .carousel-control-prev,
+.carousel-control-next {
+  top: 50%;
+  transform: translateY(-50%);
+  width: 45px;
+  height: 45px;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 50%;
+  transition: background-color 0.2s, transform 0.1s;
+}
 
+.carousel-control-prev:active,
+.carousel-control-next:active {
+  background-color: rgba(0, 0, 0, 0.7);
+  transform: translateY(-50%) scale(0.95);
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+}
     </style>
 @endsection
 
@@ -163,8 +184,8 @@
                     </div>
                 </div>
             </div>
-
-            <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+<!-- Carousel for New Arrival Products -->
+            <div id="carouselExampleAutoplaying" class="carousel slide" >
   <div class="carousel-inner">
 
     @php
@@ -256,14 +277,14 @@
   </div>
 
   <!-- Carousel Controls -->
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden"></span>
+            </button>
 </div>
 
 
@@ -275,11 +296,7 @@
     @endif
 
     @include('website.share.user-custom-feature')
-    @push('_js')
-
-<script>
-
-@endpush
+    
 
 @endsection
 
