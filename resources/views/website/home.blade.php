@@ -46,6 +46,26 @@
 .carousel-control-next:hover {
   background-color: rgba(0, 0, 0, 0.6);
 }
+.card:hover .product-actions {
+    opacity: 1 !important;
+    transform: translateY(0);
+
+}
+
+.product-actions {
+    
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    position: absolute;
+    top: 50%;
+    left: 80%;
+    
+    opacity: 0;
+    z-index: 10;
+    
+}
     </style>
 @endsection
 
@@ -186,112 +206,125 @@
             </div>
 <!-- Carousel for New Arrival Products -->
             <div id="carouselExampleAutoplaying" class="carousel slide" >
-  <div class="carousel-inner">
+                <div class="carousel-inner">
 
-    @php
-        $chunks = $new_arrival_products->chunk(4); // Group by 4
-    @endphp
+                    @php
+                        $chunks = $new_arrival_products->chunk(4); // Group by 4
+                    @endphp
 
-    @foreach($chunks as $chunkIndex => $productChunk)
-      <div class="carousel-item {{ $chunkIndex == 0 ? 'active' : '' }}">
-        <div class="d-flex justify-content-center gap-3 flex-wrap">
-          @foreach($productChunk as $product)
-            <div class="col-xl-3 col-lg-4 col-md-6 col-6">
-              <div class="card border-0 shadow-sm position-relative mb-4"
-                style="width: 280px; height: 380px; display: flex; flex-direction: column; transition: transform 0.3s ease, box-shadow 0.3s ease;"
-                onmouseover="this.style.transform='scale(1.03)'; this.style.boxShadow='0 0.5rem 1rem rgba(0,0,0,0.15)'"
-                onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 0.125rem 0.25rem rgba(0,0,0,0.075)'">
+                    @foreach($chunks as $chunkIndex => $productChunk)
+                    <div class="carousel-item {{ $chunkIndex == 0 ? 'active' : '' }}">
+                        <div class="d-flex justify-content-center gap-3 flex-wrap">
+                        @foreach($productChunk as $product)
+                            <div class="col-xl-3 col-lg-4 col-md-6 col-6">
+                            <div class="card border-0 shadow-sm position-relative mb-4"
+                                style="width: 280px; height: 380px; display: flex; flex-direction: column; transition: transform 0.3s ease, box-shadow 0.3s ease;"
+                                onmouseover="this.style.transform='scale(1.03)'; this.style.boxShadow='0 0.5rem 1rem rgba(0,0,0,0.15)'"
+                                onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 0.125rem 0.25rem rgba(0,0,0,0.075)'">
 
-                <!-- Badge -->
-                <div class="position-absolute top-0 end-0 me-2 mt-2 bg-info text-white px-2 py-1 rounded" style="z-index: 10;">
-                  <small class="fw-bold text-uppercase">
-                    {{ $product->stock > 0 ? 'Staff Pick' : 'Out of Stock' }}
-                  </small>
-                </div>
+                                <!-- Badge -->
+                                <div class="position-absolute top-0 start-0 ms-2 mt-2 bg-info text-white px-2 py-1 rounded" style="z-index: 10;">
+                                    <small class="fw-bold text-uppercase">
+                                        {{ $product->stock > 0 ? 'Staff Pick' : 'Out of Stock' }}
+                                    </small>
+                                </div>
+  <!-- Action buttons (hover only) -->
+ <div class="product-actions position-absolute start-0  ms-1 mt-5 d-flex flex-column gap-2"
+     style="top: 10px; opacity: 0; transition: opacity 0.3s ease; z-index: 11;">
 
-                <!-- Image -->
-                @if(!empty($product->slug))
-                  <a href="{{ route('web.products.details', $product->slug) }}" style="flex-shrink: 0;">
-                    <img class="card-img-top"
-                      src="{{ asset('storage/products/' . $product->image) }}"
-                      alt="{{ $product->name }}"
-                      style="height: 200px; width: 100%; object-fit: cover;">
-                  </a>
-                @else
-                  <img class="card-img-top"
-                    src="{{ asset('storage/products/' . $product->image) }}"
-                    alt="{{ $product->name }}"
-                    style="height: 200px; width: 100%; object-fit: cover;">
-                @endif
-
-                <!-- Content -->
-                <div class="card-body text-center p-2" style="flex-grow: 1;">
-                  <h6 class="fw-semibold mb-2">{{ $product->name }}</h6>
-
-                  <!-- Price -->
-                  <div>
-                    @if($product->discount_value > 0)
-                      <div class="mb-1">
-                        <span class="fw-bold fs-5 text-danger">
-                          Tk. {{ discountCal($product->price, $product->discount_type, $product->discount_value) }}
-                        </span>
-                        <span class="text-muted text-decoration-line-through small ms-1">
-                          Tk. {{ $product->price }}
-                        </span>
-                      </div>
-                      <span class="badge bg-danger">
-                        Save {{ $product->discount_type === 'Taka' ? $product->discount_value . ' Tk' : $product->discount_value . '%' }}
-                      </span>
-                    @else
-                      <div class="mb-2 fw-bold fs-5 text-dark">
-                        Tk. {{ $product->price }}
-                      </div>
-                    @endif
-                  </div>
-
-                  <!-- Free Shipping -->
-                  <div class="text-muted mt-1">
-                    <i class="fas fa-shipping-fast me-1"></i> Free Shipping
-                  </div>
-
-                  <!-- Rating -->
-                  <div class="mt-1">
-                    @php $rating = $product->rating ?? 4; @endphp
-                    @for ($i = 1; $i <= 5; $i++)
-                      @if($i <= $rating)
-                        <i class="fas fa-star text-warning"></i>
-                      @else
-                        <i class="far fa-star text-muted"></i>
-                      @endif
-                    @endfor
-                    <span class="small text-muted">({{ number_format($rating, 1) }}/5)</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          @endforeach
-        </div>
-      </div>
-    @endforeach
-
-  </div>
-
-  <!-- Carousel Controls -->
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden"></span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden"></span>
-            </button>
-</div>
+                                          <button class="btn btn-sm btn-light shadow-sm" title="Wishlist">
+                                                <i class="fas fa-heart text-danger"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-light shadow-sm" title="Add to Cart">
+                                                <i class="fas fa-shopping-cart text-success"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-light shadow-sm" title="Compare">
+                                                <i class="fas fa-exchange-alt text-primary"></i>
+                                            </button>
+                                        </div>
+                                <!-- Image -->
+                             
+                                    @if(!empty($product->slug))
+                                    <a href="{{ route('web.products.details', $product->slug) }}" style="flex-shrink: 0;">
+                                        <img class="card-img-top"
+                                        src="{{ asset('storage/products/' . $product->image) }}"
+                                        alt="{{ $product->name }}"
+                                        style="height: 200px; width: 100%; object-fit: cover;">
+                                    </a>
+                                    @else
+                                    <img class="card-img-top"
+                                        src="{{ asset('storage/products/' . $product->image) }}"
+                                        alt="{{ $product->name }}"
+                                        style="height: 200px; width: 100%; object-fit: cover;">
+                                    @endif
+                                  
+                                  
 
 
-              
-            </div>
-            
-        </div>
+                                <!-- Content -->
+                                <div class="card-body text-center p-2" style="flex-grow: 1;">
+                                <h6 class="fw-semibold mb-2">{{ $product->name }}</h6>
+
+                                <!-- Price -->
+                                <div>
+                                    @if($product->discount_value > 0)
+                                    <div class="mb-1">
+                                        <span class="fw-bold fs-5 text-danger">
+                                        Tk. {{ discountCal($product->price, $product->discount_type, $product->discount_value) }}
+                                        </span>
+                                        <span class="text-muted text-decoration-line-through small ms-1">
+                                        Tk. {{ $product->price }}
+                                        </span>
+                                    </div>
+                                    <span class="badge bg-danger">
+                                        Save {{ $product->discount_type === 'Taka' ? $product->discount_value . ' Tk' : $product->discount_value . '%' }}
+                                    </span>
+                                    @else
+                                    <div class="mb-2 fw-bold fs-5 text-dark">
+                                        Tk. {{ $product->price }}
+                                    </div>
+                                    @endif
+                                </div>
+
+                                <!-- Free Shipping -->
+                                <div class="text-muted mt-1">
+                                    <i class="fas fa-shipping-fast me-1"></i> Free Shipping
+                                </div>
+
+                                <!-- Rating -->
+                                <div class="mt-1">
+                                    @php $rating = $product->rating ?? 4; @endphp
+                                    @for ($i = 1; $i <= 5; $i++)
+                                    @if($i <= $rating)
+                                        <i class="fas fa-star text-warning"></i>
+                                    @else
+                                        <i class="far fa-star text-muted"></i>
+                                    @endif
+                                    @endfor
+                                    <span class="small text-muted">({{ number_format($rating, 1) }}/5)</span>
+                                </div>
+                             </div>
+                              </div>
+                         </div>
+                          @endforeach
+                        </div>
+                    </div>
+                    @endforeach
+
+             </div>
+
+                <!-- Carousel Controls -->
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden"></span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden"></span>
+                            </button>
+                         </div>
+                    </div>
+                 </div>
     </section>
     @endif
 
