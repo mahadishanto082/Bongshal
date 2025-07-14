@@ -79,11 +79,21 @@
                         <td>Actions</td>
                         @foreach($compareItems as $item)
                             <td>
-                                <form action="{{ route('web.user.compare.remove', $item->product->id) }}" method="POST">
-                                    @csrf
-                                    <button type="submit" class="btn btn-danger btn-sm">Remove</button>
-                                </form>
-                                <a href="{{ route('web.products.details', $item->product->slug) }}" class="btn btn-primary btn-sm mt-1">View Details</a>
+                            <div class="d-flex justify-content-center align-items-center" style="min-height: 150px;">
+    <div style="width: 200px;">
+        <form action="{{ route('web.user.compare.remove', $item->product->id) }}" method="POST" class="mb-2">
+            @csrf
+            <button type="submit" class="btn btn-outline-danger btn-sm w-100">
+                <i class="fas fa-trash-alt me-1"></i> Remove
+            </button>
+        </form>
+
+        <a href="{{ route('web.products.details', $item->product->slug) }}" class="btn btn-outline-primary btn-sm w-100">
+            <i class="fas fa-info-circle me-1"></i> View Details
+        </a>
+    </div>
+</div>
+
                             </td>
                         @endforeach
                     </tr>
