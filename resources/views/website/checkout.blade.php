@@ -365,6 +365,16 @@
             <img src="{{ asset('Bkash.png') }}" alt="Bkash" width="100">
         </button>
     </div>
+    <div class="form-group text-center">
+    <label for="cardNumber" class="mb-2 fw-bold">Pay with SSL</label>
+    <!-- SSL Button with Image -->
+    <a href="/checkout1" class="btn custom-white-outline">
+    <img src="{{ asset('SSL.png') }}" alt="SSL" width="100">
+</a>
+
+  
+</div>
+
 </form>
 
         </div>

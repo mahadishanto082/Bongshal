@@ -9,6 +9,7 @@ use App\Http\Controllers\Website\CartController;
 use App\Http\Controllers\Website\ProductController;
 use App\Http\Controllers\Website\OrderController;
 use App\Http\Controllers\BkashTokenizePaymentController;
+use App\Http\Controllers\SslCommerzPaymentController;
 
 Auth::routes();
 Auth::routes(['verify' => true]);
@@ -54,6 +55,20 @@ Route::group(['as' => 'web.'], function () {
     Route::post('bkash-payment/create', [BkashTokenizePaymentController::class, 'createPayment'])->name('bkashPayment.create');
     Route::get('bkash/callback', [BkashTokenizePaymentController::class, 'callBack'])->name('bkash.callback');
 
+
+    // SSLCOMMERZ Start
+// Route::get('/checkout1', [SslCommerzPaymentController::class, 'exampleEasyCheckout']);
+Route::get('/checkout1', [SslCommerzPaymentController::class, 'exampleEasyCheckout'])->name('exampleEasyCheckout');
+Route::get('/example2', [SslCommerzPaymentController::class, 'exampleHostedCheckout']);
+
+Route::post('/pay', [SslCommerzPaymentController::class, 'index']);
+Route::post('/pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);
+
+Route::post('/success', [SslCommerzPaymentController::class, 'success']);
+Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
+Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
+
+Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
     Route::group(['middleware' => ['auth:web', 'verified']], function () {
         Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['auth:web', 'verified']], function () {
             Route::get('orders', [UserController::class, 'orders'])->name('orders');
