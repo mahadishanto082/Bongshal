@@ -134,11 +134,11 @@ public function compare()
 
     return redirect()->route('home')->with('error', 'You must be logged in to view compare items.');
 }
-public function addToCompare()
+public function addToCompare($id)
 {
     if (auth('web')->check()) {
         $user = auth('web')->user();
-        $productId = $id;
+        $productId = $id; // Ensure $id is defined in the method parameters
 
         // Check if the product is already in the compare list
         $compareItem = Compare::where('user_id', $user->id)
