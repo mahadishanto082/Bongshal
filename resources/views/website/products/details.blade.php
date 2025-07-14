@@ -12,6 +12,34 @@
     <meta name="keywords" content="{{ $product->name }}, Hajj, Shops, HajjShop.Com, বাংলাদেশের বিশ্বস্ত অনলাইন শপ, সারাদেশে ক্যাশ অন ডেলিভারি (৪৮ থেকে ৭২ ঘণ্টার মধ্যে নিশ্চিত ডেলিভারি), সঠিক মূল্য, নিরাপদ পেমেন্ট, ডেলিভারী, ২৪/৭ কাস্টমার কেয়ার, হজ্জ সামগ্রী">
 @endsection
 
+@section('_css')
+    <link rel="stylesheet" href="{{ asset('assets/website/css/smoothproducts.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/website/css/lightbox.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/website/css/slick.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/website/css/slick-theme.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/website/css/product-details.css') }}">
+
+    <style>
+        .wishlist-btn,
+.compare-btn {
+    background-color: transparent !important;
+    color: black !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0.3rem 0.6rem;
+    font-weight: 500;
+}
+
+.wishlist-btn:hover,
+.compare-btn:hover {
+   
+    color: #000;
+}
+
+    </style>
+
+@endsection
+
 @section('title')
     Products | {{ $product->name }}
 @endsection
@@ -227,31 +255,31 @@
                                         </div>-->
                                     </div>
                                     <div class="prt_04 mb-4">
-                                    <form id="wishlist-form-{{ $product->id }}" action="{{ route('web.user.wishlist.add', $product->id) }}" method="POST" style="display: none;">
-        @csrf
-    </form>
+    <div class="d-flex gap-2">
+        <!-- Wishlist Form -->
+        <form id="wishlist-form-{{ $product->id }}" action="{{ route('web.user.wishlist.add', $product->id) }}" method="POST" style="display: none;">
+            @csrf
+        </form>
 
-    <button
-        type="button"
-        onclick="document.getElementById('wishlist-form-{{ $product->id }}').submit();"
-        class="btn btn-sm text-white"
-        style="background-color: orange; border-radius: 10px;"
-    >
-        <i class="lni lni-heart mr-2"></i> Add to Wishlist
-    </button>
+        <button
+            type="button"
+            onclick="document.getElementById('wishlist-form-{{ $product->id }}').submit();"
+            class="btn btn-sm text-white wishlist-btn flex-fill"
+            style=" border-radius: 10px;"
+        >
+            <i class="lni lni-heart mr-2"></i> Add to Wishlist
+        </button>
 
+        <!-- Compare Form -->
+        <form action="{{ route('web.user.compare.add', $product->id) }}" method="POST" class="m-0 p-0 flex-fill">
+            @csrf
+            <button type="submit" class="btn btn-sm compare-btn text-white w-100" style=" border-radius: 10px;">
+            <i class="fas fa-exchange-alt text-primary"></i> Add to Compare
+            </button>
+        </form>
+    </div>
+</div>
 
-    <form action="{{ route('web.user.compare.add', $product->id) }}" method="POST">
-    @csrf
-    <button type="submit" class="btn btn-sm text-white" style="background-color: #007bff; border-radius: 10px;">
-        <i class="lni lni-balance mr-2"></i> Add to Compare
-    </button>
-</form>
-
-
-
-
-                                </div>
                                 </div>
                             </div>
                         </div>
@@ -358,16 +386,18 @@
                                                             <i class="lni lni-shopping-basket"></i> Add to Cart
                                                         </a>
                                                     @else
-                                                        @if (!empty($product-> slug))  
-                                                                <a href="javascript:void(0)" @click="addToCart('{{ route('web.cart.add', $product['slug']) }}')" class="btn btn-block btn-sm btn-cart">
+                                                    @if (!empty($product->slug))
+                                                            <div class="d-flex gap-2">
+                                                                <a href="javascript:void(0)" @click="addToCart('{{ route('web.cart.add', $product['slug']) }}')" class="btn btn-sm btn-cart flex-fill">
                                                                     <i class="lni lni-shopping-basket"></i> Add to cart
                                                                 </a>
+
+                                                                <a class="btn btn-sm btn-detail flex-fill" href="{{ route('web.products.details', $product->slug) }}">
+                                                                    <i class="lni lni-text-align-justify"></i> Details
+                                                                </a>
+                                                            </div>
                                                         @endif
-                                                    @endif
-                                                    @if (!empty($product-> slug))
-                                                        <a class="btn btn-block btn-sm btn-detail" href="{{ route('web.products.details', $product->slug) }}">
-                                                            <i class="lni lni-text-align-justify"></i> Details
-                                                        </a>
+
                                                     @endif
                                                 </div>
                                             </div>
