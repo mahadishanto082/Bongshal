@@ -1,4 +1,4 @@
-## .:: BookShop  ::.
+## .:: Single Vendor Ecommerce  ::.
 
 #### Downloading composer package and dumping
 ~~~bash
