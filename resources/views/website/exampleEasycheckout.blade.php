@@ -195,10 +195,11 @@
 <script>
     var obj = {};
     // If you want to pass some value from frontend, you can do like this, but be aware, this value can be modified by anyone, so it's not secure to pass total_amount, store_passwd etc from frontend.
-    // obj.cus_name = $('#customer_name').val();
-    // obj.cus_phone = $('#mobile').val();
-    // obj.cus_email = $('#email').val();
-    // obj.cus_addr1 = $('#address').val();
+    obj.cus_name = $('#customer_name').val();
+    obj.cus_phone = $('#mobile').val();
+    obj.cus_email = $('#email').val();
+    obj.cus_addr1 = $('#address').val();
+    obj.amount = $('#total_amount').val();
 
     $('#sslczPayBtn').prop('postdata', obj);
 
@@ -212,5 +213,36 @@
 
         window.addEventListener ? window.addEventListener("load", loader, false) : window.attachEvent("onload", loader);
     })(window, document);
+
+    document.getElementById('sslczPayBtn').addEventListener('click', function () {
+        const postData = {
+            cus_name: document.getElementById('customer_name').value,
+            cus_phone: document.getElementById('mobile').value,
+            cus_email: document.getElementById('email').value,
+            cus_addr1: document.getElementById('address').value,
+            amount: document.getElementById('total_amount').value,
+        };
+
+        fetch("{{ url('/pay-via-ajax') }}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify(postData)
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data && data.GatewayPageURL) {
+                window.location.href = data.GatewayPageURL;
+            } else {
+                alert("Failed to initiate payment. Try again.");
+            }
+        })
+        .catch(error => {
+            console.error('Payment Error:', error);
+            alert("Error in payment request.");
+        });
+    });
 </script>
 </html>
