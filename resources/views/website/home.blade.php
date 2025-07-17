@@ -118,24 +118,58 @@
                             </div>
                         </div>
                     </div>
-                     @if(count($category->products) > 0)
-                       <div class="row">
-                         @foreach($category->products as $product)
-                         <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
-                              <div class="card border-0 shadow-sm position-relative" style="width: 100%;">
-                    {{-- Horizontal Staff Pick Badge --}}
-                       <div class="position-absolute top-0 end-0 me-2 mt-2 bg-info text-white px-2 py-1 rounded">
-                            <small class="fw-bold text-uppercase">Staff Pick</small>
-                         </div>
 
-                         @if(!empty($product->slug))
-                            <a href="{{ route('web.products.details', $product->slug) }}">
-                                <img class="card-img-top" src="{{ asset('storage/products/' . $product->image) }}" alt="{{ $product->name }}">
-                            </a>
+                    <!-- Carousel for Category Products -->
+                    <div id="carouselCategory{{ $key }}" class="carousel slide">
+
+                <div class="carousel-inner">
+                    @php
+                        $chunks = $category->products->chunk(4); // Group by 4
+                    @endphp
+                    @foreach($chunks as $chunkIndex => $productChunk)
+                    <div class="carousel-item {{ $chunkIndex == 0 ? 'active' : '' }}">
+                        <div class="d-flex justify-content-center gap-3 flex-wrap">
+                            @foreach($productChunk as $product)
+                                <div class="col-xl-3 col-lg-4 col-md-6 col-6">
+                                    <div class="card border-0 shadow-sm position-relative mb-4"
+                                        style="width: 280px; height: 380px; display: flex; flex-direction: column; transition: transform 0.3s ease, box-shadow 0.3s ease;"
+                                        onmouseover="this.style.transform='scale(1.03)'; this.style.boxShadow='0 0.5rem 1rem rgba(0,0,0,0.15)'"
+                                        onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 0.125rem 0.25rem rgba(0,0,0,0.075)'">
+
+                                        <!-- Badge -->
+                                        <div class="position-absolute top-0 start-0 ms-2 mt-2 bg-info text-white px-2 py-1 rounded" style="z-index: 10;">
+                                            <small class="fw-bold text-uppercase">
+                                                {{ $product->stock > 0 ? 'Staff Pick' : 'Out of Stock' }}
+                                            </small>
+                                        </div>
+
+                                        <!-- Action buttons (hover only) -->
+                                        <div class="product-actions position-absolute start-0 ms-1 mt-5 d-flex flex-column gap-2"
+                                            style="top: 10px; opacity: 0; transition: opacity 0.3s ease; z-index: 11;">
+                                            <button class="btn btn-sm btn-light shadow-sm" title="Wishlist">
+                                                <i class="fas fa-heart text-danger"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-light shadow-sm" title="Add to Cart">
+                                                <i class="fas fa-shopping-cart text-success"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-light shadow-sm" title="Compare">
+                                                <i class="fas fa-exchange-alt text-primary"></i>
+                                            </button>
+                                        </div>
+
+                                        <!-- Image -->
+                                        @if(!empty($product->slug))
+                                            <a href="{{ route('web.products.details', $product->slug) }}" style="flex-shrink: 0;">
+                                                <img class="card-img-top"
+                                                     src="{{ asset('storage/products/' . $product->image) }}"
+                                                        alt="{{ $product->name }}"
+                                                        style="height: 200px; width: 100%; object-fit: cover;">
+                                            </a>
+                            
                         @else
                             <img class="card-img-top" src="{{ asset('storage/products/' . $product->image) }}" alt="{{ $product->name }}">
                         @endif
-                    {{-- Card Body --}}
+                    {{-- content Body --}}
                     <div class="card-body text-center p-2">
                         <h6 class="fw-semibold mb-2">{{ $product->name }}</h6>
 
@@ -179,11 +213,27 @@
                                 </div>
                              </div>
                           @endforeach
+
                       </div>
-                    @endif
+                    </div>
+                    @endforeach
+                </div>
+                <!-- Carousel Controls -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselCategory{{ $key }}" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselCategory{{ $key }}" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+                </div>
+                    
                 </div>
             </section>
         @endforeach
+
     @endif
 
     @if(!empty($new_arrival_products))
@@ -205,7 +255,7 @@
                 </div>
             </div>
 <!-- Carousel for New Arrival Products -->
-            <div id="carouselExampleAutoplaying" class="carousel slide" >
+<div id="carouselNewArrivals" class="carousel slide">
                 <div class="carousel-inner">
 
                     @php
@@ -314,11 +364,11 @@
              </div>
 
                 <!-- Carousel Controls -->
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselNewArrivals" data-bs-slide="prev" >
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden"></span>
                             </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselNewArrivals"data-bs-slide="next" >
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden"></span>
                             </button>
