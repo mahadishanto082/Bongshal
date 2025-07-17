@@ -118,7 +118,7 @@
                                         <div class="col-md-12">
                                             <div class="prt_04 mb-4">
                                                 <p class="d-flex align-items-center mb-1">
-                                                    এই পণ্য অর্ডার করলেই আপনি পাচ্ছেন <strong class="fs-sm text-dark ft-medium ml-1">{{ $product->point }} &nbsp;</strong> পয়েন্ট
+                                                    You will get after ordering the product<strong class="fs-sm text-dark ft-medium ml-1">{{ $product->point }} &nbsp;</strong> পয়েন্ট
                                                 </p>
                                             </div>
                                         </div>

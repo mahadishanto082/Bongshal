@@ -146,15 +146,35 @@
                                         <!-- Action buttons (hover only) -->
                                         <div class="product-actions position-absolute start-0 ms-1 mt-5 d-flex flex-column gap-2"
                                             style="top: 10px; opacity: 0; transition: opacity 0.3s ease; z-index: 11;">
-                                            <button class="btn btn-sm btn-light shadow-sm" title="Wishlist">
+                                            <form id="wishlist-form-{{ $product->id }}" action="{{ route('web.user.wishlist.add', $product->id) }}" method="POST" style="display: none;">
+                                                @csrf
+                                            </form>
+
+                                            <button
+                                                type="button"
+                                                onclick="document.getElementById('wishlist-form-{{ $product->id }}').submit();"
+                                               
+                                            >
+
                                                 <i class="fas fa-heart text-danger"></i>
                                             </button>
-                                            <button class="btn btn-sm btn-light shadow-sm" title="Add to Cart">
+                                      
+                                            @if (!empty($product->slug))
+                                            <button type="button" @click="addToCart('{{ route('web.cart.add', $product->slug) }}')" >
                                                 <i class="fas fa-shopping-cart text-success"></i>
                                             </button>
-                                            <button class="btn btn-sm btn-light shadow-sm" title="Compare">
+                                            @endif
+                                            <form action="{{ route('web.user.compare.add', $product->id) }}" method="POST" class="m-0 p-0 flex-fill">
+                                                @csrf
+                                                <button type="submit" >
                                                 <i class="fas fa-exchange-alt text-primary"></i>
-                                            </button>
+
+                                                </button>
+                                            </form>
+
+
+                                            
+                                           
                                         </div>
 
                                         <!-- Image -->
@@ -282,15 +302,30 @@
  <div class="product-actions position-absolute start-0  ms-1 mt-5 d-flex flex-column gap-2"
      style="top: 10px; opacity: 0; transition: opacity 0.3s ease; z-index: 11;">
 
-                                          <button class="btn btn-sm btn-light shadow-sm" title="Wishlist">
+                                        <form id="wishlist-form-{{ $product->id }}" action="{{ route('web.user.wishlist.add', $product->id) }}" method="POST" style="display: none;">
+                                                @csrf
+                                            </form>
+
+                                            <button
+                                                type="button"
+                                                onclick="document.getElementById('wishlist-form-{{ $product->id }}').submit();"
+                                               
+                                            >
+
                                                 <i class="fas fa-heart text-danger"></i>
                                             </button>
-                                            <button class="btn btn-sm btn-light shadow-sm" title="Add to Cart">
+                                            @if (!empty($product->slug))
+                                            <button type="button" @click="addToCart('{{ route('web.cart.add', $product->slug) }}')" >
                                                 <i class="fas fa-shopping-cart text-success"></i>
                                             </button>
-                                            <button class="btn btn-sm btn-light shadow-sm" title="Compare">
+                                            @endif
+                                              <form action="{{ route('web.user.compare.add', $product->id) }}" method="POST" class="m-0 p-0 flex-fill">
+                                                @csrf
+                                                <button type="submit" >
                                                 <i class="fas fa-exchange-alt text-primary"></i>
-                                            </button>
+
+                                                </button>
+                                            </form>
                                         </div>
                                 <!-- Image -->
                              
