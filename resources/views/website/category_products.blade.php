@@ -61,10 +61,13 @@
         @endif
 
         {{-- Product Image --}}
-        <a href="{{ route('web.products.details', $product['slug']) }}" class="d-block">
-            <img src="{{ asset('storage/products/'. $product['image']) }}" class="card-img-top img-fluid" alt="{{ $product['name'] }}">
-        </a>
-
+        @if (!empty($product->slug))
+            <a href="{{ route('web.products.details', $product->slug) }}">
+                <img class="card-img-top" src="{{ asset('storage/products/' . $product['image']) }}" alt="{{ $product['name'] }}" style="height: 200px; object-fit: cover;">
+            </a>
+        
+        @endif
+       
         {{-- Product Info --}}
         <div class="card-body text-center p-3">
             <h6 class="fw-bold mb-1 text-dark">{{ $product['name'] }}</h6>
@@ -106,9 +109,16 @@
                 @endif
 
                 {{-- Details --}}
-                <a href="{{ route('web.products.details', $product['slug']) }}" class="btn btn-outline-dark btn-sm d-flex align-items-center justify-content-center">
-                    <i class="lni lni-text-align-justify me-2"></i> Details
-                </a>
+               @if (!empty($product->slug))
+                    <a href="{{ route('web.products.details', $product->slug) }}" class="btn btn-outline-secondary btn-sm d-flex align-items-center justify-content-center">
+                        <i class="lni lni-info me-2"></i> Details
+                    </a>
+                @else
+                    <button class="btn btn-outline-secondary btn-sm d-flex align-items-center justify-content-center" disabled>
+                        <i class="lni lni-info me-2"></i> Details
+                    </button>
+               
+               @endif
             </div>
         </div>
     </div>

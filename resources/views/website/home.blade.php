@@ -298,7 +298,8 @@
                                         {{ $product->stock > 0 ? 'Staff Pick' : 'Out of Stock' }}
                                     </small>
                                 </div>
-  <!-- Action buttons (hover only) -->
+
+                                <!-- Action buttons (hover only) -->
  <div class="product-actions position-absolute start-0  ms-1 mt-5 d-flex flex-column gap-2"
      style="top: 10px; opacity: 0; transition: opacity 0.3s ease; z-index: 11;">
 
@@ -327,6 +328,7 @@
                                                 </button>
                                             </form>
                                         </div>
+  
                                 <!-- Image -->
                              
                                     @if(!empty($product->slug))

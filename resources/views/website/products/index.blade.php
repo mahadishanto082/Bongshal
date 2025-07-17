@@ -100,80 +100,99 @@
                     <div class="row align-items-center rows-products">
                         <!-- Single -->
                         @foreach($products as $product)
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-6">
-                                <div class="product_grid card b-0 mb-0 shadow">
-                                    @if($product['stock'] > 0)
-                                        <div class="badge bg-info text-white position-absolute ft-regular ab-left text-upper">Sale</div>
-                                    @else
-                                        <div class="badge bg-info text-white position-absolute ft-regular ab-left text-upper">Out Of Stock</div>
-                                    @endif
+                        <div class="card border-0 shadow-sm position-relative mb-4"
+     style="width: 280px; height: 380px; display: flex; flex-direction: column; transition: transform 0.3s ease, box-shadow 0.3s ease;"
+     onmouseover="this.querySelector('.product-actions').style.opacity='1'"
+     onmouseout="this.querySelector('.product-actions').style.opacity='0'">
 
-                                    @if($product['discount_value'] > 0 && $product['discount_type'])
-                                        <div class="badge bg-danger text-white position-absolute ft-regular ab-right text-upper">
-                                            @if($product['discount_type'] == 'Taka')
-                                                -{{ $product['discount_value'] }} Tk
-                                            @else
-                                                -{{ $product['discount_value'] }}%
-                                            @endif
-                                        </div>
-                                    @endif
+    <!-- Badge -->
+    <div class="position-absolute top-0 start-0 ms-2 mt-2 bg-info text-white px-2 py-1 rounded" style="z-index: 10;">
+        <small class="fw-bold text-uppercase">
+            {{ $product->stock > 0 ? 'Staff Pick' : 'Out of Stock' }}
+        </small>
+    </div>
 
-                                    <div class="card-body p-0">
-                                        <div class="shop_thumb position-relative">
-                                            @if (!empty($product['slug']))
-                                            <a class="card-img-top d-block overflow-hidden" href="{{ route('web.products.details', $product['slug']) }}">
-                                                <img class="card-img-top" src="{{ asset('storage/products/' . $product['image']) }}" alt="{{ $product['name'] }}">
-                                            </a>
-                                            @endif
-                                            
-                                        </div>
-                                    </div>
-                                    <div class="card-footer b-0 p-3 pb-0 d-flex align-items-start justify-content-center bg-white">
-                                        <div class="text-left">
-                                            <div class="text-center">
-                                                <h5 class="fw-bolder fs-md mb-0 lh-1 mb-1"><a href="#">{{ $product['name'] }}</a></h5>
-                                                @if($product['discount_value'] > 0 && $product['discount_type'])
-                                                    <div class="elis_rty">
-                                                        <span class="text-muted ft-medium line-through mr-2">Tk. {{ $product['price'] }}</span>
-                                                        <span class="ft-bold theme-cl fs-md">Tk. {{ discountCal($product['price'], $product['discount_type'], $product['discount_value']) }}</span>
-                                                    </div>
-                                                @else
-                                                    <div class="elis_rty">
-                                                        <span class="ft-bold text-dark fs-sm">Tk. {{ $product['price'] }}</span>
-                                                    </div>
-                                                @endif
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="pb-5">
-                                    @if (!empty($product['slug']))
-                                        <a href="{{ route('web.products.details', $product['slug']) }}" class="btn btn-block btn-sm btn-order">
-                                            <i class="lni lni-cart"></i> Order
-                                        </a>
-                                    @endif
-                                    
-                                        @if($product['size'] || $product['color'])
-                                            <span onclick="productQuckView('{{ route('web.products.quickView', $product['slug']) }}')"  class="btn btn-block btn-sm btn-cart">
-                                                <i class="lni lni-shopping-basket"></i> Add to Cart
-                                            </span>
-                                        @else
-                                        @if (!empty($product['slug']))
-                                            <form action="{{ route('web.cart.quickAddCart', $product['slug']) }}" method="post">
-                                                @csrf
-                                                <button type="submit" class="btn btn-block btn-sm btn-cart">
-                                                    <i class="lni lni-shopping-basket"></i> Add to Cart
-                                                </button>
-                                            </form>
-                                            @endif
-                                        @endif
-                                        @if (!empty($product['slug']))
-                                        <a class="btn btn-block btn-sm btn-detail" href="{{ route('web.products.details', $product['slug']) }}">
-                                            <i class="lni lni-text-align-justify"></i> Details
-                                        </a>
-                                        @endif
-                                    </div>
-                                </div>
-                            </div>
+    <!-- Image -->
+    @if(!empty($product->slug))
+        <a href="{{ route('web.products.details', $product->slug) }}" style="flex-shrink: 0;">
+            <img class="card-img-top"
+                 src="{{ asset('storage/products/' . $product->image) }}"
+                 alt="{{ $product->name }}"
+                 style="height: 200px; width: 100%; object-fit: cover;">
+        </a>
+    @else
+        <img class="card-img-top"
+             src="{{ asset('storage/products/' . $product->image) }}"
+             alt="{{ $product->name }}"
+             style="height: 200px; width: 100%; object-fit: cover;">
+    @endif
+
+    <!-- Content -->
+    <div class="card-body text-center p-2" style="flex-grow: 1;">
+        <h6 class="fw-semibold mb-2">{{ $product->name }}</h6>
+
+        <!-- Price -->
+        <div>
+            @if($product->discount_value > 0)
+                <div class="mb-1">
+                    <span class="fw-bold fs-5 text-danger">
+                        Tk. {{ discountCal($product->price, $product->discount_type, $product->discount_value) }}
+                    </span>
+                    <span class="text-muted text-decoration-line-through small ms-1">
+                        Tk. {{ $product->price }}
+                    </span>
+                </div>
+                <span class="badge bg-danger">
+                    Save {{ $product->discount_type === 'Taka' ? $product->discount_value . ' Tk' : $product->discount_value . '%' }}
+                </span>
+            @else
+                <div class="mb-2 fw-bold fs-5 text-dark">
+                    Tk. {{ $product->price }}
+                </div>
+            @endif
+        </div>
+    </div>
+
+    <!-- Action Buttons (bottom) -->
+   {{-- Product Buttons --}}
+   <div class="d-grid gap-2">
+                {{-- Quick View --}}
+                @if (!empty($product->slug) && $product['stock'] > 0)
+                    <a href="javascript:void(0)" onclick="productQuckView('{{ route('web.products.quickView', $product->slug) }}')" class="btn btn-outline-primary btn-sm d-flex align-items-center justify-content-center">
+                        <i class="lni lni-eye me-2"></i> Quick View
+                    </a>
+                @endif
+
+               
+
+                {{-- Add to Cart --}}
+                @if($product['size'] || $product['color'])
+                    <a href="javascript:void(0)" onclick="productQuckView('{{ route('web.products.quickView', $product->slug) }}')" class="btn btn-outline-warning btn-sm d-flex align-items-center justify-content-center">
+                        <i class="lni lni-shopping-basket me-2"></i> Add to Cart
+                    </a>
+                @elseif($product['stock'] > 0 && $product['is_add_to_cart'] == 1)
+                    <form action="{{ route('web.cart.quickAddCart', $product['slug']) }}" method="post">
+                        @csrf
+                        <button type="submit" class="btn btn-outline-warning btn-sm d-flex align-items-center justify-content-center w-100">
+                            <i class="lni lni-shopping-basket me-2"></i> Add to Cart
+                        </button>
+                    </form>
+                @endif
+
+                {{-- Details --}}
+               @if (!empty($product->slug))
+                    <a href="{{ route('web.products.details', $product->slug) }}" class="btn btn-outline-secondary btn-sm d-flex align-items-center justify-content-center">
+                        <i class="lni lni-info me-2"></i> Details
+                    </a>
+                @else
+                    <button class="btn btn-outline-secondary btn-sm d-flex align-items-center justify-content-center" disabled>
+                        <i class="lni lni-info me-2"></i> Details
+                    </button>
+               
+               @endif
+            </div>
+</div>
+
                         @endforeach
 
                         {{ $products->appends(request()->input())->links('website.share.pagination') }}
