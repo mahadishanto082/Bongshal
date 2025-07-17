@@ -3,6 +3,10 @@
 @section('title')
     Wishlist
 @endsection
+@section('meta')
+    <meta name="description" content="Your wishlist items">
+    <meta name="keywords" content="wishlist, products, user, ecommerce">
+@endsection
 
 @section('content')
     <div class="gray py-3">
@@ -43,49 +47,85 @@
 
                                         <form action="{{ route('web.user.wishlist.remove', $product->id) }}" method="POST" class="position-absolute ab-right">
                                             @csrf
-                                              <button type="submit" class="btn btn-danger btn-sm"><i class="lni lni-close"></i>
+                                              <button type="submit" class="btn btn-danger btn-sm position-absolute"><i class="lni lni-close"style="top: 10px; right: 10px;" ></i>
                                             </button>
                                          </form>
 
 
-                                        <div class="card-body p-0">
-                                            <div class="shop_thumb position-relative">
-                                                <a class="card-img-top d-block overflow-hidden" href="{{ route('web.user.wishlist', $product->id) }}">
-                                                    <img class="card-img-top" src="{{ asset('storage/products/' . $product->image) }}" alt="{{ $product->name }}">
-                                                </a>
-                                            </div>
-                                        </div>
+                                         <div class="card border-0 shadow-sm mb-4"
+     style="width: 280px; height: 420px; display: flex; flex-direction: column;">
 
-                                        <div class="card-footer b-0 pt-3 px-2 bg-white d-flex align-items-start justify-content-center">
-                                            <div class="text-left text-center">
-                                                <h5 class="fw-bolder fs-md mb-0 lh-1 mb-1">
-                                                    <a href="{{ route('web.user.wishlist', $product->id) }}">{{ $product->name }}</a>
-                                                </h5>
-                                                <div class="elis_rty">
-                                                    @if($product->old_price)
-                                                        <span class="text-muted ft-medium line-through mr-2">${{ $product->old_price }}</span>
-                                                    @endif
-                                                    <span class="ft-bold theme-cl fs-md">${{ $product->price }}</span>
-                                                </div>
-                                            </div>
-                                            <div class="pb-5">
-                                <a href="{{ route('web.products.details', $product->slug) }}" class="btn btn-block btn-sm btn-order">
-                                    <i class="lni lni-cart"></i> Order
-                                </a>
-                                @if($product->size || $product->color)
-                                    <a href="javascript:void(0)" onclick="productQuckView('{{ route('web.products.quickView', $product->slug) }}')"  class="btn btn-block btn-sm btn-cart">
-                                        <i class="lni lni-shopping-basket"></i> Add to cart
-                                    </a>
-                                @else
-                                    <a href="javascript:void(0)" @click="addToCart('{{ route('web.cart.add', $product->slug) }}')" class="btn btn-block btn-sm btn-cart">
-                                        <i class="lni lni-shopping-basket"></i> Add to cart
-                                    </a>
-                                @endif
-                                <a class="btn btn-block btn-sm btn-detail" href="{{ route('web.products.details', $product->slug) }}">
-                                    <i class="lni lni-text-align-justify"></i> Details
-                                </a>
-                            </div>
-                                        </div>
+    <!-- Product Image -->
+    @if(!empty($product->slug))
+        <a href="{{ route('web.products.details', $product->slug) }}">
+            <img class="card-img-top"
+                 src="{{ asset('storage/products/' . $product->image) }}"
+                 alt="{{ $product->name }}"
+                 style="height: 200px; width: 100%; object-fit: cover;">
+        </a>
+    @else
+        <img class="card-img-top"
+             src="{{ asset('storage/products/' . $product->image) }}"
+             alt="{{ $product->name }}"
+             style="height: 200px; width: 100%; object-fit: cover;">
+    @endif
+
+    <!-- Card Body -->
+    <div class="card-body text-center d-flex flex-column justify-content-between px-2 pt-2 pb-3" style="flex: 1;">
+        <!-- Product Name -->
+        <h6 class="fw-semibold mb-2 text-truncate">{{ $product->name }}</h6>
+
+        <!-- Price -->
+        <div class="mb-3">
+            @if($product->discount_value > 0)
+                <div>
+                    <span class="fw-bold fs-5 text-danger">
+                        Tk. {{ discountCal($product->price, $product->discount_type, $product->discount_value) }}
+                    </span>
+                    <span class="text-muted text-decoration-line-through small">
+                        Tk. {{ $product->price }}
+                    </span>
+                </div>
+            @else
+                <div class="fw-bold fs-5 text-dark">Tk. {{ $product->price }}</div>
+            @endif
+        </div>
+
+        <!-- 3 Buttons -->
+        <div class="d-flex flex-column gap-2">
+            <!-- Order Button -->
+            <a href="{{ route('web.products.details', $product->slug) }}"
+               class="btn btn-outline-dark btn-sm w-100 d-flex align-items-center justify-content-center"
+               style="transition: 0.3s; color: green;">
+                <i class="lni lni-cart me-2 " style="color:green"></i> Order
+            </a>
+
+            <!-- Add to Cart -->
+            @if($product->size || $product->color)
+                <a href="javascript:void(0)"
+                   onclick="productQuckView('{{ route('web.products.quickView', $product->slug) }}')"
+                   class="btn btn-outline-dark btn-sm w-100 d-flex align-items-center justify-content-center"
+                   style="transition: 0.3s;color :blue">
+                    <i class="lni lni-shopping-basket me-2" style="color:blue"></i> Add to cart
+                </a>
+            @else
+                <a href="javascript:void(0)"
+                   @click="addToCart('{{ route('web.cart.add', $product->slug) }}')"
+                   class="btn btn-outline-dark btn-sm w-100 d-flex align-items-center justify-content-center"
+                   style="transition: 0.3s; color:blue">
+                    <i class="lni lni-shopping-basket me-2" style="color:blue"></i> Add to cart
+                </a>
+            @endif
+
+            <!-- Details Button -->
+            <a href="{{ route('web.products.details', $product->slug) }}"
+               class="btn btn-outline-dark btn-sm w-100 d-flex align-items-center justify-content-center"
+               style="transition: 0.3s; color:red">
+                <i class="lni lni-text-align-justify me-2" style="color:red"></i> Details
+            </a>
+        </div>
+    </div>
+</div>
 
                                     </div>
                                 </div>
