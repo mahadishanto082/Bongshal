@@ -94,16 +94,12 @@
         <!-- 3 Buttons -->
         <div class="d-flex flex-column gap-2">
             <!-- Order Button -->
-            <a href="{{ route('web.products.details', $product->slug) }}"
-               class="btn btn-outline-dark btn-sm w-100 d-flex align-items-center justify-content-center"
-               style="transition: 0.3s; color: green;">
-                <i class="lni lni-cart me-2 " style="color:green"></i> Order
-            </a>
+            
 
             <!-- Add to Cart -->
             @if($product->size || $product->color)
                 <a href="javascript:void(0)"
-                   onclick="productQuckView('{{ route('web.products.quickView', $product->slug) }}')"
+                   onclick="productQuckView('{{ route('web.products.quickView', $product->slug) }}"
                    class="btn btn-outline-dark btn-sm w-100 d-flex align-items-center justify-content-center"
                    style="transition: 0.3s;color :blue">
                     <i class="lni lni-shopping-basket me-2" style="color:blue"></i> Add to cart
