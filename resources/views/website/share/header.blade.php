@@ -49,120 +49,128 @@
 
 <div class="headd-sty">
     <!-- Header-msg -->
-        <div class="header header-dark head-style-2 " style="background-color: #fa4c06;">
-            <div class="container">
-                <nav id="navigation" class="navigation navigation-landscape">
-                    <div class="nav-header">
-                        <div class="nav-toggle"></div>
-                        <div class="nav-menus-wrapper" style="background-color: #fa4c06; padding: 15px; text-align: center;">
-                            <span class="text-black">Welcome to Bongshal! Enjoy your shopping experience.</span>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-        </div>
+    <div class="header header-dark head-style-2" style="background-color: #fa4c06;">
     <div class="container">
-        <div class="row">
-            <div class="col-xl-12 col-lg-12 col-md-12">
-                <div class="headd-sty-wrap d-flex align-items-center justify-content-between py-3">
-                    <div class="headd-sty-left d-flex align-items-center">
-                        <div class="headd-sty-01">
-                            <a class="nav-brand py-0" href="{{ route('web.home') }}">
-                                <img src="{{ asset('Bongshal.jpeg') }}" class="logo" alt="" />
-                            </a>
-                        </div>
-                        <div class="headd-sty-02 ml-3">
-                            <form action="{{ route('web.products.index') }}" class="bg-white rounded-md border-bold">
-                                <div class="input-group">
-                                    <div class="input-group-prepend br-right hd-small">
-                                        <div class="form-group mb-0 position-relative">
-                                            <select class="custom-select b-0" name="category_id">
-                                                <option selected disabled hidden value="">Select Catagory </option>
-                                                @foreach(getCategories() as $category)
-                                                    <option value="{{ $category->id }}" {{ request()->category_id == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
-                                                @endforeach
-                                            </select>
+        <nav id="navigation" class="navigation navigation-landscape">
+            <div class="nav-header">
+                <div class="nav-toggle"></div>
+                <div class="nav-menus-wrapper d-flex justify-content-center align-items-center"
+                     style="background-color: #fa4c06; padding: 20px; min-height: 80px;">
+                    <span class="text-dark fs-5; padding: 100px;">Welcome to Bongshal! Enjoy your shopping experience.</span>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+
+        <!-- Header -->
+      
+        <div style="background-color: black;">   
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 " >
+                    <div class="headd-sty-wrap  d-flex align-items-center justify-content-between py-3; " >
+                        <div class="headd-sty-left d-flex align-items-center ">
+                            <div class="headd-sty-01 ">
+                                <a class="nav-brand py-0" href="{{ route('web.home') }}">
+                                    <img src="{{ asset('Bongshal.jpeg') }}" class="logo" alt="" />
+                                </a>
+                            </div>
+
+                            <!-- Search Form -->
+                            <div class="headd-sty-02 ml-3"  style="margin: 0; padding: 10px; line-height: 1;">
+                                <form action="{{ route('web.products.index') }}" class="bg-white rounded-md border-bold">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend br-right hd-small">
+                                            <div class="form-group mb-0 position-relative">
+                                                <select class="custom-select b-0" name="category_id">
+                                                    <option selected disabled hidden value="">Select Catagory </option>
+                                                    @foreach(getCategories() as $category)
+                                                        <option value="{{ $category->id }}" {{ request()->category_id == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control custom-height b-0" value="{{ request()->keyword }}" name="keyword" placeholder="Search for products..." />
+                                        <div class="input-group-append">
+                                            <div class="input-group-text"><button class="btn bg-white text-danger custom-height rounded px-3" type="submit"><i class="fas fa-search"></i></button></div>
                                         </div>
                                     </div>
-                                    <input type="text" class="form-control custom-height b-0" value="{{ request()->keyword }}" name="keyword" placeholder="Search for products..." />
-                                    <div class="input-group-append">
-                                        <div class="input-group-text"><button class="btn bg-white text-danger custom-height rounded px-3" type="submit"><i class="fas fa-search"></i></button></div>
-                                    </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
-                    </div>
-                    <div class="headd-sty-last">
-                        <ul class="nav-menu nav-menu-social align-to-right align-items-center d-flex">
-                        <li>
-                            <!-- Compare count total -->
-                            <a href="{{ route('web.user.compare') }}" onclick="AddCompare()">
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <i class="lni lni-balance fs-lg"></i><span class="dn-counter theme-bg">{{ $wishlist_count_total }}</span>
-                                    <div class="text-left ml-1">
-                                        <i class="fas fa-exchange-alt text-primary"></i>
-                                    </div>
-                                </div>
-                             </a>
-                         </li>
-
-                         <!--wishlist count total -->
-                    <div class="headd-sty-last">
-                        <ul class="nav-menu nav-menu-social align-to-right align-items-center d-flex">
-                        <li>
-                          <a href="{{ route('web.user.wishlist') }}" onclick="openWishlist()">
-                    
-                             <div class="d-flex align-items-center justify-content-between">
-                                 <i class="lni lni-heart fs-lg"></i><span class="dn-counter theme-bg">{{ $wishlist_count_total }}</span>
-                                                        <div class="text-left ml-1">
-                                                        
-                                                          
-                                                        </div>
-                                                    </div>
-                             </a>
-                         </li>
-                         
-                         
-                        <!-- Cart count total -->
-                        
+                        <div class="headd-sty-last">
+                            <ul class="nav-menu nav-menu-social align-to-right align-items-center d-flex">
                             <li>
-                                <a href="#" onclick="openCart()">
+                                <!-- Compare count total -->
+                                <a href="{{ route('web.user.compare') }}" onclick="AddCompare()">
                                     <div class="d-flex align-items-center justify-content-between">
-                                        <i class="fas fa-shopping-basket fs-lg"></i><span class="dn-counter theme-bg">@{{ cart_count_total }}</span>
+                                        <i class="lni lni-balance fs-lg"></i><span class="dn-counter theme-bg">{{ $wishlist_count_total }}</span>
                                         <div class="text-left ml-1">
-                                            <div class="text-muted small lh-1">Total</div>
-                                            <div class="primary-text cart-subtotal"><span class="fs-md ft-medium"><span class="prc-currency">Tk.</span>@{{ total_amount }}</span></div>
+                                            <i class="fas fa-exchange-alt text-primary"></i>
                                         </div>
                                     </div>
                                 </a>
                             </li>
-                        </ul>
-                    </div>
 
-                           
-                        </ul>
-                    </div>
-                    <div class="mobile_nav">
-                        <ul>
+                            <!--wishlist count total -->
+                        <div class="headd-sty-last">
+                            <ul class="nav-menu nav-menu-social align-to-right align-items-center d-flex">
                             <li>
-                                <a href="#" onclick="openSearch()">
-                                    <i class="lni lni-search-alt"></i>
+                            <a href="{{ route('web.user.wishlist') }}" onclick="openWishlist()">
+                        
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <i class="lni lni-heart fs-lg"></i><span class="dn-counter theme-bg">{{ $wishlist_count_total }}</span>
+                                                            <div class="text-left ml-1">
+                                                            
+                                                            
+                                                            </div>
+                                                        </div>
                                 </a>
                             </li>
-                            <li>
-                                <a href="#" onclick="openCart()">
-                                    <i class="lni lni-shopping-basket"></i><span class="dn-counter">@{{ cart_count_total }}</span>
-                                </a>
-                            </li>
-                        </ul>
+                            
+                            
+                            <!-- Cart count total -->
+                            
+                                <li>
+                                    <a href="#" onclick="openCart()">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <i class="fas fa-shopping-basket fs-lg"></i><span class="dn-counter theme-bg">@{{ cart_count_total }}</span>
+                                            <div class="text-left ml-1">
+                                                <div class="text-muted small lh-1">Total</div>
+                                                <div class="primary-text cart-subtotal"><span class="fs-md ft-medium"><span class="prc-currency">Tk.</span>@{{ total_amount }}</span></div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                            
+                            </ul>
+                        </div>
+                        <div class="mobile_nav">
+                            <ul>
+                                <li>
+                                    <a href="#" onclick="openSearch()">
+                                        <i class="lni lni-search-alt"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" onclick="openCart()">
+                                        <i class="lni lni-shopping-basket"></i><span class="dn-counter">@{{ cart_count_total }}</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+        
 </div>
 
-<div class="header header-dark head-style-2">
+<div class="header  head-style-2">
     <div class="container">
         <nav id="navigation" class="navigation navigation-landscape">
             <div class="nav-header">

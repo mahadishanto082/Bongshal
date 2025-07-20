@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Website;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\ContactMessage;
+use App\Models\WelcomeText;
 use App\Models\Slider;
 use App\Models\User;
 use App\Services\HomeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Product;
+
 class HomeController extends Controller
 {
     private HomeService $homeService;
@@ -23,6 +25,7 @@ class HomeController extends Controller
     public function index()
     {
         $data = [
+            'welcome_text' => $this->homeService->getWelcomeText(),
             'sliders' => $this->homeService->getAllSliders(),
             'feature_categories' => $this->homeService->featureCategoryWithProducts(),
             'categories' => $this->homeService->getAllCategories(),

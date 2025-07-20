@@ -4,11 +4,16 @@ namespace App\Services;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\WelcomeText;
 use App\Models\Slider;
 use Illuminate\Http\Request;
 
 class HomeService
 {
+    public function getWelcomeText()
+    {
+        return  WelcomeText::where('status', 'Active')->first();
+    }
     public function getAllSliders()
     {
         return  Slider::with('category')->where('status', 'Active')->get();
