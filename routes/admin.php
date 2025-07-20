@@ -57,6 +57,7 @@ Route::group(['middleware' => ['auth:admin']], function () {
     Route::get('agents/withdraw-request', 'AgentController@withdrawRequest')->name('agents.withdrawRequest');
     Route::post('agents/withdraw-request/{id}', 'AgentController@withdrawRequestUpdate')->name('agents.withdrawRequestUpdate');
     Route::resource('agents', 'AgentController');
+    Route::resource('WelcomeTexts', 'WelcomeTextController');
 
     Route::get('setting', 'SettingController@index')->name('setting');
     Route::post('update-update', 'SettingController@update')->name('setting.update');

@@ -3,7 +3,11 @@
         <div class="row">
             <div class="col-xl-7 col-lg-6 col-md-6 col-sm-12 hide-ipad">
             </div>
-            <!-- Right Menu -->
+
+         
+
+
+            <!-- Right Menu
             <div class="col-xl-5 col-lg-6 col-md-12 col-sm-12">
                 <div class="currency-selector dropdown js-dropdown float-right"></div>
                 @if(auth('web')->check())
@@ -38,12 +42,25 @@
                 <div class=" dropdown js-dropdown float-right mr-3">
                     <a href="javascript:void(0);" data-toggle="modal" data-target="#orderTrack" class="text-muted medium"><i class="lni lni-map-marker mr-1"></i>Order Tracking</a>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>
 
 <div class="headd-sty">
+    <!-- Header-msg -->
+        <div class="header header-dark head-style-2 " style="background-color: #fa4c06;">
+            <div class="container">
+                <nav id="navigation" class="navigation navigation-landscape">
+                    <div class="nav-header">
+                        <div class="nav-toggle"></div>
+                        <div class="nav-menus-wrapper" style="background-color: #fa4c06; padding: 15px; text-align: center;">
+                            <span class="text-black">Welcome to Bongshal! Enjoy your shopping experience.</span>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
     <div class="container">
         <div class="row">
             <div class="col-xl-12 col-lg-12 col-md-12">

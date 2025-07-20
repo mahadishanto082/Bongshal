@@ -171,6 +171,19 @@
                         New</a></li>
             </ul>
         </li>
+        <li class="br-menu-item">
+            <a href="#"
+               class="br-menu-link with-sub {{ Request::routeIs('admin.WelcomeTexts*') ? 'active show-sub' : ''  }}"><i
+                    class="menu-item-icon icon ion-monitor tx-20"></i><span class="menu-item-label">Welcome-text</span></a>
+            <ul class="br-menu-sub">
+                <li class="sub-item"><a href="{{ route('admin.WelcomeTexts.index') }}"
+                                        class="sub-link {{ Request::routeIs('admin.WelcomeTexts.index') || Request::routeIs('admin.sliders.edit') ? 'active' : ''  }}">List</a>
+                </li>
+                <li class="sub-item"><a href="{{ route('admin.WelcomeTexts.create') }}"
+                                        class="sub-link {{ Request::routeIs('admin.WelcomeTexts.create') ? 'active' : ''  }}">Add
+                        New</a></li>
+            </ul>
+        </li>
 
         <li class="br-menu-item">
             <a href="{{ route('admin.setting') }}"
