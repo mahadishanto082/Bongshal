@@ -73,9 +73,31 @@
                         <div class="headd-sty-left d-flex align-items-center ">
                             <div class="headd-sty-01 ">
                                 <a class="nav-brand py-0" href="{{ route('web.home') }}">
-                                    <img src="{{ asset('Bongshal.jpeg') }}" class="logo" alt="" />
+                                    <img src="{{ asset('revzila.png') }}" class="logo" alt="" />
                                 </a>
                             </div>
+                            <div class="headd-sty-01 ml-3">
+                                <button 
+                                    style="
+                                    width: 180px; 
+                                    
+                                    background-color: #fa4c06; 
+                                    color: white; 
+                                    padding: 10px; line-height: 1; 
+                                    border: none; 
+                                    border-radius: 4px; 
+                                    cursor: pointer; 
+                                    font-weight: bold;
+                                    transition: background-color 0.3s ease;
+                                    "
+                                    onmouseover="this.style.backgroundColor='#e64300';"
+                                    onmouseout="this.style.backgroundColor='#fa4c06';"
+                                >
+                                <img src="football (2).png" alt="icon" style="width:35px; height:35px;"/>
+                                SHOP YOUR RIDE
+                                </button>
+                                </div>
+
 
                             <!-- Search Form -->
                             <div class="headd-sty-02 ml-3"  style="margin: 0; padding: 10px; line-height: 1;">
@@ -101,6 +123,53 @@
                         </div>
                         <div class="headd-sty-last">
                             <ul class="nav-menu nav-menu-social align-to-right align-items-center d-flex">
+                             <!-- User Profile Icon -->
+                             <div class="col-xl-5 col-lg-6 col-md-12 col-sm-12">
+                                <div class="currency-selector dropdown js-dropdown float-right"></div>
+
+                                    @if(auth('web')->check())
+                                        <div class="language-selector-wrapper dropdown js-dropdown float-right mr-3">
+                                            <a class="popup-title d-flex align-items-center gap-2" href="javascript:void(0)" data-toggle="dropdown" title="User Menu" aria-label="User dropdown">
+                                                <!-- Profile icon -->
+                                                <i class="fas fa-user-circle text-white fs-3 mr-2"></i> 
+                                                <!-- Name & optional points -->
+                                                <span class="iso_code medium text-white">
+                                                    {{ auth('web')->user()->name }} 
+                                                    @if(auth('web')->user()->role == 'Agent')
+                                                        ({{ auth('web')->user()->point }})
+                                                    @endif
+                                                </span>
+                                                <i class="fa fa-angle-down medium text-white ml-1"></i>
+                                            </a>
+
+                                            <ul class="dropdown-menu popup-content link">
+                                                <li>
+                                                    <a href="{{ route('web.user.profile') }}" class="dropdown-item medium text-muted"><span>Profile</span></a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{ route('web.user.orders') }}" class="dropdown-item medium text-muted"><span>My Order</span></a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{ route('web.user.user_addresses.index') }}" class="dropdown-item medium text-muted"><span>Address</span></a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:void(0);" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="dropdown-item medium text-muted"><span>Logout</span></a>
+                                                </li>
+                                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                                    @csrf
+                                                </form>
+                                            </ul>
+                                        </div>
+                                    @else
+                                        <div class="currency-selector dropdown js-dropdown float-right mr-3">
+                                            <a href="{{ route('login') }}" class="text-white medium">
+                                                <i class="lni lni-user mr-1"></i> 
+                                            </a>
+                                        </div>
+                                    @endif
+                                </div>
+                           
+                             
                             <li>
                                 <!-- Compare count total -->
                                 <a href="{{ route('web.user.compare') }}" onclick="AddCompare()">
