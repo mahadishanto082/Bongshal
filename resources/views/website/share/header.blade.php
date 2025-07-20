@@ -122,101 +122,99 @@
                             </div>
                         </div>
                         <div class="headd-sty-last">
-                            <ul class="nav-menu nav-menu-social align-to-right align-items-center d-flex">
-                             <!-- User Profile Icon -->
-                             <div class="col-xl-5 col-lg-6 col-md-12 col-sm-12">
-                                <div class="currency-selector dropdown js-dropdown float-right"></div>
+                            <ul class="nav-menu nav-menu-social d-flex align-items-center" style="gap: 2px; margin: 0; padding: 0; list-style: none;">
 
-                                    @if(auth('web')->check())
-                                        <div class="language-selector-wrapper dropdown js-dropdown float-right mr-3">
-                                            <a class="popup-title d-flex align-items-center gap-2" href="javascript:void(0)" data-toggle="dropdown" title="User Menu" aria-label="User dropdown">
-                                                <!-- Profile icon -->
-                                                <i class="fas fa-user-circle text-white fs-3 mr-2"></i> 
-                                                <!-- Name & optional points -->
-                                                <span class="iso_code medium text-white">
-                                                    {{ auth('web')->user()->name }} 
-                                                    @if(auth('web')->user()->role == 'Agent')
-                                                        ({{ auth('web')->user()->point }})
-                                                    @endif
-                                                </span>
-                                                <i class="fa fa-angle-down medium text-white ml-1"></i>
-                                            </a>
+                                <!-- Membership Button -->
+                                <li>
+                                <button style="background-color: black; border: none; padding: 0;">
+                                    <img src="{{ asset('membership.png') }}" alt="Membership" style="width: 120px; height: 35px;">
+                                </button>
+                                </li>
 
-                                            <ul class="dropdown-menu popup-content link">
-                                                <li>
-                                                    <a href="{{ route('web.user.profile') }}" class="dropdown-item medium text-muted"><span>Profile</span></a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{ route('web.user.orders') }}" class="dropdown-item medium text-muted"><span>My Order</span></a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{ route('web.user.user_addresses.index') }}" class="dropdown-item medium text-muted"><span>Address</span></a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0);" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="dropdown-item medium text-muted"><span>Logout</span></a>
-                                                </li>
-                                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                                    @csrf
-                                                </form>
-                                            </ul>
-                                        </div>
-                                    @else
-                                        <div class="currency-selector dropdown js-dropdown float-right mr-3">
-                                            <a href="{{ route('login') }}" class="text-white medium">
-                                                <i class="lni lni-user mr-1"></i> 
-                                            </a>
-                                        </div>
-                                    @endif
-                                </div>
-                           
-                             
-                            <li>
-                                <!-- Compare count total -->
+                                    <!-- Order Tracking -->
+                                <li>
+                                    <div class="dropdown js-dropdown">
+                                        <a href="javascript:void(0);" data-toggle="modal" data-target="#orderTrack" class="text-muted medium" 
+                                        style="font-weight: 600; font-size: 18px;">
+                                        <i class="lni lni-map-marker" style="font-size: 22px;"></i>
+                                        </a>
+                                    </div>
+                                 </li>
+
+                                <!-- User Profile/Login -->
+                                <li>
+                                @if(auth('web')->check())
+                                    <div class="dropdown language-selector-wrapper">
+                                    <a class="popup-title d-flex align-items-center text-white" href="javascript:void(0)" data-toggle="dropdown" title="User Menu" style="gap: 6px;">
+                                        <i class="fas fa-user-circle fs-3"></i>
+                                        <span class="iso_code medium">
+                                        {{ auth('web')->user()->name }}
+                                        @if(auth('web')->user()->role == 'Agent')
+                                            ({{ auth('web')->user()->point }})
+                                        @endif
+                                        </span>
+                                        <i class="fa fa-angle-down medium"></i>
+                                    </a>
+
+                                    <ul class="dropdown-menu popup-content link">
+                                        <li><a href="{{ route('web.user.profile') }}" class="dropdown-item medium text-muted">Profile</a></li>
+                                        <li><a href="{{ route('web.user.orders') }}" class="dropdown-item medium text-muted">My Order</a></li>
+                                        <li><a href="{{ route('web.user.user_addresses.index') }}" class="dropdown-item medium text-muted">Address</a></li>
+                                        <li>
+                                        <a href="javascript:void(0);" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="dropdown-item medium text-muted">Logout</a>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">@csrf</form>
+                                        </li>
+                                    </ul>
+                                    </div>
+                                @else
+                                    <a href="{{ route('login') }}" class="text-white medium">
+                                    <i class="lni lni-user"></i>
+                                    </a>
+                                @endif
+                                </li>
+
+                                <!-- Compare -->
+                                <li>
                                 <a href="{{ route('web.user.compare') }}" onclick="AddCompare()">
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <i class="lni lni-balance fs-lg"></i><span class="dn-counter theme-bg">{{ $wishlist_count_total }}</span>
-                                        <div class="text-left ml-1">
-                                            <i class="fas fa-exchange-alt text-primary"></i>
-                                        </div>
+                                    <div class="d-flex align-items-center">
+                                    <i class="lni lni-balance fs-lg"></i>
+                                    <span class="dn-counter theme-bg">{{ $wishlist_count_total }}</span>
+                                    <i class="fas fa-exchange-alt text-primary ml-1"></i>
                                     </div>
                                 </a>
-                            </li>
-
-                            <!--wishlist count total -->
-                        <div class="headd-sty-last">
-                            <ul class="nav-menu nav-menu-social align-to-right align-items-center d-flex">
-                            <li>
-                            <a href="{{ route('web.user.wishlist') }}" onclick="openWishlist()">
-                        
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <i class="lni lni-heart fs-lg"></i><span class="dn-counter theme-bg">{{ $wishlist_count_total }}</span>
-                                                            <div class="text-left ml-1">
-                                                            
-                                                            
-                                                            </div>
-                                                        </div>
-                                </a>
-                            </li>
-                            
-                            
-                            <!-- Cart count total -->
-                            
-                                <li>
-                                    <a href="#" onclick="openCart()">
-                                        <div class="d-flex align-items-center justify-content-between">
-                                            <i class="fas fa-shopping-basket fs-lg"></i><span class="dn-counter theme-bg">@{{ cart_count_total }}</span>
-                                            <div class="text-left ml-1">
-                                                <div class="text-muted small lh-1">Total</div>
-                                                <div class="primary-text cart-subtotal"><span class="fs-md ft-medium"><span class="prc-currency">Tk.</span>@{{ total_amount }}</span></div>
-                                            </div>
-                                        </div>
-                                    </a>
                                 </li>
+
+                                <!-- Wishlist -->
+                                <li>
+                                <a href="{{ route('web.user.wishlist') }}" onclick="openWishlist()">
+                                    <div class="d-flex align-items-center">
+                                    <i class="lni lni-heart fs-lg"></i>
+                                    <span class="dn-counter theme-bg">{{ $wishlist_count_total }}</span>
+                                    </div>
+                                </a>
+                                </li>
+
+                                <!-- Cart -->
+                                <li>
+                                <a href="#" onclick="openCart()">
+                                    <div class="d-flex align-items-center">
+                                    <i class="fas fa-shopping-basket fs-lg"></i>
+                                    <span class="dn-counter theme-bg">@{{ cart_count_total }}</span>
+                                    <div class="ml-2 text-left">
+                                        <div class="text-muted small lh-1">Total</div>
+                                        <div class="primary-text cart-subtotal">
+                                        <span class="fs-md ft-medium"><span class="prc-currency">Tk.</span>@{{ total_amount }}</span>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </a>
+                                </li>
+
                             </ul>
                         </div>
 
                             
-                            </ul>
+                            
                         </div>
                         <div class="mobile_nav">
                             <ul>
