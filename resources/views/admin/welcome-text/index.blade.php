@@ -8,7 +8,7 @@
     <div class="br-pagetitle">
         <i class="icon ion-ios-home-outline"></i>
         <div>
-            <h4>Sliders</h4>
+            <h4>Welcome-Text</h4>
             <p class="mg-b-0">List of WelcomeTexts</p>
         </div>
     </div>
