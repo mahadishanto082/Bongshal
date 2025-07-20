@@ -1,15 +1,15 @@
 @extends('layouts.admin')
 
 @section('title')
-    Slider | Edit
+    Welcome Text | Edit
 @endsection
 
 @section('page-info')
     <div class="br-pagetitle">
         <i class="icon ion-ios-home-outline"></i>
         <div>
-            <h4>Slider | Edit</h4>
-            <p class="mg-b-0">{{ $data->title }} - Edit this information</p>
+            <h4>Welcome Text | Edit</h4>
+            <p class="mg-b-0">{{ $welcomeText->title }} - Edit this welcome message</p>
         </div>
     </div>
 @endsection
@@ -19,61 +19,27 @@
         <div class="col-sm-12 col-xl-12 mg-t-20 mg-xl-t-0">
             <div class="card">
                 <div class="card-body">
-                    <form action="{{ route('admin.sliders.update', $data->id) }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('admin.WelcomeTexts.update', $welcomeText->id) }}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="form-layout form-layout-1">
-                            <div class="row mg-b-25" data-select2-id="11">
-                                <div class="col-md-6">
+                            <div class="row mg-b-25">
+
+                                <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="form-control-label">Select Parent</label>
-                                        <select class="form-control select2" name="category_id">
-                                            <option value="" selected hidden disabled></option>
-                                            @if(!empty($categories))
-                                                @foreach($categories as $category)
-                                                    <option value="{{ $category->id }}" {{ old('category_id', $data->category_id) == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
-                                                @endforeach
-                                            @endif
-                                        </select>
-                                        @error('category_id')
-                                        <small class="text-danger">{{ $message }}</small>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="form-control-label">Title</label>
-                                        <input class="form-control" type="text" name="title" value="{{ old('title', $data->title) }}">
+                                        <label class="form-control-label">Title <span class="tx-danger">*</span></label>
+                                        <input class="form-control" type="text" name="title" value="{{ old('title', $welcomeText->title) }}">
                                         @error('title')
                                         <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label class="form-control-label">Sub Title</label>
-                                        <input class="form-control" type="text" name="sub_title" value="{{ old('sub_title', $data->sub_titel) }}">
-                                        @error('sub_title')
-                                        <small class="text-danger">{{ $message }}</small>
-                                        @enderror
-                                    </div>
-                                </div>
 
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="form-control-label">Description</label>
-                                        <textarea class="form-control" type="text" name="description">{{ old('description', $data->description) }}</textarea>
-                                        @error('description')
-                                        <small class="text-danger">{{ $message }}</small>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="form-control-label">Image (1900x1080) <span class="tx-danger">*</span></label>
-                                        <input class="form-control" type="file" name="image" accept="image/*">
-                                        @error('image')
+                                        <label class="form-control-label">Content <span class="tx-danger">*</span></label>
+                                        <textarea class="form-control" name="content" rows="5">{{ old('content', $welcomeText->content) }}</textarea>
+                                        @error('content')
                                         <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
@@ -82,10 +48,10 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="form-control-label">Status <span class="tx-danger">*</span></label>
-                                        <select class="form-control select2" name="status">
-                                            <option value="" selected hidden disabled></option>
-                                            <option value="Active" {{ old('status', $data->status) == 'Active' ? 'selected' : '' }}>Active</option>
-                                            <option value="Inactive" {{ old('status', $data->status) == 'Inactive' ? 'selected' : '' }}>Inactive</option>
+                                        <select class="form-control" name="status">
+                                            <option value="" disabled selected hidden>Select Status</option>
+                                            <option value="Active" {{ old('status', $welcomeText->status) == 'Active' ? 'selected' : '' }}>Active</option>
+                                            <option value="Inactive" {{ old('status', $welcomeText->status) == 'Inactive' ? 'selected' : '' }}>Inactive</option>
                                         </select>
                                         @error('status')
                                         <small class="text-danger">{{ $message }}</small>
