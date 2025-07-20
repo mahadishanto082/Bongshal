@@ -7,63 +7,38 @@
          
 
 
-            <!-- Right Menu
-            <div class="col-xl-5 col-lg-6 col-md-12 col-sm-12">
-                <div class="currency-selector dropdown js-dropdown float-right"></div>
-                @if(auth('web')->check())
-                    <div class="language-selector-wrapper dropdown js-dropdown float-right mr-3">
-                        <a class="popup-title" href="javascript:void(0)" data-toggle="dropdown" title="Language" aria-label="Language dropdown">
-                            <span class="iso_code medium text-muted">{{ auth('web')->user()->name }} @if(auth('web')->user()->role == 'Agent') ({{ auth('web')->user()->point }}) @endif  </span>
-                            <i class="fa fa-angle-down medium text-muted"></i>
-                        </a>
-                        <ul class="dropdown-menu popup-content link">
-                            <li>
-                                <a href="{{ route('web.user.profile') }}" class="dropdown-item medium text-muted"><span>Profile</span></a>
-                            </li>
-                            <li>
-                                <a href="{{ route('web.user.orders') }}" class="dropdown-item medium text-muted"><span>My Order</span></a>
-                            </li>
-                            <li>
-                                <a href="{{ route('web.user.user_addresses.index') }}" class="dropdown-item medium text-muted"><span>Address</span></a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0);" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="dropdown-item medium text-muted"><span>Logout</span></a>
-                            </li>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
-                        </ul>
-                    </div>
-                @else
-                    <div class="currency-selector dropdown js-dropdown float-right mr-3">
-                        <a href="{{ route('login') }}" class="text-muted medium"><i class="lni lni-user mr-1"></i>Login / Register</a>
-                    </div>
-                @endif
-                <div class=" dropdown js-dropdown float-right mr-3">
-                    <a href="javascript:void(0);" data-toggle="modal" data-target="#orderTrack" class="text-muted medium"><i class="lni lni-map-marker mr-1"></i>Order Tracking</a>
-                </div>
-            </div> -->
         </div>
     </div>
 </div>
 
 <div class="headd-sty">
-    <!-- Header-msg -->
-    <div class="header header-dark head-style-2" style="background-color: #fa4c06;">
-    <div class="container">
-        <nav id="navigation" class="navigation navigation-landscape">
-            <div class="nav-header">
-                <div class="nav-toggle"></div>
-                <div class="nav-menus-wrapper d-flex justify-content-center align-items-center"
-                     style="background-color: #fa4c06; padding: 20px; min-height: 80px;">
-                    <span class="text-dark fs-5; padding: 100px;">Welcome to Bongshal! Enjoy your shopping experience.</span>
-                </div>
+@if(!empty($welcome_text))
+    <div style="background-color: #fa4c06; overflow: hidden; height: 50px; display: flex; align-items: center;">
+        <div class="container" style="width: 100%;">
+            <div style="white-space: nowrap; display: inline-block; animation: slide-left 15s linear infinite; font-size: 1.1rem; font-weight: bold; color: white;">
+                <i class="fas fa-info-circle" style="margin-right: 8px;"></i>
+                {{ $welcome_text }}
             </div>
-        </nav>
+        </div>
     </div>
+@endif
+
+@section('_css')
+<style>
+@keyframes slide-left {
+  0%   { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+</style>
+@endsection
+
 </div>
 
-        <!-- Header -->
+    </div>
+    
+    
+    
+    <!-- Header -->
       
         <div style="background-color: black;">   
         <div class="container">
@@ -237,20 +212,23 @@
         
 </div>
 
-<div class="header  head-style-2">
+<div class="header head-style-2">
     <div class="container">
         <nav id="navigation" class="navigation navigation-landscape">
-            <div class="nav-header">
+            <div class="nav-header" style="width: 100%;">
                 <div class="nav-toggle"></div>
-                <div class="nav-menus-wrapper">
-                    <ul class="nav-menu">
+                
+                <!-- Menu Wrapper: full width & centered -->
+                <div class="nav-menus-wrapper" style="display: flex; justify-content: center; width: 100%;">
+                    <ul class="nav-menu" style="display: flex; gap: 20px; list-style: none; padding: 0; margin: 0;">
                         <li><a href="{{ route('web.home') }}"><i class="fas fa-home"></i> Home</a></li>
-                        <li><a href="{{ route('web.categories') }}"><i class="fas fa-cube"></i> Catagories</a></li>
-                        <li><a href="{{ route('web.products.index') }}"><i class="fas fa-shopping-cart"></i> All products</a></li>
-                        <li><a href="#"><i class="fas fa-address-card"></i> About us</a></li>
+                        <li><a href="{{ route('web.categories') }}"><i class="fas fa-cube"></i> Categories</a></li>
+                        <li><a href="{{ route('web.products.index') }}"><i class="fas fa-shopping-cart"></i> All Products</a></li>
+                        <li><a href="#"><i class="fas fa-address-card"></i> About Us</a></li>
                         <li><a href="{{ route('web.contactUs') }}"><i class="fas fa-address-book"></i> Contact</a></li>
                     </ul>
                 </div>
+
             </div>
         </nav>
     </div>

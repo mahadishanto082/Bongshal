@@ -21,23 +21,21 @@ class HomeController extends Controller
     {
         $this->homeService = $homeService;
     }
-
     public function index()
     {
+        $welcomeText = $this->homeService->getWelcomeText();
+    
         $data = [
-            'welcome_text' => $this->homeService->getWelcomeText(),
+            'welcome_text' => $welcomeText ? $welcomeText->content : null,
             'sliders' => $this->homeService->getAllSliders(),
             'feature_categories' => $this->homeService->featureCategoryWithProducts(),
             'categories' => $this->homeService->getAllCategories(),
-            
             'new_arrival_products' => Product::where('status', 1)->latest()->get(),
-
-      
         ];
- 
+    
         return view('website.home', $data);
     }
-
+    
     public function categories ()
     {
         $data = [
