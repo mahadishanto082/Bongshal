@@ -10,28 +10,29 @@
         </div>
     </div>
 </div>
+@section('css')
+<style>
+    .hamburger-btn {
+      font-size: 1.5rem;
+      border: none;
+      background: none;
+    }
+
+    .nav-menu i {
+      margin-right: 8px;
+    }
+  </style>
 
 <div class="headd-sty">
-@if(!empty($welcome_text))
-    <div style="background-color: #fa4c06; overflow: hidden; height: 50px; display: flex; align-items: center;">
-        <div class="container" style="width: 100%;">
-            <div style="white-space: nowrap; display: inline-block; animation: slide-left 15s linear infinite; font-size: 1.1rem; font-weight: bold; color: white;">
-                <i class="fas fa-info-circle" style="margin-right: 8px;"></i>
-                {{ $welcome_text }}
-            </div>
-        </div>
-    </div>
-@endif
-
-@section('_css')
-<style>
-@keyframes slide-left {
-  0%   { transform: translateX(100%); }
-  100% { transform: translateX(-100%); }
-}
-</style>
-@endsection
-
+    <!-- Header-msg -->
+    <div style="background-color: #fa4c06; display: flex; justify-content: center; align-items: center; height: 50px;">
+  <div class="container" style="display: flex; align-items: center;">
+  <div style="min-width:100%;padding:15px;box-sizing:border-box;text-align:center;font-size:1.2rem;font-weight:bold; color:black">
+  @if (!empty($welcomeText))
+  
+  @endif
+    
+  </div>
 </div>
 
     </div>
@@ -217,6 +218,35 @@
         <nav id="navigation" class="navigation navigation-landscape">
             <div class="nav-header" style="width: 100%;">
                 <div class="nav-toggle"></div>
+                <nav class="d-flex justify-content-between align-items-center">
+      <!-- Site logo or name -->
+      <div class="logo fw-bold fs-4">MySite</div>
+
+      <!-- Hamburger always visible -->
+      <button class="hamburger-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#mainOffcanvas" aria-controls="mainOffcanvas">
+        ☰
+      </button>
+    </nav>
+  </div>
+</div>
+
+<!-- Offcanvas Menu -->
+<div class="offcanvas offcanvas-start" tabindex="-1" id="mainOffcanvas" aria-labelledby="mainOffcanvasLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="mainOffcanvasLabel">Navigation</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <ul class="nav flex-column nav-menu">
+      <li class="nav-item"><a class="nav-link" href="{{ route('web.home') }}"><i class="fas fa-home"></i> Home</a></li>
+      <li class="nav-item"><a class="nav-link" href="{{ route('web.categories') }}"><i class="fas fa-cube"></i> Categories</a></li>
+      <li class="nav-item"><a class="nav-link" href="{{ route('web.products.index') }}"><i class="fas fa-shopping-cart"></i> All Products</a></li>
+      <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-address-card"></i> About Us</a></li>
+      <li class="nav-item"><a class="nav-link" href="{{ route('web.contactUs') }}"><i class="fas fa-address-book"></i> Contact</a></li>
+    </ul>
+  </div>
+</div>
+
                 
                 <!-- Menu Wrapper: full width & centered -->
                 <div class="nav-menus-wrapper" style="display: flex; justify-content: center; width: 100%;">

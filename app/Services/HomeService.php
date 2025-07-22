@@ -58,6 +58,7 @@ class HomeService
         $data = [
             'category' => $category,
             'products' => $products,
+            'cart_count_total' => session('cart_count_total', 0),
         ];
 
         return $data;

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Wishlist;
+use Illuminate\Support\Facades\Session;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -39,6 +40,8 @@ class AppServiceProvider extends ServiceProvider
             }
 
             $view->with('wishlist_count_total', $wishlistCount);
+            // $view->with('cart_count_total', Session::get('cart_count_total', 0));
+            // $view->with('total_amount', Session::get('total_amount', 0));
         });
     }
 }

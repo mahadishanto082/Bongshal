@@ -71,7 +71,7 @@
 
 
 
-@section('content')<<!-- Title-slider -->
+@section('content')<!-- Title-slider -->
     @if(!empty($sliders))
         <div class="home-slider margin-bottom-0">
             @foreach($sliders as $slider)
