@@ -214,23 +214,32 @@
 </div>
 
 <div class="header head-style-2">
-    <div class="container">
-        <nav id="navigation" class="navigation navigation-landscape">
-            <div class="nav-header" style="width: 100%;">
-                <div class="nav-toggle"></div>
-                <nav class="d-flex justify-content-between align-items-center">
-      <!-- Site logo or name -->
-      <div class="logo fw-bold fs-4">MySite</div>
+  <div class="container">
+    <nav id="navigation" class="navigation navigation-landscape">
+      <div class="nav-header d-flex align-items-center justify-content-between" style="width: 100%;">
+        
+        <!-- Hamburger Button -->
+        <button class="hamburger-btn ms-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#mainOffcanvas" aria-controls="mainOffcanvas">
+          ☰
+        </button>
 
-      <!-- Hamburger always visible -->
-      <button class="hamburger-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#mainOffcanvas" aria-controls="mainOffcanvas">
-        ☰
-      </button>
+        <!-- Centered Menu -->
+        <div class="nav-menus-wrapper flex-grow-1 d-flex justify-content-center">
+          <ul class="nav-menu d-flex gap-3 list-unstyled mb-0">
+            <li><a href="{{ route('web.home') }}"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="{{ route('web.categories') }}"><i class="fas fa-cube"></i> Categories</a></li>
+            <li><a href="{{ route('web.products.index') }}"><i class="fas fa-shopping-cart"></i> All Products</a></li>
+            <li><a href="#"><i class="fas fa-address-card"></i> About Us</a></li>
+            <li><a href="{{ route('web.contactUs') }}"><i class="fas fa-address-book"></i> Contact</a></li>
+          </ul>
+        </div>
+
+      </div>
     </nav>
   </div>
 </div>
 
-<!-- Offcanvas Menu -->
+<!-- Offcanvas for mobile view -->
 <div class="offcanvas offcanvas-start" tabindex="-1" id="mainOffcanvas" aria-labelledby="mainOffcanvasLabel">
   <div class="offcanvas-header">
     <h5 class="offcanvas-title" id="mainOffcanvasLabel">Navigation</h5>
@@ -245,23 +254,6 @@
       <li class="nav-item"><a class="nav-link" href="{{ route('web.contactUs') }}"><i class="fas fa-address-book"></i> Contact</a></li>
     </ul>
   </div>
-</div>
-
-                
-                <!-- Menu Wrapper: full width & centered -->
-                <div class="nav-menus-wrapper" style="display: flex; justify-content: center; width: 100%;">
-                    <ul class="nav-menu" style="display: flex; gap: 20px; list-style: none; padding: 0; margin: 0;">
-                        <li><a href="{{ route('web.home') }}"><i class="fas fa-home"></i> Home</a></li>
-                        <li><a href="{{ route('web.categories') }}"><i class="fas fa-cube"></i> Categories</a></li>
-                        <li><a href="{{ route('web.products.index') }}"><i class="fas fa-shopping-cart"></i> All Products</a></li>
-                        <li><a href="#"><i class="fas fa-address-card"></i> About Us</a></li>
-                        <li><a href="{{ route('web.contactUs') }}"><i class="fas fa-address-book"></i> Contact</a></li>
-                    </ul>
-                </div>
-
-            </div>
-        </nav>
-    </div>
 </div>
 <!-- End Navigation -->
 <div class="clearfix"></div>
