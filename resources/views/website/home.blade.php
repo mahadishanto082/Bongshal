@@ -103,7 +103,37 @@
     </div>
 @endif
 
+<!-- Featured Categories Section -->
+<h6 class="mt-2 fw-semibold text-dark text-center" style="font-size: 2rem;">
+  {{ $category->name ?? 'Featured Categories' }}
+</h6>
 
+
+<section >
+        <div class="container">
+            @if(!empty($categories))
+                <div class="row">
+                    @foreach($categories as $category)
+                        <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6 col-4">
+                            <div class="cats_side_wrap text-center mx-auto bg-white shadow mb-3">
+                                <div class="sl_cat_01">
+                                    <div class="d-inline-flex align-items-center justify-content-center p-4 circle mb-2 border">
+                                        <a href="{{ route('web.categories.products', $category->slug) }}" class="d-block">
+                                            <img src="{{ asset('storage/categories/'. $category->image) }}" class="img-fluid" width="40" alt="">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="sl_cat_02"><h6 class="m-0 ft-medium fs-sm"><a href="{{ route('web.categories.products', $category->slug) }}">{{ $category->name }}</a></h6></div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            @endif
+
+        </div>
+    </section>
+
+    <!-- Categories Section -->
     @if(!empty($feature_categories))
         @foreach($feature_categories as $key => $category)
             <section class="{{ $key % 2 == 0 ? 'middle' : 'gray' }}">
