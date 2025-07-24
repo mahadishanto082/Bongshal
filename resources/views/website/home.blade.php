@@ -71,11 +71,17 @@
 
 
 
-@section('content')<!-- Title-slider -->
-    @if(!empty($sliders))
-        <div class="home-slider margin-bottom-0">
-            @foreach($sliders as $slider)
-                <div data-background-image="{{ asset('storage/sliders/'. $slider->image) }}" class="item">
+@section('content')
+
+@include('website.share.user-custom-feature')
+<!-- Title-slider -->
+@if(!empty($sliders))
+    <div class="home-slider margin-bottom-0">
+        @foreach($sliders as $slider)
+            <a href="{{ $slider->link ?? 'categories' }}"> {{-- Make image clickable --}}
+                <div data-background-image="{{ asset('storage/sliders/' . $slider->image) }}" 
+                     class="item" 
+                     style="cursor: pointer;">
                     <div class="container">
                         <div class="row">
                             <div class="col-md-12">
@@ -86,16 +92,17 @@
                                             <span class="trending home-slider-text">{{ $slider->sub_title }}</span>
                                             <span class="trending home-slider-text">{{ $slider->description }}</span>
                                         </div>
-                                          
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            @endforeach
-        </div>
-    @endif
+            </a>
+        @endforeach
+    </div>
+@endif
+
 
     @if(!empty($feature_categories))
         @foreach($feature_categories as $key => $category)
@@ -415,7 +422,7 @@
     </section>
     @endif
 
-    @include('website.share.user-custom-feature')
+    
     
 
 @endsection

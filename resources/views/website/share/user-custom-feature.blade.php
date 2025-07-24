@@ -1,57 +1,33 @@
-<section class="p-0 gray">
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6">
-                <div class="text-center py-3 px-3 border my-3 f-service">
-                    <div class="d_ico mb-3">
-                        <i class="fas fa-shopping-basket"></i>
-                    </div>
-                    <div class="d_capt">
-                        <h5 class="mb-0">Value for money</h5>
-                        <span class="text-muted">All products are sold at comparable or lower prices than the market price.
-</span>
-                    </div>
-                </div>
-            </div>
 
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6">
-                <div class="text-center py-3 px-3 border my-3 f-service">
-                    <div class="d_ico mb-3">
-                        <i class="far fa-credit-card"></i>
-                    </div>
-                    <div class="d_capt">
-                        <h5 class="mb-0">Safe Payment</h5>
-                        <span class="text-muted">Opportunity to make payments through the most popular and secure payment methods in Bangladesh.
-</span>
-                    </div>
-                </div>
-            </div>
+  <div class="container">
+    <nav id="navigation" class="navigation navigation-landscape">
+      <div class="nav-header d-flex align-items-center justify-content-between" style="width: 100%;">
+        
+        
 
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6">
-                <div class="text-center py-3 px-3 border my-3 f-service">
-                    <div class="d_ico mb-3">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <div class="d_capt">
-                        <h5 class="mb-0">Delivery</h5>
-                        <span class="text-muted">Products are delivered within 2–5 days to any part of Bangladesh.
-</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6">
-                <div class="text-center py-3 px-3 border my-3 f-service">
-                    <div class="d_ico mb-3">
-                        <i class="fas fa-headphones-alt"></i>
-                    </div>
-                    <div class="d_capt">
-                        <h5 class="mb-0">24/7 customer care</h5>
-                        <span class="text-muted">24/7 support for round-the-clock shopping.</span>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
+        <!-- Centered Menu -->
+        <div class="nav-menus-wrapper flex-grow-1 d-flex justify-content-center">
+  <ul class="nav-menu d-flex gap-4 list-unstyled mb-0 align-items-center" style="font-size: 2rem; font:bold">
+  <li>
+      <a href="{{ route('web.categories') }}" class="d-flex align-items-center gap-2 ">
+        <i class="fas fa-shipping-fast text-primary fa-lg"></i> Free Shipping over $49.99
+      </a>
+    </li>
+    
+    <li>
+      <a href="{{ route('web.home') }}" class="d-flex align-items-center gap-2">
+        <i class="fas fa-dollar-sign text-success fa-lg"></i> ZillaCash: $5 for every $100
+      </a>
+    </li>
+    <li>
+      <a href="{{ route('web.contactUs') }}" class="d-flex align-items-center gap-2">
+        <i class="fas fa-headphones text-info fa-lg"></i> Customer Service From Riders
+      </a>
+    </li>
+  </ul>
+</div>
+ <!-- Right Side Menu -->
+       
+      </div>
+    </nav>
+  </div>
