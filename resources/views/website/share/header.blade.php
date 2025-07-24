@@ -24,38 +24,37 @@
 
 <div class="headd-sty">
     <!-- Header-msg -->
-    <div id="textCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2500">
-        
+    @if(!empty($welcome_text) && count($welcome_text) > 0)
+<div id="textCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2500">
   <div class="carousel-inner text-center py-3" style="background-color: #fa4c06;">
-    <div class="carousel-item active">
-    @if(!empty($welcome_text))
-    <div style="background-color: #fa4c06; overflow: hidden; height: 50px; display: flex; align-items: center;">
-        <div class="container" style="width: 100%;">
-            <div style="white-space: nowrap; display: inline-block; animation: slide-left 15s linear infinite; font-size: 1.1rem; font-weight: bold; color: white;">
-                <i class="fas fa-info-circle" style="margin-right: 8px;"></i>
-               {{ $welcome_text }}
-
-            </div>
+    
+    @foreach($welcome_text as $index => $text)
+      <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+        <div class="welcome-text-bar py-2">
+          <div class="container d-flex justify-content-center align-items-center text-white fw-bold gap-3">
+            <i class="fas fa-info-circle"></i>
+            <span>{{ $text->content }}</span>
+          </div>
         </div>
-    </div>
-  @endif
-    </div>
+      </div>
+    @endforeach
+
   </div>
 
- <!-- Carousel Controls: Smaller & Closer -->
-<button class="carousel-control-prev" type="button" data-bs-target="#textCarousel" data-bs-slide="prev"
-  style="top: 50%; left: 200px; transform: translateY(-50%); width: 25px; height: 25px;">
-  <span class="carousel-control-prev-icon" style="width: 15px; height: 15px;"></span>
-</button>
+  <!-- Carousel Controls: Smaller & Closer -->
+  <button class="carousel-control-prev" type="button" data-bs-target="#textCarousel" data-bs-slide="next"
+    style="top: 50%; left: 200px; transform: translateY(-50%); width: 25px; height: 25px;">
+    <span class="carousel-control-prev-icon" style="width: 15px; height: 15px;"></span>
+  </button>
 
-<button class="carousel-control-next" type="button" data-bs-target="#textCarousel" data-bs-slide="next"
-  style="top: 50%; right:200px; transform: translateY(-50%); width: 25px; height: 25px;">
-  <span class="carousel-control-next-icon" style="width: 15px; height: 15px;"></span>
-</button>
+  <button class="carousel-control-next" type="button" data-bs-target="#textCarousel" data-bs-slide="prev"
+    style="top: 50%; right: 200px; transform: translateY(-50%); width: 25px; height: 25px;">
+    <span class="carousel-control-next-icon" style="width: 15px; height: 15px;"></span>
+  </button>
 
 </div>
+@endif
 
-    </div>
     
     
     

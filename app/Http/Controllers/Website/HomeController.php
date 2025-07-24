@@ -27,7 +27,7 @@ class HomeController extends Controller
         $welcomeText = $this->homeService->getWelcomeText();
     
         $data = [
-            'welcome_text' => $welcomeText ? $welcomeText->content : null,
+            'welcome_text' => $welcomeText,
         
             'sliders' => $this->homeService->getAllSliders(),
             'feature_categories' => $this->homeService->featureCategoryWithProducts(),

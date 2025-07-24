@@ -12,7 +12,7 @@ class HomeService
 {
     public function getWelcomeText()
     {
-        return  WelcomeText::where('status', 'Active')->first();
+        return WelcomeText::where('status', 1)->get();
     }
     public function getAllSliders()
     {
