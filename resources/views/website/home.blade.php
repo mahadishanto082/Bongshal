@@ -110,7 +110,7 @@
 
 
 <section >
-        <div class="container">
+        <div class="container" style="justify-content: center;">
             @if(!empty($categories))
                 <div class="row">
                     @foreach($categories as $category)
@@ -132,6 +132,55 @@
 
         </div>
     </section>
+
+    <!-- New Arrival Section -->
+    @if(!empty($new_arrival_products))
+<section class="gray">
+    <div class="container">
+        <div class="row justify-content-center">
+            @foreach($new_arrival_products->take(3) as $product)
+                <div class="col-6 col-md-3 mb-4">
+                    <div class="card border-0 shadow-sm position-relative"
+                        style="width: 100%; height: 380px; display: flex; flex-direction: column; transition: transform 0.3s ease, box-shadow 0.3s ease;"
+                        onmouseover="this.style.transform='scale(1.03)'; this.style.boxShadow='0 0.5rem 1rem rgba(0,0,0,0.15)'"
+                        onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 0.125rem 0.25rem rgba(0,0,0,0.075)'">
+
+                        <!-- Badge -->
+                        <div class="position-absolute top-0 start-0 ms-2 mt-2 bg-info text-white px-2 py-1 rounded" style="z-index: 10;">
+                            <small class="fw-bold text-uppercase">
+                                {{ $product->stock > 0 ? 'Staff Pick' : 'Out of Stock' }}
+                            </small>
+                        </div>
+
+                        <!-- Image -->
+                        @if(!empty($product->slug))
+                            <a href="{{ route('web.products.details', $product->slug) }}" style="flex-shrink: 0;">
+                                <img class="card-img-top"
+                                    src="{{ asset('storage/products/' . $product->image) }}"
+                                    alt="{{ $product->name }}"
+                                    style="height: 200px; width: 100%; object-fit: cover;">
+                            </a>
+                        @else
+                            <img class="card-img-top"
+                                src="{{ asset('storage/products/' . $product->image) }}"
+                                alt="{{ $product->name }}"
+                                style="height: 200px; width: 100%; object-fit: cover;">
+                        @endif
+
+                        <!-- Content -->
+                        <div class="card-body text-center p-2" style="flex-grow: 1;">
+                            <h6 class="fw-semibold mb-2">{{ $product->name }}</h6>
+
+                            <!-- Rating (optional, remove if not needed) -->
+                            
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+@endif
 
     <!-- Categories Section -->
     @if(!empty($feature_categories))
