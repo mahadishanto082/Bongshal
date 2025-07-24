@@ -254,6 +254,8 @@
             <li><a href="{{ route('web.contactUs') }}"><i class="fas fa-address-book"></i> Contact</a></li>
           </ul>
         </div>
+        <!-- Right Side Menu -->
+        <img src="{{ asset('common tread.png') }}" class="logo" alt="" style="height: 50px; width: auto; margin-right: 20px;" />        
 
       </div>
     </nav>
