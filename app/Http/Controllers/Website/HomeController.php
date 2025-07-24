@@ -28,8 +28,7 @@ class HomeController extends Controller
     
         $data = [
             'welcome_text' => $welcomeText ? $welcomeText->content : null,
-        //     'cart_count_total' => Session::get('cart_count_total', 0),
-        // 'total_amount' => Session::get('total_amount', 0),
+        
             'sliders' => $this->homeService->getAllSliders(),
             'feature_categories' => $this->homeService->featureCategoryWithProducts(),
             'categories' => $this->homeService->getAllCategories(),

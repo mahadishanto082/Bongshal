@@ -4,9 +4,6 @@
             <div class="col-xl-7 col-lg-6 col-md-6 col-sm-12 hide-ipad">
             </div>
 
-         
-
-
         </div>
     </div>
 </div>
@@ -21,18 +18,41 @@
     .nav-menu i {
       margin-right: 8px;
     }
+  
+
   </style>
 
 <div class="headd-sty">
     <!-- Header-msg -->
-    <div style="background-color: #fa4c06; display: flex; justify-content: center; align-items: center; height: 50px;">
-  <div class="container" style="display: flex; align-items: center;">
-  <div style="min-width:100%;padding:15px;box-sizing:border-box;text-align:center;font-size:1.2rem;font-weight:bold; color:black">
-  @if (!empty($welcomeText))
-  
+    <div id="textCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2500">
+        
+  <div class="carousel-inner text-center py-3" style="background-color: #fa4c06;">
+    <div class="carousel-item active">
+    @if(!empty($welcome_text))
+    <div style="background-color: #fa4c06; overflow: hidden; height: 50px; display: flex; align-items: center;">
+        <div class="container" style="width: 100%;">
+            <div style="white-space: nowrap; display: inline-block; animation: slide-left 15s linear infinite; font-size: 1.1rem; font-weight: bold; color: white;">
+                <i class="fas fa-info-circle" style="margin-right: 8px;"></i>
+               {{ $welcome_text }}
+
+            </div>
+        </div>
+    </div>
   @endif
-    
+    </div>
   </div>
+
+ <!-- Carousel Controls: Smaller & Closer -->
+<button class="carousel-control-prev" type="button" data-bs-target="#textCarousel" data-bs-slide="prev"
+  style="top: 50%; left: 200px; transform: translateY(-50%); width: 25px; height: 25px;">
+  <span class="carousel-control-prev-icon" style="width: 15px; height: 15px;"></span>
+</button>
+
+<button class="carousel-control-next" type="button" data-bs-target="#textCarousel" data-bs-slide="next"
+  style="top: 50%; right:200px; transform: translateY(-50%); width: 25px; height: 25px;">
+  <span class="carousel-control-next-icon" style="width: 15px; height: 15px;"></span>
+</button>
+
 </div>
 
     </div>
@@ -213,6 +233,7 @@
         
 </div>
 
+<!-- Top Navbar Wrapper -->
 <div class="header head-style-2">
   <div class="container">
     <nav id="navigation" class="navigation navigation-landscape">
@@ -237,7 +258,18 @@
       </div>
     </nav>
   </div>
+  <hr style="
+  border: none;
+  height: 1.5px;
+  background-color: #fa4c06;
+  margin: 0;
+  width: 100vw;
+" />
+
 </div>
+
+<!-- Full-width HR outside .container -->
+
 
 <!-- Offcanvas for mobile view -->
 <div class="offcanvas offcanvas-start" tabindex="-1" id="mainOffcanvas" aria-labelledby="mainOffcanvasLabel">
@@ -253,6 +285,8 @@
       <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-address-card"></i> About Us</a></li>
       <li class="nav-item"><a class="nav-link" href="{{ route('web.contactUs') }}"><i class="fas fa-address-book"></i> Contact</a></li>
     </ul>
+    
+ 
   </div>
 </div>
 <!-- End Navigation -->
