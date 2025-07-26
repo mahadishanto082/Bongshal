@@ -133,39 +133,19 @@
             @endif
 
         </div>
-    </section>
-    <!--Brand Section -->
-<h6 class="mt-2 fw-semibold text-dark text-center" style="font-size: 2rem;">
-  {{ $brand->name ?? 'Brand Categories' }}
-</h6>
-<section class="gray">
-    <div class="container">
-        <div class="row justify-content-center">
-            @if(!empty($brands))
-                @foreach($brands as $brand)
-                    <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6 col-4">
-                        <div class="cats_side_wrap text-center mx-auto bg-white shadow mb-3">
-                            <div class="sl_cat_01">
-                                <div class="d-inline-flex align-items-center justify-content-center p-4 circle mb-2 border">
+     </section>
 
-                                    <a>
-                                            <img src="{{ asset('storage/brands/'. $brand->image) }}" class="img-fluid" width="40" alt="">
-                                        </a>
-                                    
-                                    
-                                </div>
-                            </div>
-                          
-                        </div>
-                    </div>
-                @endforeach
-            @endif
-        </div>
-    </div>
+    
+<!-- Featured Categories Section End -->
 
+
+
+
+
+   
     <!-- New Arrival Section -->
     @if(!empty($new_arrival_products))
-<section class="gray">
+<section >
     <div class="container">
         <div class="row justify-content-center">
             @foreach($new_arrival_products->take(3) as $product)
@@ -211,6 +191,128 @@
     </div>
 </section>
 @endif
+
+<!--Hot Deals Section -->
+<section >
+    <div class="container">
+        <div class="row justify-content-between" >
+            <div class="col-12 text-center">
+                <div class="sec_title position-relative">
+                    <!-- <h2 class="off_title">Hot deals</h2> -->
+                    <h6 class="mt-2 fw-semibold text-dark " style="font-size: 2rem; justify-content: center;">
+  {{ 'Hot Deals of the month' }}
+</h6>
+
+                </div>
+            </div>
+           
+        </div>
+
+        <!-- Carousel -->
+        <div id="carouselExample" class="carousel slide mt-3">
+            <div class="carousel-inner">
+
+                <div class="carousel-item active">
+                    <div class="d-flex justify-content-start flex-wrap gap-3">
+
+                        <!-- Product Card Dummy -->
+                        <div class="col-xl-3 col-lg-4 col-md-6 col-6">
+                            <div class="card border-0 shadow-sm position-relative mb-4" style="width: 280px; height: 380px;">
+                                <!-- Badge -->
+                                <div class="position-absolute top-0 start-0 bg-info text-white px-2 py-1 m-2 rounded">
+                                    <small class="fw-bold text-uppercase">Staff Pick</small>
+                                </div>
+
+                                <!-- Dummy Action Buttons -->
+                                <div class="product-actions position-absolute start-0 ms-1 mt-5 d-flex flex-column gap-2" style="top: 10px; opacity: 0;">
+                                    <button type="button"><i class="fas fa-heart text-danger"></i></button>
+                                    <button type="button"><i class="fas fa-shopping-cart text-success"></i></button>
+                                    <button type="button"><i class="fas fa-exchange-alt text-primary"></i></button>
+                                </div>
+
+                                <!-- Product Image -->
+                                <a href="#">
+                                    <img src="https://via.placeholder.com/280x200" class="card-img-top" alt="Product" style="object-fit: cover; height: 200px;">
+                                </a>
+
+                                <!-- Card Body -->
+                                <div class="card-body text-center p-2">
+                                    <h6 class="fw-semibold mb-2">Smartphone X</h6>
+
+                                    <!-- Price -->
+                                    <div class="mb-1">
+                                        <span class="fw-bold fs-5 text-danger">Tk. 800</span>
+                                        <span class="text-muted text-decoration-line-through small">Tk. 1000</span>
+                                    </div>
+                                    <span class="badge bg-danger">Save 20%</span>
+
+                                    <!-- Free Shipping -->
+                                    <div class="d-flex align-items-center justify-content-center small mt-2">
+                                        <i class="fas fa-shipping-fast text-dark me-1"></i> Free Shipping
+                                    </div>
+
+                                    <!-- Rating -->
+                                    <div class="mt-1">
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="far fa-star text-muted"></i>
+                                        <span class="small text-muted">(4.0/5)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Repeat above card 3 more times to simulate 4-card carousel -->
+                        <!-- ...copy/paste above card block 3 more times... -->
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Carousel Controls -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </button>
+        </div>
+    </div>
+</section>
+
+
+ <!--Brand Section -->
+ <h6 class="mt-2 fw-semibold text-dark text-center" style="font-size: 2rem;">
+  {{ $brand->name ?? 'Brand Categories' }}
+</h6>
+<section class="gray">
+    <div class="container">
+        <div class="row justify-content-center">
+            @if(!empty($brands))
+                @foreach($brands as $brand)
+                    <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6 col-4">
+                        <div class="cats_side_wrap text-center mx-auto bg-white shadow mb-3">
+                            <div class="sl_cat_01">
+                                <div class="d-inline-flex align-items-center justify-content-center p-4 circle mb-2 border">
+
+                                    <a>
+                                            <img src="{{ asset('storage/brands/'. $brand->image) }}" class="img-fluid" width="40" alt="">
+                                        </a>
+                                    
+                                    
+                                </div>
+                            </div>
+                          
+                        </div>
+                    </div>
+                @endforeach
+            @endif
+        </div>
+    </div>
+</section>
 
     <!-- Categories Section -->
     @if(!empty($feature_categories))

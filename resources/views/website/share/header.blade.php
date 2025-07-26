@@ -68,7 +68,7 @@
                         <div class="headd-sty-left d-flex align-items-center ">
                             <div class="headd-sty-01 ">
                                 <a class="nav-brand py-0" href="{{ route('web.home') }}">
-                                    <img src="{{ asset('revzila.png') }}" class="logo" alt="" />
+                                    <img src="{{ asset('Bongshal.jpeg') }}" class="logo" alt="" />
                                 </a>
                             </div>
                             <div class="headd-sty-01 ml-3">
@@ -117,21 +117,21 @@
                             </div>
                         </div>
                         <div class="headd-sty-last">
-                            <ul class="nav-menu nav-menu-social d-flex align-items-center" style="gap: 2px; margin: 0; padding: 0; list-style: none;">
+                            <ul class="nav-menu nav-menu-social d-flex align-items-center" style="gap: 10px; margin: 0; padding: 0; list-style: none;">
 
                                 <!-- Membership Button -->
-                                <li>
+                                <!-- <li>
                                 <button style="background-color: black; border: none; padding: 0;">
                                     <img src="{{ asset('membership.png') }}" alt="Membership" style="width: 120px; height: 35px;">
                                 </button>
-                                </li>
+                                </li> -->
 
                                     <!-- Order Tracking -->
                                 <li>
                                     <div class="dropdown js-dropdown">
                                         <a href="javascript:void(0);" data-toggle="modal" data-target="#orderTrack" class="text-muted medium" 
                                         style="font-weight: 600; font-size: 18px;">
-                                        <i class="lni lni-map-marker" style="font-size: 22px;"></i>
+                                        <i class="lni lni-map-marker" style="font-size: 22px; color :aliceblue ; gap:3px" ></i>
                                         </a>
                                     </div>
                                  </li>
