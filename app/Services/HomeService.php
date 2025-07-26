@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\WelcomeText;
 use App\Models\Slider;
 use Illuminate\Http\Request;
+use App\Models\Brand;
 
 class HomeService
 {
@@ -33,6 +34,10 @@ class HomeService
                     ->take(12));
                 return $query;
             });
+    }
+    public function getAllBrands()
+    {
+        return Brand::where('status', 'Active')->orderBy('created_at', 'DESC')->get();
     }
 
     public function getAllCategories()

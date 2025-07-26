@@ -30,6 +30,7 @@ class HomeController extends Controller
             'welcome_text' => $welcomeText,
         
             'sliders' => $this->homeService->getAllSliders(),
+            'brands' => $this->homeService->getAllBrands(),
             'feature_categories' => $this->homeService->featureCategoryWithProducts(),
             'categories' => $this->homeService->getAllCategories(),
             'new_arrival_products' => Product::where('status', 1)->latest()->get(),

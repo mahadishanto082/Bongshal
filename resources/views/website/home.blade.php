@@ -103,6 +103,8 @@
     </div>
 @endif
 
+
+
 <!-- Featured Categories Section -->
 <h6 class="mt-2 fw-semibold text-dark text-center" style="font-size: 2rem;">
   {{ $category->name ?? 'Featured Categories' }}
@@ -132,6 +134,34 @@
 
         </div>
     </section>
+    <!--Brand Section -->
+<h6 class="mt-2 fw-semibold text-dark text-center" style="font-size: 2rem;">
+  {{ $brand->name ?? 'Brand Categories' }}
+</h6>
+<section class="gray">
+    <div class="container">
+        <div class="row justify-content-center">
+            @if(!empty($brands))
+                @foreach($brands as $brand)
+                    <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6 col-4">
+                        <div class="cats_side_wrap text-center mx-auto bg-white shadow mb-3">
+                            <div class="sl_cat_01">
+                                <div class="d-inline-flex align-items-center justify-content-center p-4 circle mb-2 border">
+
+                                    <a>
+                                            <img src="{{ asset('storage/brands/'. $brand->image) }}" class="img-fluid" width="40" alt="">
+                                        </a>
+                                    
+                                    
+                                </div>
+                            </div>
+                          
+                        </div>
+                    </div>
+                @endforeach
+            @endif
+        </div>
+    </div>
 
     <!-- New Arrival Section -->
     @if(!empty($new_arrival_products))
