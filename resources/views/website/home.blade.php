@@ -281,7 +281,102 @@
             </button>
         </div>
     </div>
+    <div class="col-12 text-center mb-4">
+        <a href="#" class="btn  px-4 py-2 fw-semibold" style="background-color:#fa4c06; color:white;">
+          SHOP NOW
+        </a>
+      </div>
 </section>
+
+<!-- Hot Deals Section End -->
+
+<!--card visually section -->
+
+<!--single card section -->
+
+@if(!empty($new_arrival_products) && !empty($feature_categories))
+<div class="container my-5">
+    <div class="row align-items-start">
+
+        {{-- LEFT: New Product --}}
+        <div class="col-md-6">
+            <h4 class="mb-3 fw-bold">New Arrival</h4>
+            @foreach($new_arrival_products->take(1) as $product)
+                <div class="card border-0 shadow-sm position-relative"
+                    style="transition: 0.3s ease;">
+                    <div class="position-absolute top-0 start-0 ms-2 mt-2 bg-info text-white px-2 py-1 rounded z-1">
+                        <small class="fw-bold text-uppercase">
+                            {{ $product->stock > 0 ? 'Staff Pick' : 'Out of Stock' }}
+                        </small>
+                    </div>
+
+                    <a href="{{ route('web.products.details', $product->slug) }}">
+                        <img class="card-img-top"
+                            src="{{ asset('storage/products/' . $product->image) }}"
+                            alt="{{ $product->name }}"
+                            style="height: 300px; object-fit: cover;">
+                    </a>
+
+                    <div class="card-body text-center">
+                        <h6 class="fw-semibold">{{ $product->name }}</h6>
+                        <div class="text-dark fw-bold">Tk. {{ $product->price }}</div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+
+        {{-- RIGHT: Featured Products --}}
+        <div class="col-md-6">
+            <h4 class="mb-3 fw-bold">Featured Products</h4>
+            @foreach($feature_categories as $category)
+                <div class="row">
+                    @foreach($category->products->take(2) as $product)
+                        <div class="col-md-6 mb-4">
+                            <div class="card border-0 shadow-sm position-relative"
+                                style="height: 100%; transition: 0.3s ease;">
+                                <div class="position-absolute top-0 start-0 ms-2 mt-2 bg-info text-white px-2 py-1 rounded z-1">
+                                    <small class="fw-bold text-uppercase">
+                                        {{ $product->stock > 0 ? 'Staff Pick' : 'Out of Stock' }}
+                                    </small>
+                                </div>
+
+                                <a href="{{ route('web.products.details', $product->slug) }}">
+                                    <img class="card-img-top"
+                                        src="{{ asset('storage/products/' . $product->image) }}"
+                                        alt="{{ $product->name }}"
+                                        style="height: 150px; object-fit: cover;">
+                                </a>
+
+                                <div class="card-body text-center">
+                                    <h6 class="fw-semibold">{{ $product->name }}</h6>
+                                    @if($product->discount_value > 0)
+                                        <span class="text-danger fw-bold">
+                                            Tk. {{ discountCal($product->price, $product->discount_type, $product->discount_value) }}
+                                        </span>
+                                        <br>
+                                        <small class="text-muted text-decoration-line-through">
+                                            Tk. {{ $product->price }}
+                                        </small>
+                                    @else
+                                        <div class="fw-bold text-dark">Tk. {{ $product->price }}</div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+                @break {{-- Show only first featured category --}}
+            @endforeach
+        </div>
+
+    </div>
+</div>
+@endif
+</section>
+
+<!-- End single card section -->
+
+<!--featured card section -->
 
 
  <!--Brand Section -->
