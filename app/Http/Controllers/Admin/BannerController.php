@@ -39,8 +39,8 @@ class BannerController extends Controller
             'status' => $request->status,
         ]);
 
-        return redirect()->route($this->ROUTE_AND_VIEW . 'index')->with('success', 'Banner created successfully.');
-    }
+        return redirect()->route('admin.banners.index')
+        ->with('success', 'Banner created successfully'); }
 
     public function edit($id)
     {
@@ -84,5 +84,7 @@ class BannerController extends Controller
         $banner->delete();
 
         return redirect()->route('admin.banners.index')
-        ->with('success', ' updated successfully');}}
+        ->with('success', ' updated successfully');
+    }
+}
 
