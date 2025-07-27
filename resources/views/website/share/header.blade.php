@@ -1,4 +1,4 @@
-<div class="py-2 gray">
+<div class=" gray">
     <div class="container">
         <div class="row">
             <div class="col-xl-7 col-lg-6 col-md-6 col-sm-12 hide-ipad">
@@ -6,7 +6,7 @@
 
         </div>
     </div>
-</div>
+</div> 
 @section('css')
 <style>
     .hamburger-btn {

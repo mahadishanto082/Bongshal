@@ -184,6 +184,19 @@
                         New</a></li>
             </ul>
         </li>
+        <li class="br-menu-item">
+            <a href="#"
+               class="br-menu-link with-sub {{ Request::routeIs('admin.Banners*') ? 'active show-sub' : ''  }}"><i class="menu-item-icon icon ion-image tx-20"></i>
+               <span class="menu-item-label">Banner</span></a>
+            <ul class="br-menu-sub">
+                <li class="sub-item"><a href="{{ route('admin.banners.index') }}"
+                                        class="sub-link {{ Request::routeIs('admin.Banners.index') || Request::routeIs('admin.sliders.edit') ? 'active' : ''  }}">List</a>
+                </li>
+                <li class="sub-item"><a href="{{ route('admin.banners.create') }}"
+                                        class="sub-link {{ Request::routeIs('admin.Banners.create') ? 'active' : ''  }}">Add
+                        New</a></li>
+            </ul>
+        </li>
 
         <li class="br-menu-item">
             <a href="{{ route('admin.setting') }}"

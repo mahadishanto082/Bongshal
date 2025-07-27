@@ -317,13 +317,13 @@
                     </a>
 
                     <div class="card-body">
-    <div class="d-flex justify-content-between align-items-center">
-        <h6 class="fw-semibold mb-0">{{ $product->name }}</h6>
-        <a href="#" class="btn px-4 py-2 fw-semibold" style="background-color:#fa4c06; color:white;">
-            SHOP NOW
-        </a>
-    </div>
-</div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h6 class="fw-semibold mb-0">{{ $product->name }}</h6>
+                            <a href="#" class="btn px-4 py-2 fw-semibold" style="background-color:#fa4c06; color:white;">
+                                SHOP NOW
+                            </a>
+                        </div>
+                    </div>
 
                 </div>
             @endforeach

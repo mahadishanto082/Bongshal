@@ -59,6 +59,8 @@ Route::group(['middleware' => ['auth:admin']], function () {
     Route::resource('agents', 'AgentController');
     Route::resource('WelcomeTexts', 'WelcomeTextController');
 
+    Route::resource('banners', 'BannerController');
+
     Route::get('setting', 'SettingController@index')->name('setting');
     Route::post('update-update', 'SettingController@update')->name('setting.update');
 
