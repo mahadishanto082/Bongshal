@@ -292,15 +292,14 @@
 
 <!--card visually section -->
 
-<!--single card section -->
 
 @if(!empty($new_arrival_products) && !empty($feature_categories))
 <div class="container my-5">
     <div class="row align-items-start">
 
         {{-- LEFT: New Product --}}
-        <div class="col-md-6">
-            <h4 class="mb-3 fw-bold">New Arrival</h4>
+        <div class="col-md-6"> <!-- Changed to col-md-6 for better layout -->
+            
             @foreach($new_arrival_products->take(1) as $product)
                 <div class="card border-0 shadow-sm position-relative"
                     style="transition: 0.3s ease;">
@@ -317,20 +316,26 @@
                             style="height: 300px; object-fit: cover;">
                     </a>
 
-                    <div class="card-body text-center">
-                        <h6 class="fw-semibold">{{ $product->name }}</h6>
-                        <div class="text-dark fw-bold">Tk. {{ $product->price }}</div>
-                    </div>
+                    <div class="card-body">
+    <div class="d-flex justify-content-between align-items-center">
+        <h6 class="fw-semibold mb-0">{{ $product->name }}</h6>
+        <a href="#" class="btn px-4 py-2 fw-semibold" style="background-color:#fa4c06; color:white;">
+            SHOP NOW
+        </a>
+    </div>
+</div>
+
                 </div>
             @endforeach
         </div>
 
         {{-- RIGHT: Featured Products --}}
-        <div class="col-md-6">
-            <h4 class="mb-3 fw-bold">Featured Products</h4>
-            @foreach($feature_categories as $category)
+        <div class="col-md-6"><!-- Changed to col-md-6 for better layout -->
+            
+            @foreach($feature_categories->take(1) as $category)
                 <div class="row">
                     @foreach($category->products->take(2) as $product)
+
                         <div class="col-md-6 mb-4">
                             <div class="card border-0 shadow-sm position-relative"
                                 style="height: 100%; transition: 0.3s ease;">
@@ -340,32 +345,62 @@
                                     </small>
                                 </div>
 
-                                <a href="{{ route('web.products.details', $product->slug) }}">
-                                    <img class="card-img-top"
-                                        src="{{ asset('storage/products/' . $product->image) }}"
-                                        alt="{{ $product->name }}"
-                                        style="height: 150px; object-fit: cover;">
-                                </a>
-
+                                @if (!empty($product->slug))
+                                    <a href="{{ route('web.products.details', $product->slug) }}">
+                                        <img class="card-img-top"
+                                            src="{{ asset('storage/products/' . $product->image) }}"
+                                            alt="{{ $product->name }}"
+                                            style="height: 200px; object-fit: cover;">
+                                    </a>
+                                
+                                @endif
                                 <div class="card-body text-center">
-                                    <h6 class="fw-semibold">{{ $product->name }}</h6>
-                                    @if($product->discount_value > 0)
-                                        <span class="text-danger fw-bold">
-                                            Tk. {{ discountCal($product->price, $product->discount_type, $product->discount_value) }}
-                                        </span>
-                                        <br>
-                                        <small class="text-muted text-decoration-line-through">
-                                            Tk. {{ $product->price }}
-                                        </small>
-                                    @else
-                                        <div class="fw-bold text-dark">Tk. {{ $product->price }}</div>
-                                    @endif
+                                  {{-- Price Section --}}
+                                    <div>
+                                        @if($product->discount_value > 0)
+                                            <div class="mb-1">
+                                                <span class="fw-bold fs-5 text-danger">
+                                                    Tk. {{ discountCal($product->price, $product->discount_type, $product->discount_value) }}
+                                                </span>
+                                                <span class="text-muted text-decoration-line-through small">
+                                                    Tk. {{ $product->price }}
+                                                </span>
+                                            </div>
+                                            <span class="badge bg-danger">
+                                                Save {{ $product->discount_type === 'Taka' ? $product->discount_value . ' Tk' : $product->discount_value . '%' }}
+                                            </span>
+                                        @else
+                                            <div class="mb-2 fw-bold fs-5 text-dark">Tk. {{ $product->price }}</div>
+                                        @endif
+                                    </div>
+                                    
+                                               <!-- Shipping -->
+                                        <div class="d-flex align-items-center justify-content-center small mt-2">
+                                            <i class="fas fa-shipping-fast text-dark me-1"></i> Free Shipping
+                                        </div>
+
+                                        <!-- 👇 Added Rating Section -->
+                                        <div class="mt-1">
+                                            @php $rating = $product->rating ?? 4; @endphp
+                                            @for ($i = 1; $i <= 5; $i++)
+                                                @if($i <= $rating)
+                                                    <i class="fas fa-star text-warning"></i>
+                                                @else
+                                                    <i class="far fa-star text-muted"></i>
+                                                @endif
+                                            @endfor
+                                            <span class="small text-muted">({{ number_format($rating, 1) }}/5)</span>
+                                        </div>
+                                        <!-- ☝️ End Rating Section -->
+
+                                                  
                                 </div>
+                                
                             </div>
                         </div>
                     @endforeach
                 </div>
-                @break {{-- Show only first featured category --}}
+                
             @endforeach
         </div>
 
