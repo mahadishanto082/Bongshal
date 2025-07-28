@@ -9,6 +9,7 @@
 @endsection
 
 @section('content')
+@include('website.share.user-custom-feature')
     <div class="gray py-3">
         <div class="container">
             <div class="row">
@@ -29,7 +30,13 @@
         <div class="container">
             <div class="row justify-content-center justify-content-between">
                 <!-- Left Menu -->
-                @include('website.share.user-menu')
+                <!-- Left Menu Wrapped in Proper Column -->
+                <div class="col-xl-3 col-lg-4 col-md-5 mb-4">
+                                    <div class="rounded p-3 h-100" style="min-height: 100%; overflow-x: auto;">
+                                        @include('website.share.user-menu')
+                                    </div>
+                </div>
+
 
                 <div class="col-12 col-md-12 col-lg-8 col-xl-8 text-center">
                     <div class="row align-items-center">
@@ -143,5 +150,5 @@
     </section>
     <!-- ======================= Dashboard Detail End ======================== -->
 
-    @include('website.share.user-custom-feature')
+    
 @endsection
