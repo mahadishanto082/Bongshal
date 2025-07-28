@@ -8,6 +8,7 @@ use App\Models\WelcomeText;
 use App\Models\Slider;
 use Illuminate\Http\Request;
 use App\Models\Brand;
+use App\Models\Banner;
 
 class HomeService
 {
@@ -38,6 +39,11 @@ class HomeService
     public function getAllBrands()
     {
         return Brand::where('status', 'Active')->orderBy('created_at', 'DESC')->get();
+    }
+
+    public function getAllBanner()
+    {
+        return  Banner::where('status', 'Active')->orderBy('created_at', 'DESC')->get();
     }
 
     public function getAllCategories()

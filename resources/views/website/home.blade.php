@@ -411,7 +411,23 @@
 
 <!-- End single card section -->
 
-<!--featured card section -->
+
+<!--Banner Section -->
+<section class="banner_section">
+    <div class="container-fluid px-0"> {{-- Remove padding --}}
+        @if (!empty($banners))
+            @foreach($banners as $banner)
+                <div class="banner_wrap text-center">
+                    <a href="{{ $banner->link ?? '#' }}">
+                        <img src="{{ asset('storage/' . $banner->image) }}" class="img-fluid w-75" alt="{{ $banner->title }}">
+                    </a>
+                </div>
+            @endforeach
+        @endif
+    </div>
+</section>
+
+
 
 
  <!--Brand Section -->

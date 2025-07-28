@@ -12,6 +12,7 @@ use App\Services\HomeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Product;
+use App\Models\Brand;
 
 use Illuminate\Support\Facades\Session;
 class HomeController extends Controller
@@ -31,6 +32,7 @@ class HomeController extends Controller
         
             'sliders' => $this->homeService->getAllSliders(),
             'brands' => $this->homeService->getAllBrands(),
+            'banners' => $this->homeService->getAllBanner(),
             'feature_categories' => $this->homeService->featureCategoryWithProducts(),
             'categories' => $this->homeService->getAllCategories(),
             'new_arrival_products' => Product::where('status', 1)->latest()->get(),
