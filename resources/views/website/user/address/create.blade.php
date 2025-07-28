@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')
+@include('website.share.user-custom-feature')
     <div class="gray py-3">
         <div class="container">
             <div class="row">
@@ -24,7 +25,11 @@
     <section class="middle">
         <div class="container">
             <div class="row align-items-start justify-content-between">
-                @include('website.share.user-menu')
+            <div class="col-xl-3 col-lg-4 col-md-5 mb-4">
+                                    <div class="rounded p-3 h-100" style="min-height: 100%; overflow-x: auto;">
+                                        @include('website.share.user-menu')
+                                    </div>
+                </div>
 
                 <div class="col-12 col-md-12 col-lg-8 col-xl-8">
                     <!-- row -->
@@ -46,5 +51,5 @@
     </section>
     <!-- ======================= Dashboard Detail End ======================== -->
 
-    @include('website.share.user-custom-feature')
+  
 @endsection
