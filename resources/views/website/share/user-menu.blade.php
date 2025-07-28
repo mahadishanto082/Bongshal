@@ -1,4 +1,4 @@
-<div class="col-12 col-md-12 col-lg-4 col-xl-4 text-center miliods">
+<div class="col-12 col-md-12 col-lg-4 col-xl-12 text-center miliods">
     <div class="d-block border rounded mfliud-bot">
         <div class="dashboard_author px-2 py-5">
             <div class="dash_auth_thumb circle p-1 border d-inline-flex mx-auto mb-2">
@@ -30,7 +30,7 @@
                 <li><a href="{{ route('web.user.profile') }}"><i class="lni lni-user mr-2"></i>Profile Info</a></li>
                 <li><a href="{{ route('web.user.user_addresses.index') }}"><i class="lni lni-map-marker mr-2"></i>Addresses</a></li>
                 @if(auth('web')->user()->role == 'Agent')
-                <li><a href="{{ route('web.user.pointHistory') }}"><i class="lni lni-pointer mr-2"></i>Point History</a></li>
+                    <li><a href="{{ route('web.user.pointHistory') }}"><i class="lni lni-pointer mr-2"></i>Point History</a></li>
                 @endif
                 <li>
                     <a href="javascript:void(0)" onclick="document.getElementById('logout-form').submit();">
