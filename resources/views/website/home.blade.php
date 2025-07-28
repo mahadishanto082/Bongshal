@@ -111,29 +111,25 @@
 </h6>
 
 
-<section >
-        <div class="container" style="justify-content: center;">
-            @if(!empty($categories))
-                <div class="row">
-                    @foreach($categories as $category)
-                        <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6 col-4">
-                            <div class="cats_side_wrap text-center mx-auto bg-white shadow mb-3">
-                                <div class="sl_cat_01">
-                                    <div class="d-inline-flex align-items-center justify-content-center p-4 circle mb-2 border">
-                                        <a href="{{ route('web.categories.products', $category->slug) }}" class="d-block">
-                                            <img src="{{ asset('storage/categories/'. $category->image) }}" class="img-fluid" width="40" alt="">
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="sl_cat_02"><h6 class="m-0 ft-medium fs-sm"><a href="{{ route('web.categories.products', $category->slug) }}">{{ $category->name }}</a></h6></div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            @endif
-
-        </div>
-     </section>
+<section>
+    <div class="container">
+        @if(!empty($categories))
+            <div class="row justify-content-center align-items-center g-3">
+                @foreach($categories as $category)
+                    <div class="col-xl-2 col-lg-2 col-md-3 col-sm-4 col-4 text-center">
+                        <a href="{{ route('web.categories.products', $category->slug) }}" class="d-block text-decoration-none">
+                            <img src="{{ asset('storage/categories/' . $category->image) }}" 
+                                 class="img-fluid mb-2" 
+                                 alt="{{ $category->name }}" 
+                                 style="max-height: 60px; object-fit: contain;">
+                            <h6 class="m-0 fs-sm text-dark">{{ $category->name }}</h6>
+                        </a>
+                    </div>
+                @endforeach
+            </div>
+        @endif
+    </div>
+</section>
 
     
 <!-- Featured Categories Section End -->
@@ -436,29 +432,41 @@
 </h6>
 <section class="gray">
     <div class="container">
-        <div class="row justify-content-center">
-            @if(!empty($brands))
-                @foreach($brands as $brand)
-                    <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6 col-4">
-                        <div class="cats_side_wrap text-center mx-auto bg-white shadow mb-3">
-                            <div class="sl_cat_01">
-                                <div class="d-inline-flex align-items-center justify-content-center p-4 circle mb-2 border">
+        <div id="brandCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                @php
+                    $brandChunks = $brands->chunk(6); // 6 brands per slide
+                @endphp
 
-                                    <a>
-                                            <img src="{{ asset('storage/brands/'. $brand->image) }}" class="img-fluid" width="40" alt="">
-                                        </a>
-                                    
-                                    
+                @foreach($brandChunks as $index => $chunk)
+                    <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                        <div class="d-flex justify-content-center gap-4 flex-wrap py-3">
+                            @foreach($chunk as $brand)
+                                <div style="flex: 0 0 auto; width: 120px;" class="text-center">
+                                    <img src="{{ asset('storage/brands/' . $brand->image) }}" 
+                                         alt="{{ $brand->name }}" 
+                                         class="img-fluid" 
+                                         style="max-height: 60px; object-fit: contain;">
                                 </div>
-                            </div>
-                          
+                            @endforeach
                         </div>
                     </div>
                 @endforeach
-            @endif
+            </div>
+
+            <!-- Controls -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#brandCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#brandCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
     </div>
 </section>
+
 
     <!-- Categories Section -->
     @if(!empty($feature_categories))
@@ -492,14 +500,14 @@
                     @endphp
                     @foreach($chunks as $chunkIndex => $productChunk)
                     <div class="carousel-item {{ $chunkIndex == 0 ? 'active' : '' }}">
-    <div class="row">
-        @foreach($productChunk as $product)
-        <div class="col-xl-3 col-lg-3 col-md-6 col-6">
-            <div class="card border-0 shadow-sm position-relative mb-4"
-                style="height: 380px; transition: transform 0.3s ease, box-shadow 0.3s ease;"
-                onmouseover="this.style.transform='scale(1.03)'; this.style.boxShadow='0 0.5rem 1rem rgba(0,0,0,0.15)'"
-                onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 0.125rem 0.25rem rgba(0,0,0,0.075)'">
-                
+                        <div class="row">
+                            @foreach($productChunk as $product)
+                            <div class="col-xl-3 col-lg-3 col-md-6 col-6">
+                                <div class="card border-0 shadow-sm position-relative mb-4"
+                                    style="height: 380px; transition: transform 0.3s ease, box-shadow 0.3s ease;"
+                                    onmouseover="this.style.transform='scale(1.03)'; this.style.boxShadow='0 0.5rem 1rem rgba(0,0,0,0.15)'"
+                                    onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 0.125rem 0.25rem rgba(0,0,0,0.075)'">
+                                    
                                         <!-- Badge -->
                                         <div class="position-absolute top-0 start-0 ms-2 mt-2 bg-info text-white px-2 py-1 rounded" style="z-index: 10;">
                                             <small class="fw-bold text-uppercase">
