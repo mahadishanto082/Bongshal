@@ -492,14 +492,14 @@
                     @endphp
                     @foreach($chunks as $chunkIndex => $productChunk)
                     <div class="carousel-item {{ $chunkIndex == 0 ? 'active' : '' }}">
-                        <div class="d-flex justify-content-center gap-3 flex-wrap">
-                            @foreach($productChunk as $product)
-                                <div class="col-xl-3 col-lg-4 col-md-6 col-6">
-                                    <div class="card border-0 shadow-sm position-relative mb-4"
-                                        style="width: 280px; height: 380px; display: flex; flex-direction: column; transition: transform 0.3s ease, box-shadow 0.3s ease;"
-                                        onmouseover="this.style.transform='scale(1.03)'; this.style.boxShadow='0 0.5rem 1rem rgba(0,0,0,0.15)'"
-                                        onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 0.125rem 0.25rem rgba(0,0,0,0.075)'">
-
+    <div class="row">
+        @foreach($productChunk as $product)
+        <div class="col-xl-3 col-lg-3 col-md-6 col-6">
+            <div class="card border-0 shadow-sm position-relative mb-4"
+                style="height: 380px; transition: transform 0.3s ease, box-shadow 0.3s ease;"
+                onmouseover="this.style.transform='scale(1.03)'; this.style.boxShadow='0 0.5rem 1rem rgba(0,0,0,0.15)'"
+                onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 0.125rem 0.25rem rgba(0,0,0,0.075)'">
+                
                                         <!-- Badge -->
                                         <div class="position-absolute top-0 start-0 ms-2 mt-2 bg-info text-white px-2 py-1 rounded" style="z-index: 10;">
                                             <small class="fw-bold text-uppercase">
@@ -648,14 +648,14 @@
 
                     @foreach($chunks as $chunkIndex => $productChunk)
                     <div class="carousel-item {{ $chunkIndex == 0 ? 'active' : '' }}">
-                        <div class="d-flex justify-content-center gap-3 flex-wrap">
-                        @foreach($productChunk as $product)
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-6">
-                            <div class="card border-0 shadow-sm position-relative mb-4"
-                                style="width: 280px; height: 380px; display: flex; flex-direction: column; transition: transform 0.3s ease, box-shadow 0.3s ease;"
-                                onmouseover="this.style.transform='scale(1.03)'; this.style.boxShadow='0 0.5rem 1rem rgba(0,0,0,0.15)'"
-                                onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 0.125rem 0.25rem rgba(0,0,0,0.075)'">
-
+                        <div class="row">
+                            @foreach($productChunk as $product)
+                            <div class="col-xl-3 col-lg-3 col-md-6 col-6">
+                                <div class="card border-0 shadow-sm position-relative mb-4"
+                                    style="height: 380px; transition: transform 0.3s ease, box-shadow 0.3s ease;"
+                                    onmouseover="this.style.transform='scale(1.03)'; this.style.boxShadow='0 0.5rem 1rem rgba(0,0,0,0.15)'"
+                                    onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 0.125rem 0.25rem rgba(0,0,0,0.075)'">
+                                    
                                 <!-- Badge -->
                                 <div class="position-absolute top-0 start-0 ms-2 mt-2 bg-info text-white px-2 py-1 rounded" style="z-index: 10;">
                                     <small class="fw-bold text-uppercase">
