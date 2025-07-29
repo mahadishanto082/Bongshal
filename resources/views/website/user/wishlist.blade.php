@@ -54,7 +54,12 @@
 
                                         <form action="{{ route('web.user.wishlist.remove', $product->id) }}" method="POST" class="position-absolute ab-right">
                                             @csrf
-                                              <button type="submit" class="btn btn-danger btn-sm position-absolute"><i class="lni lni-close"style="top: 10px; right: 10px;" ></i>
+                                            <button type="submit" 
+        class="position-absolute" 
+        style="top: 10px; right: 10px; background: none; border: none; padding: 0;">
+    <i class="lni lni-close" style="color: red; font-size: 16px;"></i>
+</button>
+
                                             </button>
                                          </form>
 
@@ -68,13 +73,13 @@
             <img class="card-img-top"
                  src="{{ asset('storage/products/' . $product->image) }}"
                  alt="{{ $product->name }}"
-                 style="height: 200px; width: 100%; object-fit: cover;">
+                 style="height: 200px; width: 100%; object-fit: contain;">
         </a>
     @else
         <img class="card-img-top"
              src="{{ asset('storage/products/' . $product->image) }}"
              alt="{{ $product->name }}"
-             style="height: 200px; width: 100%; object-fit: cover;">
+             style="height: 200px; width: 100%; object-fit: contain;">
     @endif
 
     <!-- Card Body -->
