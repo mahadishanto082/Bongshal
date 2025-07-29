@@ -41,7 +41,8 @@
                         <!-- Single -->
                         @foreach($products as $product)
                         <div class="col-xl-3 col-lg-4 col-md-6 col-6">
-    <div class="card product_card mb-4 border-0 shadow-sm h-100 position-relative">
+                            <<!-- Product Card fixed height-->
+    <div class="card product_card mb-4 border-0 shadow-sm h-50 position-relative">
         
         {{-- Badges --}}
         @if($product['stock'] > 0)
@@ -60,13 +61,16 @@
             </div>
         @endif
 
-        {{-- Product Image --}}
+        {{-- Product Image with frame adjustment--}}
         @if (!empty($product->slug))
-            <a href="{{ route('web.products.details', $product->slug) }}">
-                <img class="card-img-top" src="{{ asset('storage/products/' . $product['image']) }}" alt="{{ $product['name'] }}" style="height: 200px; object-fit: cover;">
-            </a>
-        
-        @endif
+    <a href="{{ route('web.products.details', $product->slug) }}">
+        <img class="card-img-top" 
+             src="{{ asset('storage/products/' . $product['image']) }}" 
+             alt="{{ $product['name'] }}" 
+             style="height: 200px; width: 100%; object-fit: contain; background-color: #f8f9fa;">
+    </a>
+@endif
+
        
         {{-- Product Info --}}
         <div class="card-body text-center p-3">

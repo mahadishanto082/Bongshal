@@ -1,5 +1,5 @@
 <div class="br-logo"><a href="{{ route('vendor.dashboard') }}"><span>[</span>Order <i>Panel</i><span>]</span></a></div>
-<div class="br-sideleft sideleft-scrollbar" style="height: min-content;">
+<div class="br-sideleft sideleft-scrollbar" >
     <label class="sidebar-label pd-x-10 mg-t-20 op-3">Navigation</label>
     <ul class="br-sideleft-menu " >
         <li class="br-menu-item">
