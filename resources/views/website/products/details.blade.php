@@ -329,7 +329,8 @@
                                 <div class="slide_items">
                                     @foreach($relatedProducts as $product)
                                         <div class="single_itesm">
-                                            <div class="product_grid card b-0 mb-0">
+                                        <div class="product_grid card b-0 mb-0" style=" display: flex; flex-direction: column; justify-content: space-between;">
+
                                                 @if($product->stock > 0)
                                                     <div class="badge bg-info text-white position-absolute ft-regular ab-left text-upper">Sale</div>
                                                 @else
@@ -372,34 +373,34 @@
                                                                     </div>
                                                                 @endif
                                                                 @endif
+                                                                <div class="pb-5">
+                                                @if (!empty($product->slug))
+                                                            <div class="d-flex flex-column gap-2">
+                                                                <a href="{{ route('web.products.details', $product->slug) }}" class="btn btn-block btn-sm btn-order">
+                                                                    <i class="lni lni-cart"></i> Order
+                                                                </a>
+
+                                                                @if($product['size'] || $product['color'])
+                                                                    <a href="javascript:void(0)" onclick="productQuckView('{{ route('web.products.quickView', $product->slug) }}')" class="btn btn-block btn-sm btn-cart">
+                                                                        <i class="lni lni-shopping-basket"></i> Add to Cart
+                                                                    </a>
+                                                                @else
+                                                                    <a href="javascript:void(0)" @click="addToCart('{{ route('web.cart.add', $product['slug']) }}')" class="btn btn-sm btn-cart">
+                                                                        <i class="lni lni-shopping-basket"></i> Add to cart
+                                                                    </a>
+
+                                                                    <a class="btn btn-sm btn-detail" href="{{ route('web.products.details', $product->slug) }}">
+                                                                        <i class="lni lni-text-align-justify"></i> Details
+                                                                    </a>
+                                                                @endif
+                                                            </div>
+                                                        @endif
+                                                    
+                                                </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="pb-5">
-                                                @if (!empty($product-> slug))
-                                                    <a href="{{ route('web.products.details', $product->slug) }}" class="btn btn-block btn-sm btn-order">
-                                                        <i class="lni lni-cart"></i> Order
-                                                    </a>
-                                                @endif
-                                                    @if($product['size'] || $product['color'])
-                                                        <a href="javascript:void(0)" onclick="productQuckView('{{ route('web.products.quickView', $product->slug) }}')"  class="btn btn-block btn-sm btn-cart">
-                                                            <i class="lni lni-shopping-basket"></i> Add to Cart
-                                                        </a>
-                                                    @else
-                                                    @if (!empty($product->slug))
-                                                            <div class="d-flex gap-2">
-                                                                <a href="javascript:void(0)" @click="addToCart('{{ route('web.cart.add', $product['slug']) }}')" class="btn btn-sm btn-cart flex-fill">
-                                                                    <i class="lni lni-shopping-basket"></i> Add to cart
-                                                                </a>
-
-                                                                <a class="btn btn-sm btn-detail flex-fill" href="{{ route('web.products.details', $product->slug) }}">
-                                                                    <i class="lni lni-text-align-justify"></i> Details
-                                                                </a>
-                                                            </div>
-                                                        @endif
-
-                                                    @endif
-                                                </div>
+                                               
                                             </div>
                                         </div>
                                     @endforeach

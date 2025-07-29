@@ -41,7 +41,7 @@
                         <!-- Single -->
                         @foreach($products as $product)
                         <div class="col-xl-3 col-lg-4 col-md-6 col-6">
-                            <<!-- Product Card fixed height-->
+                            <!-- Product Card fixed height-->
     <div class="card product_card mb-4 border-0 shadow-sm h-50 position-relative">
         
         {{-- Badges --}}
