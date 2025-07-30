@@ -174,44 +174,52 @@
                                                 <!-- Add to cart -->
                                                 <div class="form-row mt-3 d-flex justify-content-start gap-2">
 
-    <!-- Wishlist Button -->
-    <form id="wishlist-form-{{ $product->id }}" action="{{ route('web.user.wishlist.add', $product->id) }}" method="POST" style="display: none;">
-        @csrf
-    </form>
-    <button type="button"
-            onclick="document.getElementById('wishlist-form-{{ $product->id }}').submit();"
-            class="btn btn-sm wishlist-btn me-1">
-        <i class="lni lni-heart mr-1"></i> Wishlist
-    </button>
+                                                    <!-- Wishlist Button -->
+                                                    <form id="wishlist-form-{{ $product->id }}" action="{{ route('web.user.wishlist.add', $product->id) }}" method="POST" style="display: none;">
+                                                        @csrf
+                                                    </form>
+                                                    <button type="button"
+                                                            onclick="document.getElementById('wishlist-form-{{ $product->id }}').submit();"
+                                                            class="btn btn-sm wishlist-btn me-1">
+                                                        <i class="lni lni-heart mr-1"></i> Wishlist
+                                                    </button>
 
-    <!-- Compare Button -->
-    <form action="{{ route('web.user.compare.add', $product->id) }}" method="POST" class="m-0 p-0">
-        @csrf
-        <button type="submit" class="btn btn-sm compare-btn text-white" style="border-radius: 10px;">
-            <i class="fas fa-exchange-alt text-primary"></i> Add to Compare
-        </button>
-    </form>
+                                                    <!-- Compare Button -->
+                                                    <form action="{{ route('web.user.compare.add', $product->id) }}" method="POST" class="m-0 p-0">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-sm compare-btn text-white" style="border-radius: 10px;">
+                                                            <i class="fas fa-exchange-alt text-primary"></i> Add to Compare
+                                                        </button>
+                                                    </form>
 
-</div>
+                                                </div>
 
                                             </div>
                                         </div>
                                     </div>
 
                                     <!-- Description -->
-                                    @if($product->description)
-                                        <div class="mt-5">
-                                            <h5>Description</h5>
-                                            <div class="description_info">
-                                                {!! $product->description !!}
-                                            </div>
-                                        </div>
-                                    @endif
+                                    <div>
+                                        <h5 class="text-center">Product Details</h5>
+                                        <ul class="nav nav-tabs">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" aria-current="page" >
+                                                    </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" >Part Number</a>
+                                            </li>
+                                            
+                                           
+                                        </ul>
+                                    </div>
+                                    
                                 </div>
 
                                 <!-- RIGHT COLUMN: RELATED PRODUCTS -->
 
-                                <div class="col-lg-2 mt-4 mt-lg-0 ms-auto" >
+                                <div class="col-lg-2 mt-4 mt-lg-0 ms-auto" style="position: sticky; top: 100px; z-index: 1;">
+
                                     @if(count($relatedProducts) > 0)
                                         <div class="text-center mb-3">
                                             <h5 class="mb-3" style="font-weight: bold; font-size:larger">You May Also Like</h5>
