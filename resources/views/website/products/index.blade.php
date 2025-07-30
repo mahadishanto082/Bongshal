@@ -101,98 +101,103 @@
                         <!-- Single -->
                         @foreach($products as $product)
                         <div class="card border-0 shadow-sm position-relative mb-4"
-     style="width: 280px; height: 380px; display: flex; flex-direction: column; transition: transform 0.3s ease, box-shadow 0.3s ease;"
-     onmouseover="this.querySelector('.product-actions').style.opacity='1'"
-     onmouseout="this.querySelector('.product-actions').style.opacity='0'">
+                            style="width: 280px; height: 420px; display: flex; flex-direction: column; transition: transform 0.3s ease, box-shadow 0.3s ease;"
+                            onmouseover="this.querySelector('.product-actions').style.opacity='1'"
+                            onmouseout="this.querySelector('.product-actions').style.opacity='0'">
 
-    <!-- Badge -->
-    <div class="position-absolute top-0 start-0 ms-2 mt-2 bg-info text-white px-2 py-1 rounded" style="z-index: 10;">
-        <small class="fw-bold text-uppercase">
-            {{ $product->stock > 0 ? 'Staff Pick' : 'Out of Stock' }}
-        </small>
-    </div>
+                            <!-- Badge -->
+                            <div class="position-absolute top-0 start-0 ms-2 mt-2 bg-info text-white px-2 py-1 rounded" style="z-index: 10;">
+                                <small class="fw-bold text-uppercase">
+                                    {{ $product->stock > 0 ? 'Staff Pick' : 'Out of Stock' }}
+                                </small>
+                            </div>
 
-    <!-- Image -->
-    @if(!empty($product->slug))
-        <a href="{{ route('web.products.details', $product->slug) }}" style="flex-shrink: 0;">
-            <img class="card-img-top"
-                 src="{{ asset('storage/products/' . $product->image) }}"
-                 alt="{{ $product->name }}"
-                 style="height: 200px; width: 100%; object-fit: cover;">
-        </a>
-    @else
-        <img class="card-img-top"
-             src="{{ asset('storage/products/' . $product->image) }}"
-             alt="{{ $product->name }}"
-             style="height: 200px; width: 100%; object-fit: cover;">
-    @endif
+                                <!-- Image -->
+                                @if(!empty($product->slug))
+                                    <a href="{{ route('web.products.details', $product->slug) }}" style="flex-shrink: 0;">
+                                        <img class="card-img-top"
+                                            src="{{ asset('storage/products/' . $product->image) }}"
+                                            alt="{{ $product->name }}"
+                                            style="height: 200px; width: 100%; object-fit: contain;">
+                                    </a>
+                                @else
+                                    <img class="card-img-top"
+                                        src="{{ asset('storage/products/' . $product->image) }}"
+                                        alt="{{ $product->name }}"
+                                        style="height: 200px; width: 100%; object-fit: cover;">
+                                @endif
 
-    <!-- Content -->
-    <div class="card-body text-center p-2" style="flex-grow: 1;">
-        <h6 class="fw-semibold mb-2">{{ $product->name }}</h6>
+                            <!-- Content -->
+                            <div class="card-body text-center p-2" style="flex-grow: 1;">
+                                <h6 class="fw-semibold mb-2">{{ $product->name }}</h6>
 
-        <!-- Price -->
-        <div>
-            @if($product->discount_value > 0)
-                <div class="mb-1">
-                    <span class="fw-bold fs-5 text-danger">
-                        Tk. {{ discountCal($product->price, $product->discount_type, $product->discount_value) }}
-                    </span>
-                    <span class="text-muted text-decoration-line-through small ms-1">
-                        Tk. {{ $product->price }}
-                    </span>
-                </div>
-                <span class="badge bg-danger">
-                    Save {{ $product->discount_type === 'Taka' ? $product->discount_value . ' Tk' : $product->discount_value . '%' }}
-                </span>
-            @else
-                <div class="mb-2 fw-bold fs-5 text-dark">
-                    Tk. {{ $product->price }}
-                </div>
-            @endif
-        </div>
-    </div>
+                                <!-- Price -->
+                                <div>
+                                    @if($product->discount_value > 0)
+                                        <div class="mb-1">
+                                            <span class="fw-bold fs-5 text-danger">
+                                                Tk. {{ discountCal($product->price, $product->discount_type, $product->discount_value) }}
+                                            </span>
+                                            <span class="text-muted text-decoration-line-through small ms-1">
+                                                Tk. {{ $product->price }}
+                                            </span>
+                                        </div>
+                                        <span class="badge bg-danger">
+                                            Save {{ $product->discount_type === 'Taka' ? $product->discount_value . ' Tk' : $product->discount_value . '%' }}
+                                        </span>
+                                    @else
+                                        <div class="mb-2 fw-bold fs-5 text-dark">
+                                            Tk. {{ $product->price }}
+                                        </div>
+                                    @endif
+                                </div>
 
-    <!-- Action Buttons (bottom) -->
-   {{-- Product Buttons --}}
-   <div class="d-grid gap-2">
-                {{-- Quick View --}}
-                @if (!empty($product->slug) && $product['stock'] > 0)
-                    <a href="javascript:void(0)" onclick="productQuckView('{{ route('web.products.quickView', $product->slug) }}')" class="btn btn-outline-primary btn-sm d-flex align-items-center justify-content-center">
-                        <i class="lni lni-eye me-2"></i> Quick View
-                    </a>
-                @endif
+                                <!-- Stock Status -->
+                                <div class="gap-2">
+                                <div class="d-grid gap-2">
+                                        {{-- Quick View --}}
+                                        @if (!empty($product->slug) && $product['stock'] > 0)
+                                            <a href="javascript:void(0)" onclick="productQuckView('{{ route('web.products.quickView', $product->slug) }}')" class="btn btn-outline-primary btn-sm d-flex align-items-center justify-content-center">
+                                                <i class="lni lni-eye me-2"></i> Quick View
+                                            </a>
+                                        @endif
 
-               
+                                    
 
-                {{-- Add to Cart --}}
-                @if($product['size'] || $product['color'])
-                    <a href="javascript:void(0)" onclick="productQuckView('{{ route('web.products.quickView', $product->slug) }}')" class="btn btn-outline-warning btn-sm d-flex align-items-center justify-content-center">
-                        <i class="lni lni-shopping-basket me-2"></i> Add to Cart
-                    </a>
-                @elseif($product['stock'] > 0 && $product['is_add_to_cart'] == 1)
-                    <form action="{{ route('web.cart.quickAddCart', $product['slug']) }}" method="post">
-                        @csrf
-                        <button type="submit" class="btn btn-outline-warning btn-sm d-flex align-items-center justify-content-center w-100">
-                            <i class="lni lni-shopping-basket me-2"></i> Add to Cart
-                        </button>
-                    </form>
-                @endif
+                                        {{-- Add to Cart --}}
+                                        @if($product['size'] || $product['color'])
+                                            <a href="javascript:void(0)" onclick="productQuckView('{{ route('web.products.quickView', $product->slug) }}')" class="btn btn-outline-warning btn-sm d-flex align-items-center justify-content-center">
+                                                <i class="lni lni-shopping-basket me-2"></i> Add to Cart
+                                            </a>
+                                        @elseif($product['stock'] > 0 && $product['is_add_to_cart'] == 1)
+                                            <form action="{{ route('web.cart.quickAddCart', $product['slug']) }}" method="post">
+                                                @csrf
+                                                <button type="submit" class="btn btn-outline-warning btn-sm d-flex align-items-center justify-content-center w-100">
+                                                    <i class="lni lni-shopping-basket me-2"></i> Add to Cart
+                                                </button>
+                                            </form>
+                                        @endif
 
-                {{-- Details --}}
-               @if (!empty($product->slug))
-                    <a href="{{ route('web.products.details', $product->slug) }}" class="btn btn-outline-secondary btn-sm d-flex align-items-center justify-content-center">
-                        <i class="lni lni-info me-2"></i> Details
-                    </a>
-                @else
-                    <button class="btn btn-outline-secondary btn-sm d-flex align-items-center justify-content-center" disabled>
-                        <i class="lni lni-info me-2"></i> Details
-                    </button>
-               
-               @endif
-            </div>
-</div>
+                                        {{-- Details --}}
+                                    @if (!empty($product->slug))
+                                            <a href="{{ route('web.products.details', $product->slug) }}" class="btn btn-outline-secondary btn-sm d-flex align-items-center justify-content-center">
+                                                <i class="lni lni-info me-2"></i> Details
+                                            </a>
+                                        @else
+                                            <button class="btn btn-outline-secondary btn-sm d-flex align-items-center justify-content-center" disabled>
+                                                <i class="lni lni-info me-2"></i> Details
+                                            </button>
+                                    
+                                    @endif
+                                    </div>
+                                    </div>
+                        </div>
 
+                            </div>
+
+                            <!-- Action Buttons (bottom) -->
+                        {{-- Product Buttons --}}
+                        
                         @endforeach
 
                         {{ $products->appends(request()->input())->links('website.share.pagination') }}
