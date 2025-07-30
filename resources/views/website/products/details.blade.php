@@ -145,22 +145,55 @@
                                                     @endforeach
                                                 @endif
 
+                                                <div class="prt_05 mb-4">
+                                                    <div class="form-row mb-4">
+                                                        <div class="col-4 col-lg-auto">
+                                                            <div class="input-group input-group-sm">
+                                                                <div @click="decrement()" class="qty-input-btn" >
+                                                                    <span class="input-group-text px-2 py-1">-</span>
+                                                                </div>
+                                                                <div class="qty-input px-2" style="font-size: 0.85rem; min-width: 30px; ">@{{ qty }}</div>
+                                                                <div @click="increment('{{ $product->stock }}')" class="qty-input-btn" >
+                                                                    <span class="input-group-text px-2 py-1">+</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                         <!-- Add to cart form -->
+                                                        <div class="col-6">
+                                                            <button type="button" @click="addToCart('{{ route('web.cart.add', $product->slug) }}')" class="btn btn-dark btn-block" style="height: 65px;">
+                                                                <i class="lni lni-shopping-basket mr-2"></i>Add to Cart
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                 </div>
+
+
+
+
+
                                                 <!-- Add to cart -->
-                                                <div class="form-row mt-3">
-                                                    <div class="col-6">
-                                                        <button type="button" @click="addToCart('{{ route('web.cart.add', $product->slug) }}')" class="btn btn-dark btn-block">
-                                                            <i class="lni lni-shopping-basket mr-2"></i>Add to Cart
-                                                        </button>
-                                                    </div>
-                                                    <div class="col-6 d-flex justify-content-end">
-                                                        <form id="wishlist-form-{{ $product->id }}" action="{{ route('web.user.wishlist.add', $product->id) }}" method="POST" style="display: none;">
-                                                            @csrf
-                                                        </form>
-                                                        <button type="button" onclick="document.getElementById('wishlist-form-{{ $product->id }}').submit();" class="btn btn-sm wishlist-btn">
-                                                            <i class="lni lni-heart mr-1"></i> Wishlist
-                                                        </button>
-                                                    </div>
-                                                </div>
+                                                <div class="form-row mt-3 d-flex justify-content-start gap-2">
+
+    <!-- Wishlist Button -->
+    <form id="wishlist-form-{{ $product->id }}" action="{{ route('web.user.wishlist.add', $product->id) }}" method="POST" style="display: none;">
+        @csrf
+    </form>
+    <button type="button"
+            onclick="document.getElementById('wishlist-form-{{ $product->id }}').submit();"
+            class="btn btn-sm wishlist-btn me-1">
+        <i class="lni lni-heart mr-1"></i> Wishlist
+    </button>
+
+    <!-- Compare Button -->
+    <form action="{{ route('web.user.compare.add', $product->id) }}" method="POST" class="m-0 p-0">
+        @csrf
+        <button type="submit" class="btn btn-sm compare-btn text-white" style="border-radius: 10px;">
+            <i class="fas fa-exchange-alt text-primary"></i> Add to Compare
+        </button>
+    </form>
+
+</div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -177,29 +210,35 @@
                                 </div>
 
                                 <!-- RIGHT COLUMN: RELATED PRODUCTS -->
-                             
+
                                 <div class="col-lg-2 mt-4 mt-lg-0 ms-auto" >
                                     @if(count($relatedProducts) > 0)
                                         <div class="text-center mb-3">
                                             <h5 class="mb-3" style="font-weight: bold; font-size:larger">You May Also Like</h5>
                                         </div>
                                         <div class="row ">
-                                            @foreach($relatedProducts as $product)
+                                            @foreach($relatedProducts->take(3) as $product)
                                                 <div class="col-12 mb-3">
                                                     <div class="rounded p-1 text-center h-100" style="max-width: 150px; margin: 0 auto;">
                                                         {{-- Product image --}}
-                                                        <a href="{{ route('web.products.details', $product->slug) }}">
-                                                            <img src="{{ asset('storage/products/' . $product->image) }}" 
-                                                                alt="{{ $product->name }}" 
-                                                                class="img-fluid rounded mb-2" 
-                                                                style="max-height: 100px; object-fit: contain;">
-                                                        </a>
+                                                        @if (!empty($product->slug))
+
+                                                            <a href="{{ route('web.products.details', $product->slug) }}">
+                                                                <img src="{{ asset('storage/products/' . $product->image) }}" 
+                                                                    alt="{{ $product->name }}" 
+                                                                    class="img-fluid rounded mb-2" 
+                                                                    style="max-height: 100px; object-fit: contain;">
+                                                            </a>
+                                                        @endif
 
                                                         {{-- Product name --}}
                                                         <h6 class="fw-bold mb-1 text-end" style="word-break: break-word;">
-                                                            <a href="{{ route('web.products.details', $product->slug) }}">
-                                                                {{ $product->name }}
+                                                          @if (!empty($product->slug))
+                                                            <a href="{{ route('web.products.details', $product->slug) }}" class="text-dark text-decoration-none">
+                                                                {{ Str::limit($product->name, 20) }}
                                                             </a>
+
+                                                          @endif
                                                         </h6>
 
                                                         {{-- Pricing --}}
