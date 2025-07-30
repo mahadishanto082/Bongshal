@@ -33,27 +33,6 @@
         .compare-btn:hover {
             color: #000;
         }
-        .swiper-button-up, .swiper-button-down {
-    background-color: #f8f9fa;
-    color: #333;
-    padding: 10px;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    font-size: 14px;
-}
-
-.swiper-button-up {
-    top: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-.swiper-button-down {
-    bottom: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
     </style>
 @endsection
 
@@ -198,18 +177,14 @@
                                 </div>
 
                                 <!-- RIGHT COLUMN: RELATED PRODUCTS -->
-                               
-                                
+                             
                                 <div class="col-lg-2 mt-4 mt-lg-0 ms-auto" >
                                     @if(count($relatedProducts) > 0)
                                         <div class="text-center mb-3">
                                             <h5 class="mb-3" style="font-weight: bold; font-size:larger">You May Also Like</h5>
                                         </div>
                                         <div class="row ">
-                                        <div class="SwipperController" style="height: 450px;">
-                                 <div class="swipper-wrapper">
                                             @foreach($relatedProducts as $product)
-                                            <div class="swiper-slide">
                                                 <div class="col-12 mb-3">
                                                     <div class="rounded p-1 text-center h-100" style="max-width: 150px; margin: 0 auto;">
                                                         {{-- Product image --}}
@@ -242,17 +217,11 @@
                                                         @endif
                                                     </div>
                                                 </div>
-                                            </div>
                                             @endforeach
-                                 </div>
                                         </div>
-                                        </div>
-                                         <!-- Up/Down arrows -->
-    <div class="swiper-button-prev swiper-button-up"></div>
-    <div class="swiper-button-next swiper-button-down"></div>
                                     @endif
                             </div>
-                                 
+
                             </div>
                         </section>
                     </div>
@@ -260,19 +229,4 @@
             </div>
         </div>
     </section>
-@push('_js')
-<script>
-    const swiper = new Swiper('.myVerticalSwiper', {
-        direction: 'vertical',
-        slidesPerView: 3,
-        spaceBetween: 10,
-        loop: false,
-        navigation: {
-            nextEl: '.swiper-button-down',
-            prevEl: '.swiper-button-up',
-        },
-        mousewheel: true,
-    });
-</script>
-
 @endsection
