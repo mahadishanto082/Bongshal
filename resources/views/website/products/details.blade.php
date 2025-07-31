@@ -450,41 +450,26 @@
                                     </div>
                                 </div>
 
-                                <section class=" pt-2 pb-2" >
-                                    <div class="container">
-                                        <div class="row justify-content-start" >
-                                            <div class="col-md-6 mb-3">
-                                                <div class="card h-60 ;" style="width: 60%;">
-                                                    <iframe   src="https://www.youtube.com/embed/your-video-id" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
-                                                        <span class="card-title text-start mt-2">Product Video</span>
-                                                </div>
+                                <div class="container">
+                                    <div class="row justify-content-start">
+                                        <div class="col-md-6 mb-3">
+                                            <div class="card border p-2" style="width: 60%;">
+                                                <iframe 
+                                                    width="100%" 
+                                                    height="200" 
+                                                    src="https://www.youtube.com/embed/your-video-id" 
+                                                    title="YouTube video player" 
+                                                    frameborder="0" 
+                                                    allowfullscreen>
+                                                </iframe>
+                                                <span class="card-title text-start mt-2">Product Video</span>
                                             </div>
-                                            <div class="col-md-6 mb-3">
-                                                <div class="card h-60 ;" style="width: 60%;">
-                                                    <iframe   src="https://www.youtube.com/embed/your-video-id" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
-                                                        <span class="card-title text-start mt-2">Product Video</span>
-                                                </div>
-                                            </div>
-                                            
                                         </div>
                                     </div>
-
-                                <!-- <div class="rounded p-1 text-center h-100" style="max-width: 150px; margin: 0 auto;">
-
-
-
-                                                        {{-- Product name --}}
-
-
-
-
-                                                    </div>
-                                 -->
-
-
                             </div>
-                        </section>
-                    </div>
+                        </div>
+                     </section>
+                     </div>
                 </div>
             </div>
         </div>
