@@ -91,6 +91,8 @@
                                                 @endif
 
                                                 <h2 class="ft-bold mt-2">{{ $product->name }}</h2>
+                                                <p class="mb-1">Product Code: <strong>{{ $product->code }}</strong></p>
+
                                                 <div class="text-left">
                                                     @if($product->discount_value > 0 && $product->discount_type)
                                                         <div class="elis_rty">
@@ -109,6 +111,27 @@
                                                             <span class="ft-bold text-dark fs-sm">Tk. {{ $product->price }}</span>
                                                         </div>
                                                     @endif
+
+                                                    
+                                                    <ul class="list-inline mb-0">
+                                                        <li class="list-inline-item">
+                                                            <!-- Assuming you have a rating system in place -->
+                                                            {{-- Rating --}}
+                                                            <div class="mt-0 mb-2" style="font-size: 0.85rem;">
+                                                                @php $rating = $product->rating ?? 4; @endphp
+                                                                @for ($i = 1; $i <= 5; $i++)
+                                                                    @if($i <= $rating)
+                                                                        <i class="fas fa-star text-warning"></i>
+                                                                    @else
+                                                                        <i class="far fa-star text-muted"></i>
+                                                                    @endif
+                                                                @endfor
+                                                                <span class="small text-muted" style="font-size: 0.75rem;">({{ number_format($rating, 1) }}/5)</span>
+                                                            </div>  
+                                                        </li>
+                                                        <li class="list-inline-item" style="color: #fa4c06;"> Read reviews</li>
+                                                    </ul>
+                                                    </ul>
                                                 </div>
 
                                                 <!-- Additional product info (category, brand, merchant, etc.) -->
@@ -200,18 +223,34 @@
 
                                     <!-- Description -->
                                     <div>
-                                        <h5 class="text-center">Product Details</h5>
-                                        <ul class="nav nav-tabs">
-                                            <li class="nav-item">
-                                                <a class="nav-link active" aria-current="page" >
-                                                    </a>
+                                    <div class="container mt-4">
+                                        <h5 class="text-center mb-3">Product Details</h5>
+
+                                        <!-- Tabs Navigation -->
+                                        <ul class="nav nav-tabs justify-content-start" id="productTab" role="tablist">
+                                            <li class="nav-item" role="presentation">
+                                                <button class="nav-link active" id="description-tab" data-bs-toggle="tab" data-bs-target="#description" type="button" role="tab" aria-controls="description" aria-selected="true">
+                                                    Description
+                                                </button>
                                             </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" >Part Number</a>
+                                            <li class="nav-item" role="presentation">
+                                                <button class="nav-link" id="specification-tab" data-bs-toggle="tab" data-bs-target="#specification" type="button" role="tab" aria-controls="specification" aria-selected="false">
+                                                    Specification
+                                                </button>
                                             </li>
-                                            
-                                           
                                         </ul>
+
+                                        <!-- Tabs Content -->
+                                        <div class="tab-content border p-3 border-top-0" id="productTabContent">
+                                            <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+                                                {!! $product->description !!}
+                                            </div>
+                                            <div class="tab-pane fade" id="specification" role="tabpanel" aria-labelledby="specification-tab">
+                                                {!! $product->specification ?? 'No specification provided.' !!}
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     </div>
                                     
                                 </div>

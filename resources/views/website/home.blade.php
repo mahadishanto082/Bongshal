@@ -591,7 +591,8 @@
 
                         {{-- Rating --}}
                         <div class="mt-1">
-                            @php $rating = $product->rating ?? 4; @endphp
+                            @php $rating = $product->rating ?? 4; 
+                            @endphp
                             @for ($i = 1; $i <= 5; $i++)
                                 @if($i <= $rating)
                                     <i class="fas fa-star text-warning"></i>
