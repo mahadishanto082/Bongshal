@@ -13,76 +13,76 @@
 @endsection
 
 @section('_css')
-    <link rel="stylesheet" href="{{ asset('assets/website/css/smoothproducts.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/website/css/lightbox.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/website/css/slick.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/website/css/slick-theme.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/website/css/product-details.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/website/css/smoothproducts.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/website/css/lightbox.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/website/css/slick.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/website/css/slick-theme.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/website/css/product-details.css') }}">
 
-    
-    <style>
-        .wishlist-btn,
-        .compare-btn {
-            background-color: transparent !important;
-            color: black !important;
-            border: none !important;
-            box-shadow: none !important;
-            padding: 0.3rem 0.6rem;
-            font-weight: 500;
-        }
 
-        .wishlist-btn:hover,
-        .compare-btn:hover {
-            color: #000;
-        }
+        <style>
+            .wishlist-btn,
+            .compare-btn {
+                background-color: transparent !important;
+                color: black !important;
+                border: none !important;
+                box-shadow: none !important;
+                padding: 0.3rem 0.6rem;
+                font-weight: 500;
+            }
 
-       /* Ensure carousel parent is relative */
-#carouselRelatedProducts {
-  position: relative;
-  min-height: 180px;
-}
+            .wishlist-btn:hover,
+            .compare-btn:hover {
+                color: #000;
+            }
 
-/* Carousel controls styling */
-.carousel-control-prev,
-.carousel-control-next {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 45px;
-  height: 45px;
-  background-color: rgba(0, 0, 0, 0.4);
-  border-radius: 50%;
-  z-index: 10;
-  transition: background-color 0.2s, transform 0.1s;
-}
+           /* Ensure carousel parent is relative */
+    #carouselRelatedProducts {
+      position: relative;
+      min-height: 180px;
+    }
 
-/* Hover effect */
-.carousel-control-prev:hover,
-.carousel-control-next:hover {
-  background-color: rgba(0, 0, 0, 0.6);
-}
+    /* Carousel controls styling */
+    .carousel-control-prev,
+    .carousel-control-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 45px;
+      height: 45px;
+      background-color: rgba(0, 0, 0, 0.4);
+      border-radius: 50%;
+      z-index: 10;
+      transition: background-color 0.2s, transform 0.1s;
+    }
 
-/* Active click effect */
-.carousel-control-prev:active,
-.carousel-control-next:active {
-  background-color: rgba(0, 0, 0, 0.7);
-  transform: translateY(-50%) scale(0.95);
-}
+    /* Hover effect */
+    .carousel-control-prev:hover,
+    .carousel-control-next:hover {
+      background-color: rgba(0, 0, 0, 0.6);
+    }
 
-/* Carousel icon size */
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-  background-size: 60% 60%;
-  filter: invert(1); /* makes the icon white */
-}
+    /* Active click effect */
+    .carousel-control-prev:active,
+    .carousel-control-next:active {
+      background-color: rgba(0, 0, 0, 0.7);
+      transform: translateY(-50%) scale(0.95);
+    }
 
-.card:hover .product-actions {
-    opacity: 1 !important;
-    transform: translateY(0);
+    /* Carousel icon size */
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+      background-size: 60% 60%;
+      filter: invert(1); /* makes the icon white */
+    }
 
-}
+    .card:hover .product-actions {
+        opacity: 1 !important;
+        transform: translateY(0);
 
-    </style>
+    }
+
+        </style>
 @endsection
 
 @section('title')
@@ -161,7 +161,7 @@
                                                         </div>
                                                     @endif
 
-                                                    
+
                                                     <ul class="list-inline mb-0" style="font-size: 0.75rem; white-space: nowrap;">
                                                         <li class="list-inline-item">
                                                             <div class="mt-0 mb-0">
@@ -187,7 +187,7 @@
                                                         </li>
                                                     </ul>
 
-                                                    
+
                                                 </div>
 
                                                 <!-- Additional product info (category, brand, merchant, etc.) -->
@@ -308,7 +308,7 @@
                                     </div>
 
                                     </div>
-                                    
+
                                 </div>
 
                                 <!-- RIGHT COLUMN: RELATED PRODUCTS
@@ -363,82 +363,124 @@
                                         </div>
                                     @endif
                             </div> -->
-<!-- All products details-->
-<div class="row justify-content-center">
-            <div class="col-md-8 col-sm-10 col-12">
-                <div class="sec_title text-center mb-2">
-                    <h5 class="ft-bold mb-0">Related Products</h5>
-                </div>
-            </div>
-        </div>
-
-
-        @if(count($relatedProducts) > 0)
-<section class=" pt-2 pb-2">
-    <div class="container">
-        
-
-        <div id="carouselRelatedProducts" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                @php $chunks = $relatedProducts->chunk(4); @endphp
-
-                @foreach($chunks as $chunkIndex => $chunk)
-                    <div class="carousel-item {{ $chunkIndex == 0 ? 'active' : '' }}">
-                        <div class="row justify-content-start" style="padding-left:5%;">
-                            @foreach($chunk as $product)
-                                <div class="col-auto mb-3">
-                                    <div class="border rounded p-2 text-center" style="width: 130px;">
-                                        {{-- Product image --}}
-                                        <a href="{{ route('web.products.details', $product->slug) }}">
-                                            <img src="{{ asset('storage/products/' . $product->image) }}"
-                                                alt="{{ $product->name }}"
-                                                class="img-fluid rounded mb-1"
-                                                style="max-height: 90px; object-fit: contain;">
-                                        </a>
-
-                                        {{-- Product name --}}
-                                        <h6 class="fw-semibold mb-1" style="font-size: 0.75rem;">
-                                            <a href="{{ route('web.products.details', $product->slug) }}" class="text-dark text-decoration-none">
-                                                {{ Str::limit($product->name, 18) }}
-                                            </a>
-                                        </h6>
-
-                                        {{-- Pricing --}}
-                                        @if($product->discount_value > 0 && $product->discount_type)
-                                            <div style="font-size: 0.7rem;">
-                                                <span class="text-muted text-decoration-line-through">Tk. {{ $product->price }}</span><br>
-                                                <span class="text-danger fw-bold">
-                                                    Tk. {{ discountCal($product->price, $product->discount_type, $product->discount_value) }}
-                                                </span>
+                                <!-- All products details-->
+                                <div class="row justify-content-center">
+                                            <div class="col-md-8 col-sm-10 col-12">
+                                                <div class="sec_title text-center mb-2">
+                                                    <h5 class="ft-bold mb-0">Riders Also Bought</h5>
+                                                </div>
                                             </div>
-                                        @else
-                                            <div style="font-size: 0.75rem;">
-                                                <span class="text-dark fw-bold">Tk. {{ $product->price }}</span>
-                                            </div>
+                                        </div>
+
+
+                                        @if(count($relatedProducts) > 0)
+                                            <section class=" pt-2 pb-2">
+                                                <div class="container">
+
+
+                                                    <div id="carouselRelatedProducts" class="carousel slide" data-bs-ride="carousel">
+                                                        <div class="carousel-inner">
+                                                            @php $chunks = $relatedProducts->chunk(4); @endphp
+
+                                                            @foreach($chunks as $chunkIndex => $chunk)
+                                                                <div class="carousel-item {{ $chunkIndex == 0 ? 'active' : '' }}">
+                                                                    <div class="row justify-content-start" style="padding-left:5%;">
+                                                                        @foreach($chunk as $product)
+                                                                            <div class="col-auto mb-3">
+                                                                                <div class="border rounded p-2 text-center" style="width: 130px;">
+                                                                                    {{-- Product image --}}
+                                                                                    <a href="{{ route('web.products.details', $product->slug) }}">
+                                                                                        <img src="{{ asset('storage/products/' . $product->image) }}"
+                                                                                            alt="{{ $product->name }}"
+                                                                                            class="img-fluid rounded mb-1"
+                                                                                            style="max-height: 90px; object-fit: contain;">
+                                                                                    </a>
+
+                                                                                    {{-- Product name --}}
+                                                                                    <h6 class="fw-semibold mb-1" style="font-size: 0.75rem;">
+                                                                                        <a href="{{ route('web.products.details', $product->slug) }}" class="text-dark text-decoration-none">
+                                                                                            {{ Str::limit($product->name, 18) }}
+                                                                                        </a>
+                                                                                    </h6>
+
+                                                                                    {{-- Pricing --}}
+                                                                                    @if($product->discount_value > 0 && $product->discount_type)
+                                                                                        <div style="font-size: 0.7rem;">
+                                                                                            <span class="text-muted text-decoration-line-through">Tk. {{ $product->price }}</span><br>
+                                                                                            <span class="text-danger fw-bold">
+                                                                                                Tk. {{ discountCal($product->price, $product->discount_type, $product->discount_value) }}
+                                                                                            </span>
+                                                                                        </div>
+                                                                                    @else
+                                                                                        <div style="font-size: 0.75rem;">
+                                                                                            <span class="text-dark fw-bold">Tk. {{ $product->price }}</span>
+                                                                                        </div>
+                                                                                    @endif
+                                                                                </div>
+                                                                            </div>
+                                                                        @endforeach
+                                                                    </div>
+                                                                </div>
+                                                            @endforeach
+                                                        </div>
+
+                                                        {{-- Controls --}}
+
+                                                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselRelatedProducts" data-bs-slide="prev">
+                                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                                <span class="visually-hidden">Previous</span>
+                                                            </button>
+                                                            <button class="carousel-control-next" type="button" data-bs-target="#carouselRelatedProducts" data-bs-slide="next">
+                                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                                <span class="visually-hidden">Next</span>
+                                                            </button>
+
+                                                    </div>
+                                                </div>
+                                            </section>
                                         @endif
+                                <!-- End of related products section -->
+
+                                <!--Related Video-->
+                                <div class="row justify-content-center">
+                                      <div class="col-md-8 col-sm-10 col-12">
+                                        <div class="sec_title text-center mb-2">
+                                            <h5 class="ft-bold mb-0">Related Videos</h5>
+                                        </div>
                                     </div>
                                 </div>
-                            @endforeach
-                        </div>
-                    </div>
-                @endforeach
-            </div>
 
-            {{-- Controls --}}
-           
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselRelatedProducts" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselRelatedProducts" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            
-        </div>
-    </div>
-</section>
-@endif
+                                <section class=" pt-2 pb-2" >
+                                    <div class="container">
+                                        <div class="row justify-content-start" >
+                                            <div class="col-md-6 mb-3">
+                                                <div class="card h-60 ;" style="width: 60%;">
+                                                    <iframe   src="https://www.youtube.com/embed/your-video-id" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+                                                        <span class="card-title text-start mt-2">Product Video</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <div class="card h-60 ;" style="width: 60%;">
+                                                    <iframe   src="https://www.youtube.com/embed/your-video-id" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+                                                        <span class="card-title text-start mt-2">Product Video</span>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+
+                                <!-- <div class="rounded p-1 text-center h-100" style="max-width: 150px; margin: 0 auto;">
+
+
+
+                                                        {{-- Product name --}}
+
+
+
+
+                                                    </div>
+                                 -->
+
 
                             </div>
                         </section>
