@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="{{ asset('assets/website/css/slick.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/website/css/slick-theme.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/website/css/product-details.css') }}">
+
+    
     <style>
         .wishlist-btn,
         .compare-btn {
@@ -33,6 +35,53 @@
         .compare-btn:hover {
             color: #000;
         }
+
+       /* Ensure carousel parent is relative */
+#carouselRelatedProducts {
+  position: relative;
+  min-height: 180px;
+}
+
+/* Carousel controls styling */
+.carousel-control-prev,
+.carousel-control-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 45px;
+  height: 45px;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 50%;
+  z-index: 10;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+/* Hover effect */
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+/* Active click effect */
+.carousel-control-prev:active,
+.carousel-control-next:active {
+  background-color: rgba(0, 0, 0, 0.7);
+  transform: translateY(-50%) scale(0.95);
+}
+
+/* Carousel icon size */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-size: 60% 60%;
+  filter: invert(1); /* makes the icon white */
+}
+
+.card:hover .product-actions {
+    opacity: 1 !important;
+    transform: translateY(0);
+
+}
+
     </style>
 @endsection
 
@@ -113,11 +162,9 @@
                                                     @endif
 
                                                     
-                                                    <ul class="list-inline mb-0">
+                                                    <ul class="list-inline mb-0" style="font-size: 0.75rem; white-space: nowrap;">
                                                         <li class="list-inline-item">
-                                                            <!-- Assuming you have a rating system in place -->
-                                                            {{-- Rating --}}
-                                                            <div class="mt-0 mb-2" style="font-size: 0.85rem;">
+                                                            <div class="mt-0 mb-0">
                                                                 @php $rating = $product->rating ?? 4; @endphp
                                                                 @for ($i = 1; $i <= 5; $i++)
                                                                     @if($i <= $rating)
@@ -126,12 +173,21 @@
                                                                         <i class="far fa-star text-muted"></i>
                                                                     @endif
                                                                 @endfor
-                                                                <span class="small text-muted" style="font-size: 0.75rem;">({{ number_format($rating, 1) }}/5)</span>
-                                                            </div>  
+                                                            </div>
                                                         </li>
-                                                        <li class="list-inline-item" style="color: #fa4c06;"> Read reviews</li>
+                                                        <li class="list-inline-item px-1">|</li>
+                                                        <li class="list-inline-item text-danger" style="color:#fa4c06;">Read Reviews</li>
+                                                        <li class="list-inline-item px-1">|</li>
+                                                        <li class="list-inline-item" style="color:#fa4c06;">
+                                                             Q&As
+                                                        </li>
+                                                        <li class="list-inline-item px-1">|</li>
+                                                        <li class="list-inline-item" style="color:#fa4c06;">
+                                                             Write Review
+                                                        </li>
                                                     </ul>
-                                                    </ul>
+
+                                                    
                                                 </div>
 
                                                 <!-- Additional product info (category, brand, merchant, etc.) -->
@@ -255,7 +311,7 @@
                                     
                                 </div>
 
-                                <!-- RIGHT COLUMN: RELATED PRODUCTS -->
+                                <!-- RIGHT COLUMN: RELATED PRODUCTS
 
                                 <div class="col-lg-2 mt-4 mt-lg-0 ms-auto" style="position: sticky; top: 100px; z-index: 1;">
 
@@ -306,7 +362,83 @@
                                             @endforeach
                                         </div>
                                     @endif
-                            </div>
+                            </div> -->
+<!-- All products details-->
+<div class="row justify-content-center">
+            <div class="col-md-8 col-sm-10 col-12">
+                <div class="sec_title text-center mb-2">
+                    <h5 class="ft-bold mb-0">Related Products</h5>
+                </div>
+            </div>
+        </div>
+
+
+        @if(count($relatedProducts) > 0)
+<section class=" pt-2 pb-2">
+    <div class="container">
+        
+
+        <div id="carouselRelatedProducts" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                @php $chunks = $relatedProducts->chunk(4); @endphp
+
+                @foreach($chunks as $chunkIndex => $chunk)
+                    <div class="carousel-item {{ $chunkIndex == 0 ? 'active' : '' }}">
+                        <div class="row justify-content-start">
+                            @foreach($chunk as $product)
+                                <div class="col-auto mb-3">
+                                    <div class="border rounded p-2 text-center" style="width: 130px;">
+                                        {{-- Product image --}}
+                                        <a href="{{ route('web.products.details', $product->slug) }}">
+                                            <img src="{{ asset('storage/products/' . $product->image) }}"
+                                                alt="{{ $product->name }}"
+                                                class="img-fluid rounded mb-1"
+                                                style="max-height: 90px; object-fit: contain;">
+                                        </a>
+
+                                        {{-- Product name --}}
+                                        <h6 class="fw-semibold mb-1" style="font-size: 0.75rem;">
+                                            <a href="{{ route('web.products.details', $product->slug) }}" class="text-dark text-decoration-none">
+                                                {{ Str::limit($product->name, 18) }}
+                                            </a>
+                                        </h6>
+
+                                        {{-- Pricing --}}
+                                        @if($product->discount_value > 0 && $product->discount_type)
+                                            <div style="font-size: 0.7rem;">
+                                                <span class="text-muted text-decoration-line-through">Tk. {{ $product->price }}</span><br>
+                                                <span class="text-danger fw-bold">
+                                                    Tk. {{ discountCal($product->price, $product->discount_type, $product->discount_value) }}
+                                                </span>
+                                            </div>
+                                        @else
+                                            <div style="font-size: 0.75rem;">
+                                                <span class="text-dark fw-bold">Tk. {{ $product->price }}</span>
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+
+            {{-- Controls --}}
+            @if($relatedProducts->count() > 4)
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselRelatedProducts" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselRelatedProducts" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            @endif
+        </div>
+    </div>
+</section>
+@endif
 
                             </div>
                         </section>
