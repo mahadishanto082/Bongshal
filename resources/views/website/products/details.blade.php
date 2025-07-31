@@ -384,7 +384,7 @@
 
                 @foreach($chunks as $chunkIndex => $chunk)
                     <div class="carousel-item {{ $chunkIndex == 0 ? 'active' : '' }}">
-                        <div class="row justify-content-start">
+                        <div class="row justify-content-start" style="padding-left:5%;">
                             @foreach($chunk as $product)
                                 <div class="col-auto mb-3">
                                     <div class="border rounded p-2 text-center" style="width: 130px;">
@@ -425,7 +425,7 @@
             </div>
 
             {{-- Controls --}}
-            @if($relatedProducts->count() > 4)
+           
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselRelatedProducts" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Previous</span>
@@ -434,7 +434,7 @@
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Next</span>
                 </button>
-            @endif
+            
         </div>
     </div>
 </section>
