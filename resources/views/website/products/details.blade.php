@@ -266,10 +266,70 @@
                                                          Q&As
                                                     </li>
                                                     <li class="list-inline-item px-1">|</li>
-                                                    <li class="list-inline-item" style="color:#fa4c06;">
-                                                    <a href="#" class="Write-review" style="color: inherit; ">
-                                                         Write Review
-                                                    </li>
+                                                                                                        <!-- Trigger Button -->
+                                                        <li class="list-inline-item" style="color:#fa4c06;">
+                                                        <a href="#" class="Write-review" data-bs-toggle="modal" data-bs-target="#writeReviewModal" style="color: inherit;">
+                                                            Write Review
+                                                        </a>
+                                                        </li>
+
+                                                        <!-- Modal -->
+                                                        <div class="modal fade" id="writeReviewModal" tabindex="-1" aria-labelledby="writeReviewLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                 <h5 class="modal-title" id="writeReviewLabel">Please share your experience</h5>
+                                                                 <!-- Image Wrap Positioned at Top-Right -->
+                                                                    <div style="position: absolute; top: 10px; right: 15px; display: flex; gap: 5px; flex-wrap: wrap; max-width: 150px;">
+
+                                                                    <!-- Main Product Image -->
+                                                                    <a href="{{ asset('storage/products/' . $product->image) }}" style="display: inline-block; width: 100px; height: 100px;">
+                                                                    <img src="{{ asset('storage/products/' . $product->image) }}" alt="{{ $product->name }}" style="width: 100%; height: 100%; object-fit: contain; border-radius: 5px;">
+                                                                    </a>
+
+                                                                    <!-- Additional Product Images -->
+                                                                    @if(count($product->images))
+                                                                    @foreach($product->images as $image)
+                                                                        <a href="{{ $image->url }}" style="display: inline-block; width: 50px; height: 50px;">
+                                                                        <img src="{{ $image->url }}" alt="{{ $product->name }}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 5px;">
+                                                                        </a>
+                                                                    @endforeach
+                                                                    @endif
+
+                                                                    </div>
+                                                            
+                                                            <span class="text-muted">{{ $product->name }}</span>
+                                                            
+                                                            <div class="modal-body" style="height: 700px;">
+                                                                <form id="reviewForm">
+                                                                     <div class=" mt-5 mb-5 ">
+                                                                       
+                                                                        <select class="form-select" id="reviewRating" required>
+                                                                        <option value="" disabled selected>Select rating</option>
+                                                                        <option value="5">⭐⭐⭐⭐⭐ (5)</option>
+                                                                        <option value="4">⭐⭐⭐⭐ (4)</option>
+                                                                        <option value="3">⭐⭐⭐ (3)</option>
+                                                                        <option value="2">⭐⭐ (2)</option>
+                                                                        <option value="1">⭐ (1)</option>
+                                                                        </select>
+                                                                    </div>
+
+                                                                <div class="mb-3">
+                                                                    <label for="reviewText" class="form-label">Your Review</label>
+                                                                    <textarea class="form-control" id="reviewText" rows="4" required></textarea>
+                                                                </div>
+                                                                
+                                                                </form>
+                                                            </div>
+                                                            
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                <button type="submit" form="reviewForm" class="btn btn-primary">Submit Review</button>
+                                                            </div>
+
+                                                            </div>
+                                                        </div>
+                                                        </div>
+
                                                 </ul>
                                               
 
