@@ -81,6 +81,16 @@
         transform: translateY(0);
 
     }
+    .reviews {
+        text-decoration: none;
+    }
+
+    .reviews:hover,
+    .reviews:focus {
+        text-decoration: underline;
+    }
+
+
 
         </style>
 @endsection
@@ -226,7 +236,11 @@
                                                         </div>
                                                     </li>
                                                     <li class="list-inline-item px-1">|</li>
-                                                    <li class="list-inline-item text-danger" style="color:#fa4c06;">Read Reviews</li>
+                                                    <li class="list-inline-item text-danger" style="color:#fa4c06;">
+                                                        <a href="#" class="reviews" style="color: inherit; ">
+                                                            Read Reviews
+                                                        </a>
+                                                    </li>
                                                     <li class="list-inline-item px-1">|</li>
                                                     <li class="list-inline-item" style="color:#fa4c06;">
                                                          Q&As
