@@ -90,6 +90,23 @@
         text-decoration: underline;
     }
 
+    .Q-A {
+        text-decoration: none;
+    }
+
+    .Q-A:hover,
+    .Q-A:focus {
+        text-decoration: underline;
+    }
+    .Write-review {
+        text-decoration: none;
+    }
+
+    .Write-review:hover,
+    .Write-review:focus {
+        text-decoration: underline;
+    }
+
 
 
         </style>
@@ -243,10 +260,14 @@
                                                     </li>
                                                     <li class="list-inline-item px-1">|</li>
                                                     <li class="list-inline-item" style="color:#fa4c06;">
+                                                    <a href="#" class="Q-A" style="color: inherit; ">
+                                                       
+                                                       
                                                          Q&As
                                                     </li>
                                                     <li class="list-inline-item px-1">|</li>
                                                     <li class="list-inline-item" style="color:#fa4c06;">
+                                                    <a href="#" class="Write-review" style="color: inherit; ">
                                                          Write Review
                                                     </li>
                                                 </ul>
