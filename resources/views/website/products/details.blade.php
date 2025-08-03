@@ -176,6 +176,21 @@
 
                                             <h2 class="ft-bold mt-2">{{ $product->name }}</h2>
                                             <p class="mb-1">Product Code: <strong>{{ $product->code }}</strong></p>
+                                            
+                                            <!--Read more-->
+                                            
+                                            @php
+                                                $minLength = 100;
+                                                $desc = strip_tags($product->description); // avoid HTML in short preview
+                                            @endphp
+
+                                            <p class="mb-1">
+                                                {{ str($desc)->limit($minLength) }}
+                                                @if(strlen($desc) > $minLength)
+                                                    <a href="#description" class="text-primary read-more-scroll">Read more</a>
+                                                @endif
+                                            </p>
+
 
                                             <div class="text-left">
                                                 @if($product->discount_value > 0 && $product->discount_type)
@@ -221,7 +236,7 @@
                                                          Write Review
                                                     </li>
                                                 </ul>
-
+                                              
 
                                             </div>
 
@@ -536,4 +551,6 @@
                 </div>
             </div>
         </section>
+        
+
 @endsection

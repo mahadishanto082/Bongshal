@@ -6,7 +6,7 @@
         
 
         <!-- Centered Menu -->
-        <div class="nav-menus-wrapper flex-grow-1 d-flex justify-content-center">
+        <!-- <div class="nav-menus-wrapper flex-grow-1 d-flex justify-content-center">
   <ul class="nav-menu d-flex gap-4 list-unstyled mb-0 align-items-center" style="font-size: 2rem; font:bold">
   <li>
       <a href="{{ route('web.categories') }}" class="d-flex align-items-center gap-2 ">
@@ -25,7 +25,7 @@
       </a>
     </li>
   </ul>
-</div>
+</div> -->
  <!-- Right Side Menu -->
        
       </div>

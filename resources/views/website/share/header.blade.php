@@ -30,7 +30,7 @@
     
     @foreach($welcome_text as $index => $text)
       <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-        <div class="welcome-text-bar py-2">
+        <div class="welcome-text-bar ">
           <div class="container d-flex justify-content-center align-items-center text-white fw-bold gap-3">
             <i class="fas fa-info-circle"></i>
             <span>{{ $text->content }}</span>

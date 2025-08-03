@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-@include('website.share.user-custom-feature')
+<!-- @include('website.share.user-custom-feature') -->
     <div class="gray py-3">
         <div class="container">
             <div class="row">
