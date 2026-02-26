@@ -4,18 +4,24 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Banner;
+use App\Traits\Media;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class BannerController extends Controller
 {
-    protected $ASSET_PATH = 'banners';
-    protected $ROUTE_AND_VIEW = 'admin.banner.'; // use lowercase if your folder is lowercase
+    use Media;
+
+    protected $ASSET_PATH = 'banner';
+    protected $ROUTE_AND_VIEW = 'admin.banner.';
 
     public function index()
     {
         $banners = Banner::paginate(15);
-        return view($this->ROUTE_AND_VIEW . 'index', ['banners' => $banners]);
+        $data = [
+            'banners' => $banners
+        ];
+        return view($this->ROUTE_AND_VIEW . 'index', $data);
     }
 
     public function create()
@@ -25,66 +31,81 @@ class BannerController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'title' => 'required|max:255',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        $this->validate($request, [
+            'title'  => 'nullable|string|max:255',
+            'image'  => 'required',
+            'link'   => 'nullable|url|max:255',
             'status' => 'required|in:Active,Inactive',
         ]);
 
-        $imagePath = $request->file('image')->store($this->ASSET_PATH, 'public');
+        $image = '';
+        if ($request->has('image')) {
+            $image = $this->imageUpload($request->image, $this->ASSET_PATH, '', '');
+        }
 
         Banner::create([
-            'title' => $request->title,
-            'image' => $imagePath,
-            'status' => $request->status,
+            'title'      => $request->title,
+            'image'      => $image ? $image['name'] : null,
+            'link'       => $request->link,
+            'status'     => $request->status,
+            'created_by' => Auth::user()->name ?? Auth::id(),
         ]);
 
-        return redirect()->route('admin.banners.index')
-        ->with('success', 'Banner created successfully'); }
-
-    public function edit($id)
-    {
-        $banner = Banner::findOrFail($id);
-        return view($this->ROUTE_AND_VIEW . 'edit', ['banner' => $banner]);
+        return redirect(route($this->ROUTE_AND_VIEW . 'index'))->with('success', 'Banner created successfully');
     }
 
-    public function update(Request $request, $id)
+    public function edit(string $id)
     {
-        $banner = Banner::findOrFail($id);
+        $data = Banner::findOrFail($id);
+        return view($this->ROUTE_AND_VIEW . 'edit', ['data' => $data]);
+    }
 
-        $request->validate([
-            'title' => 'required|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    public function update(Request $request, string $id)
+    {
+        $this->validate($request, [
+            'title'  => 'nullable|string|max:255',
+            'image'  => 'nullable',
+            'link'   => 'nullable|url|max:255',
             'status' => 'required|in:Active,Inactive',
         ]);
 
-        if ($request->hasFile('image')) {
-            if ($banner->image) {
-                Storage::disk('public')->delete($banner->image);
+        $data = Banner::find($id);
+
+        if ($data) {
+            $image = '';
+            if ($request->has('image')) {
+                if ($data->image) {
+                    $this->mediaDelete($this->ASSET_PATH, $data->image, '');
+                }
+                $image = $this->imageUpload($request->image, $this->ASSET_PATH, '', '');
             }
-            $banner->image = $request->file('image')->store($this->ASSET_PATH, 'public');
+
+            $data->update([
+                'title'  => $request->title,
+                'image'  => $image ? $image['name'] : $data->image,
+                'link'   => $request->link,
+                'status' => $request->status,
+            ]);
+
+            return redirect(route($this->ROUTE_AND_VIEW . 'index'))->with('success', 'Banner updated successfully');
+        } else {
+            return redirect(route($this->ROUTE_AND_VIEW . 'index'))->with('warning', 'Something went wrong. Please try again !!');
         }
+    }
 
-        $banner->title = $request->title;
-        $banner->status = $request->status;
-        $banner->save();
-
-        
-        return redirect()->route('admin.banners.index')
-        ->with('success', ' updated successfully');}
-
-    public function destroy($id)
+    public function destroy(string $id)
     {
-        $banner = Banner::findOrFail($id);
+        $data = Banner::find($id);
 
-        if ($banner->image) {
-            Storage::disk('public')->delete($banner->image);
+        if ($data) {
+            if ($data->image) {
+                $this->mediaDelete($this->ASSET_PATH, $data->image, '');
+            }
+            $data->update(['deleted_by' => Auth::user()->name ?? Auth::id()]);
+            $data->delete();
+            return redirect(route($this->ROUTE_AND_VIEW . 'index'))->with('success', 'Banner deleted successfully');
+        } else {
+            return redirect(route($this->ROUTE_AND_VIEW . 'index'))->with('warning', 'Something went wrong. Please try again !!');
         }
-
-        $banner->delete();
-
-        return redirect()->route('admin.banners.index')
-        ->with('success', ' updated successfully');
     }
 }
-

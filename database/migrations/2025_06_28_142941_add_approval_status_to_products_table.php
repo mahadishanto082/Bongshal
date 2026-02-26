@@ -1,36 +1,24 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Product;
-
-class OrderApprovalController extends Controller
+return new class extends Migration
 {
-    public function index()
+    public function up(): void
     {
-        // Fetch all products for approval
-        $products = Product::all();
-
-        return view('admin.products.approval', compact('products'));
+        Schema::table('products', function (Blueprint $table) {
+            $table->enum('approval_status', ['pending', 'approved', 'rejected'])
+                  ->default('pending')
+                  ->after('id');
+        });
     }
 
-    public function approve(Product $product)
+    public function down(): void
     {
-        if ($product->approval_status === 'pending') {
-            $product->update(['approval_status' => 'approved']);
-            return redirect()->back()->with('success', 'Product approved.');
-        }
-        return redirect()->back()->with('error', 'Product already processed.');
+        Schema::table('products', function (Blueprint $table) {
+            $table->dropColumn('approval_status');
+        });
     }
-
-    public function reject(Product $product)
-    {
-        if ($product->approval_status === 'pending') {
-            $product->update(['approval_status' => 'rejected']);
-            return redirect()->back()->with('success', 'Product rejected.');
-        }
-        return redirect()->back()->with('error', 'Product already processed.');
-    }
-}
+};

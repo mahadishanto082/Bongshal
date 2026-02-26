@@ -21,6 +21,11 @@ class ProductController extends Controller
 
     public function index(Request $request)
     {
+<<<<<<< HEAD
+        $categories = Category::where('status', 'Active')->get();
+        $brands = Brand::where('status', 'Active')->get();
+        $productSql = Product::with('category', 'brand', 'merchant', 'writer');
+=======
 
       
         $categories = Category::where('status', 'Active')->get();
@@ -28,6 +33,7 @@ class ProductController extends Controller
         $productSql = Product::with('category', 'brand', 'merchant', 'writer');
         $productSql->where('approval_status', 'approved'); // Only show approved products
         
+>>>>>>> a8a56f6 (Initial commit for Bongshal)
 
         if ($request->key) {
             $productSql->where('name', 'like', '%' . $request->key . '%');
@@ -204,7 +210,11 @@ class ProductController extends Controller
             'category_id' => 'required|exists:categories,id',
             'brand_id' => 'nullable|exists:brands,id',
             'merchant_id' => 'nullable|exists:merchants,id',
+<<<<<<< HEAD
+            'writer_id' => 'nullable|exists:writers,id',
+=======
             
+>>>>>>> a8a56f6 (Initial commit for Bongshal)
             'code' => 'required|max:30',
             'name' => 'required|max:256',
             'buy_price' => 'required|numeric|between:0,999999.99',
@@ -259,7 +269,14 @@ class ProductController extends Controller
                 'stock' => $request->stock,
                 /* 'shipping_in_dhaka'  => $request->shipping_in_dhaka,
                  'shipping_out_dhaka' => $request->shipping_out_dhaka,*/
+<<<<<<< HEAD
+                'writer_id' => $request->writer_id ?? 0,
+                'first_release' => $request->first_release,
+                'language' => $request->language,
+                'size' => $size ?? $data->size,
+=======
                     'size' => $size ?? $data->size,
+>>>>>>> a8a56f6 (Initial commit for Bongshal)
                 'color' => $color ?? $data->color,
                 'fabrics' => $fabrics ?? $data->fabrics,
                 'weight' => $request->weight,
@@ -345,6 +362,8 @@ class ProductController extends Controller
             ]);
         }
     }
+<<<<<<< HEAD
+=======
     public function approve($id)
 {
     $product = Product::findOrFail($id);
@@ -363,4 +382,5 @@ public function reject($id)
     return back()->with('error', 'Product has been rejected.');
 }
 
+>>>>>>> a8a56f6 (Initial commit for Bongshal)
 }

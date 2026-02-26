@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Admin;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class AdminSeeder extends Seeder
 {
@@ -16,10 +17,8 @@ class AdminSeeder extends Seeder
         Admin::create([
             'name' => 'Mr Admin',
             'email' => 'admin@bookshop.com',
-            'mobile' => '01700000000',
-            'email_verified_at' => now(),
-            'password' => bcrypt(12345678),
-            'status' => 'Active',
+            'password' => Hash::make('password123'),
         ]);
+        
     }
 }
