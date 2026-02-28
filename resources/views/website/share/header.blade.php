@@ -119,12 +119,7 @@
                         <div class="headd-sty-last">
                             <ul class="nav-menu nav-menu-social d-flex align-items-center" style="gap: 10px; margin: 0; padding: 0; list-style: none;">
 
-                                <!-- Membership Button -->
-                                <!-- <li>
-                                <button style="background-color: black; border: none; padding: 0;">
-                                    <img src="{{ asset('membership.png') }}" alt="Membership" style="width: 120px; height: 35px;">
-                                </button>
-                                </li> -->
+                               
 
                                     <!-- Order Tracking -->
                                 <li>
@@ -181,29 +176,30 @@
 
                                 <!-- Wishlist -->
                                 <li>
-                                <a href="{{ route('web.user.wishlist') }}" onclick="openWishlist()">
-                                    <div class="d-flex align-items-center">
-                                    <i class="lni lni-heart fs-lg"></i>
-                                    <span class="dn-counter theme-bg">{{ $wishlist_count_total }}</span>
-                                    </div>
-                                </a>
+                                  <a href="{{ route('web.user.wishlist') }}" onclick="openWishlist()">
+                                      <div class="d-flex align-items-center">
+                                      <i class="lni lni-heart fs-lg"></i>
+                                      <span class="dn-counter theme-bg">{{ $wishlist_count_total }}</span>
+                                      </div>
+                                  </a>
                                 </li>
 
                                 <!-- Cart -->
                                 <li>
-                                <a href="#" onclick="openCart()">
-                                    <div class="d-flex align-items-center">
-                                    <i class="fas fa-shopping-basket fs-lg"></i>
-                                    <span class="dn-counter theme-bg">@{{ cart_count_total }}</span>
-                                    <div class="ml-2 text-left">
-                                        <div class="text-muted small lh-1">Total</div>
-                                        <div class="primary-text cart-subtotal">
-                                        <span class="fs-md ft-medium"><span class="prc-currency">Tk.</span>@{{ total_amount }}</span>
-                                        </div>
-                                    </div>
-                                    </div>
-                                </a>
+                                  <a href="#" onclick="openCart()">
+                                      <div class="d-flex align-items-center">
+                                      <i class="fas fa-shopping-basket fs-lg"></i>
+                                      <span class="dn-counter theme-bg">@{{ cart_count_total }}</span>
+                                      <div class="ml-2 text-left">
+                                          <div class="text-muted small lh-1">Total</div>
+                                          <div class="primary-text cart-subtotal">
+                                          <span class="fs-md ft-medium"><span class="prc-currency">Tk.</span>@{{ total_amount }}</span>
+                                          </div>
+                                      </div>
+                                      </div>
+                                  </a>
                                 </li>
+
 
                             </ul>
                         </div>

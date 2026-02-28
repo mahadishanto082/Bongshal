@@ -338,7 +338,10 @@
                                             <!-- Additional product info (category, brand, merchant, etc.) -->
                                             <div class="row">
                                                 <div class="col-md-12">
+                                                    @if ($product->category)
                                                     <p class="mb-1">Category: <strong>{{ $product->category->name }}</strong></p>
+                                                    @endif
+                                                   
                                                     @if($product->brand)
                                                         <p class="mb-1">Brand: <strong>{{ $product->brand->name }}</strong></p>
                                                     @endif
