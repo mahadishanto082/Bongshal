@@ -1,7 +1,8 @@
-@section('css')
+@section('_css')
     <style>
+        
         :root {
-            --header-bg: #000000;
+            --header-bg: black;
             --search-bg: rgba(255, 255, 255, 0.1);
             --border-light: rgba(255, 255, 255, 0.15);
             --primary-glow: rgba(250, 76, 6, 0.3);
@@ -26,6 +27,8 @@
             border-radius: 50px;
             padding: 4px 15px;
             transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
         }
 
         .search-wrap-premium:focus-within {
@@ -44,17 +47,18 @@
         }
 
         .search-wrap-premium .form-select {
-            max-width: 130px;
-            border-right: 1px solid var(--border-light) !important;
-            border-radius: 0;
-            padding-right: 25px;
+            max-width: 110px;
+            min-width: 110px;
+            cursor: pointer;
+            appearance: auto;
+            color: rgba(255, 255, 255, 0.8) !important;
+            padding-right: 5px;
         }
 
         .search-wrap-premium .form-select option {
-            background: #2d3436;
-            color: white;
+            background: #000;
+            color: #fff;
         }
-
         .utility-icon-premium {
             display: flex;
             flex-direction: column;
@@ -187,7 +191,7 @@
 @endif
 
 <!-- Main Header -->
-<header class="premium-header sticky-top">
+<header class="premium-header sticky-top" style="background-color: #000000;">
     <div class="container">
         <nav class="navbar navbar-expand-lg px-0 py-0">
             <div class="d-flex align-items-center justify-content-between w-100 flex-wrap gap-3 py-2 py-lg-3">
@@ -198,22 +202,25 @@
                         <img src="{{ asset('Bongshal.jpeg') }}" class="logo rounded-3" alt="Logo" style="height: 50px; width: auto; border: 1px solid var(--border-light);">
                     </a>
 
-                    <button class="btn-shop-ride d-none d-xl-flex">
-                        <i class="fas fa-motorcycle fa-lg"></i>
-                        <span>SHOP YOUR RIDE</span>
-                    </button>
+                   
                 </div>
 
                 <!-- Center - Search -->
                 <div class="flex-grow-1 mx-lg-4 search-form-mobile">
                     <form action="{{ route('web.products.index') }}" class="search-wrap-premium d-flex align-items-center">
-                        <select class="form-select" name="category_id">
+                       <select name="category_id"
+                            style="background: rgba(0,0,0,0.35); color:#fff; border:none; outline:none; box-shadow:none; border-radius:30px; padding:6px 30px 6px 12px; appearance:none; cursor:pointer;">
+            
                             <option selected disabled hidden>Categories</option>
-                            @foreach(getCategories() as $category)
-                                <option value="{{ $category->id }}" {{ request()->category_id == $category->id ? 'selected' : '' }}>
-                                    {{ $category->name }}
-                                </option>
-                            @endforeach
+
+                                @foreach(getCategories() as $category)
+                                    <option value="{{ $category->id }}"
+                                        {{ request()->category_id == $category->id ? 'selected' : '' }}
+                                        style="background:#000;color:#fff;">
+                                        {{ $category->name }}
+                                    </option>
+                                @endforeach
+
                         </select>
                         <input type="text" class="form-control px-3" name="keyword" value="{{ request()->keyword }}" placeholder="Search gear, parts, and more...">
                         <button class="btn btn-link text-white p-2" type="submit">
