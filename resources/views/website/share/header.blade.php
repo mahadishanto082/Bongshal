@@ -1,292 +1,258 @@
-<div class=" gray">
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-7 col-lg-6 col-md-6 col-sm-12 hide-ipad">
-            </div>
-
-        </div>
-    </div>
-</div> 
 @section('css')
 <style>
     .hamburger-btn {
-      font-size: 1.5rem;
-      border: none;
-      background: none;
+        font-size: 1.8rem;
+        border: none;
+        background: none;
+        color: white;
     }
 
     .nav-menu i {
-      margin-right: 8px;
+        margin-right: 6px;
     }
-  
 
-  </style>
+    .welcome-bar {
+        background-color: #fa4c06;
+        color: white;
+        font-weight: bold;
+    }
 
-<div class="headd-sty">
-    <!-- Header-msg -->
-    @if(!empty($welcome_text) && count($welcome_text) > 0)
-<div id="textCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2500">
-  <div class="carousel-inner text-center py-3" style="background-color: #fa4c06;">
-    
-    @foreach($welcome_text as $index => $text)
-      <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-        <div class="welcome-text-bar ">
-          <div class="container d-flex justify-content-center align-items-center text-white fw-bold gap-3">
-            <i class="fas fa-info-circle"></i>
-            <span>{{ $text->content }}</span>
-          </div>
+    .btn-shop-ride {
+        background-color: #fa4c06;
+        color: white;
+        border: none;
+        transition: background-color 0.25s ease;
+    }
+
+    .btn-shop-ride:hover {
+        background-color: #e64300;
+    }
+
+    .cart-subtotal {
+        font-size: 0.9rem;
+    }
+
+    .welcome-text-bar span {
+        font-size: 0.95rem;
+        line-height: 1.4;
+    }
+
+    @media (max-width: 991px) {
+        .desktop-only { display: none !important; }
+        .search-form-mobile { width: 100%; }
+        .headd-sty-wrap { flex-wrap: wrap; gap: 12px; }
+        .headd-sty-last ul { gap: 12px !important; }
+    }
+
+    @media (min-width: 992px) {
+        .mobile-only { display: none !important; }
+    }
+</style>
+@endsection
+
+<!-- Welcome Carousel Bar -->
+@if(!empty($welcome_text) && count($welcome_text) > 0)
+<div id="textCarousel" class="carousel slide welcome-bar" data-bs-ride="carousel" data-bs-interval="3000">
+    <div class="carousel-inner text-center py-2 py-md-3">
+        @foreach($welcome_text as $index => $text)
+        <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+            <div class="d-flex justify-content-center align-items-center gap-2 gap-md-3 px-3">
+                <i class="fas fa-info-circle"></i>
+                <span>{{ $text->content }}</span>
+            </div>
         </div>
-      </div>
-    @endforeach
-
-  </div>
-
-  <!-- Carousel Controls: Smaller & Closer -->
-  <button class="carousel-control-prev" type="button" data-bs-target="#textCarousel" data-bs-slide="next"
-    style="top: 50%; left: 200px; transform: translateY(-50%); width: 25px; height: 25px;">
-    <span class="carousel-control-prev-icon" style="width: 15px; height: 15px;"></span>
-  </button>
-
-  <button class="carousel-control-next" type="button" data-bs-target="#textCarousel" data-bs-slide="prev"
-    style="top: 50%; right: 200px; transform: translateY(-50%); width: 25px; height: 25px;">
-    <span class="carousel-control-next-icon" style="width: 15px; height: 15px;"></span>
-  </button>
-
+        @endforeach
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#textCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#textCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
 </div>
 @endif
 
-    
-    
-    
-    <!-- Header -->
-      
-        <div style="background-color: black;">   
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-12 col-lg-12 col-md-12 " >
-                    <div class="headd-sty-wrap  d-flex align-items-center justify-content-between py-3; " >
-                        <div class="headd-sty-left d-flex align-items-center ">
-                            <div class="headd-sty-01 ">
-                                <a class="nav-brand py-0" href="{{ route('web.home') }}">
-                                    <img src="{{ asset('Bongshal.jpeg') }}" class="logo" alt="" />
-                                </a>
-                            </div>
-                            <div class="headd-sty-01 ml-3">
-                                <button 
-                                    style="
-                                    width: 180px; 
-                                    
-                                    background-color: #fa4c06; 
-                                    color: white; 
-                                    padding: 10px; line-height: 1; 
-                                    border: none; 
-                                    border-radius: 4px; 
-                                    cursor: pointer; 
-                                    font-weight: bold;
-                                    transition: background-color 0.3s ease;
-                                    "
-                                    onmouseover="this.style.backgroundColor='#e64300';"
-                                    onmouseout="this.style.backgroundColor='#fa4c06';"
-                                >
-                                <img src="football (2).png" alt="icon" style="width:35px; height:35px;"/>
-                                SHOP YOUR RIDE
-                                </button>
-                                </div>
+<!-- Main Header -->
+<header class="bg-dark">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark px-0">
+            <div class="d-flex align-items-center justify-content-between w-100 flex-wrap gap-3 py-2 py-lg-3">
 
+                <!-- Left – Logo + Category button + Search -->
+                <div class="d-flex align-items-center flex-grow-1 gap-3">
 
-                            <!-- Search Form -->
-                            <div class="headd-sty-02 ml-3"  style="margin: 0; padding: 10px; line-height: 1;">
-                                <form action="{{ route('web.products.index') }}" class="bg-white rounded-md border-bold">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend br-right hd-small">
-                                            <div class="form-group mb-0 position-relative">
-                                                <select class="custom-select b-0" name="category_id">
-                                                    <option selected disabled hidden value="">Select Catagory </option>
-                                                    @foreach(getCategories() as $category)
-                                                        <option value="{{ $category->id }}" {{ request()->category_id == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <input type="text" class="form-control custom-height b-0" value="{{ request()->keyword }}" name="keyword" placeholder="Search for products..." />
-                                        <div class="input-group-append">
-                                            <div class="input-group-text"><button class="btn bg-white text-danger custom-height rounded px-3" type="submit"><i class="fas fa-search"></i></button></div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="headd-sty-last">
-                            <ul class="nav-menu nav-menu-social d-flex align-items-center" style="gap: 10px; margin: 0; padding: 0; list-style: none;">
+                    <!-- Logo -->
+                    <a class="navbar-brand p-0 me-2" href="{{ route('web.home') }}">
+                        <img src="{{ asset('Bongshal.jpeg') }}" class="logo" alt="Logo" style="height: 48px; width: auto;">
+                    </a>
 
-                               
+                    <!-- Shop Your Ride Button -->
+                    <button class="btn btn-shop-ride px-3 py-2 d-none d-md-flex align-items-center gap-2">
+                        <img src="football (2).png" alt="icon" style="width:32px; height:32px;"/>
+                        SHOP YOUR RIDE
+                    </button>
 
-                                    <!-- Order Tracking -->
-                                <li>
-                                    <div class="dropdown js-dropdown">
-                                        <a href="javascript:void(0);" data-toggle="modal" data-target="#orderTrack" class="text-muted medium" 
-                                        style="font-weight: 600; font-size: 18px;">
-                                        <i class="lni lni-map-marker" style="font-size: 22px; color :aliceblue ; gap:3px" ></i>
-                                        </a>
-                                    </div>
-                                 </li>
-
-                                <!-- User Profile/Login -->
-                                <li>
-                                @if(auth('web')->check())
-                                    <div class="dropdown language-selector-wrapper">
-                                    <a class="popup-title d-flex align-items-center text-white" href="javascript:void(0)" data-toggle="dropdown" title="User Menu" style="gap: 6px;">
-                                        <i class="fas fa-user-circle fs-3"></i>
-                                        <span class="iso_code medium">
-                                        {{ auth('web')->user()->name }}
-                                        @if(auth('web')->user()->role == 'Agent')
-                                            ({{ auth('web')->user()->point }})
-                                        @endif
-                                        </span>
-                                        <i class="fa fa-angle-down medium"></i>
-                                    </a>
-
-                                    <ul class="dropdown-menu popup-content link">
-                                        <li><a href="{{ route('web.user.profile') }}" class="dropdown-item medium text-muted">Profile</a></li>
-                                        <li><a href="{{ route('web.user.orders') }}" class="dropdown-item medium text-muted">My Order</a></li>
-                                        <li><a href="{{ route('web.user.user_addresses.index') }}" class="dropdown-item medium text-muted">Address</a></li>
-                                        <li>
-                                        <a href="javascript:void(0);" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="dropdown-item medium text-muted">Logout</a>
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">@csrf</form>
-                                        </li>
-                                    </ul>
-                                    </div>
-                                @else
-                                    <a href="{{ route('login') }}" class="text-white medium">
-                                    <i class="lni lni-user"></i>
-                                    </a>
-                                @endif
-                                </li>
-
-                                <!-- Compare -->
-                                <li>
-                                <a href="{{ route('web.user.compare') }}" onclick="AddCompare()">
-                                    <div class="d-flex align-items-center">
-                                    <i class="lni lni-balance fs-lg"></i>
-                                    <span class="dn-counter theme-bg">{{ $wishlist_count_total }}</span>
-                                    <i class="fas fa-exchange-alt text-primary ml-1"></i>
-                                    </div>
-                                </a>
-                                </li>
-
-                                <!-- Wishlist -->
-                                <li>
-                                  <a href="{{ route('web.user.wishlist') }}" onclick="openWishlist()">
-                                      <div class="d-flex align-items-center">
-                                      <i class="lni lni-heart fs-lg"></i>
-                                      <span class="dn-counter theme-bg">{{ $wishlist_count_total }}</span>
-                                      </div>
-                                  </a>
-                                </li>
-
-                                <!-- Cart -->
-                                <li>
-                                  <a href="#" onclick="openCart()">
-                                      <div class="d-flex align-items-center">
-                                      <i class="fas fa-shopping-basket fs-lg"></i>
-                                      <span class="dn-counter theme-bg">@{{ cart_count_total }}</span>
-                                      <div class="ml-2 text-left">
-                                          <div class="text-muted small lh-1">Total</div>
-                                          <div class="primary-text cart-subtotal">
-                                          <span class="fs-md ft-medium"><span class="prc-currency">Tk.</span>@{{ total_amount }}</span>
-                                          </div>
-                                      </div>
-                                      </div>
-                                  </a>
-                                </li>
-
-
-                            </ul>
-                        </div>
-
-                            
-                            
-                        </div>
-                        <div class="mobile_nav">
-                            <ul>
-                                <li>
-                                    <a href="#" onclick="openSearch()">
-                                        <i class="lni lni-search-alt"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" onclick="openCart()">
-                                        <i class="lni lni-shopping-basket"></i><span class="dn-counter">@{{ cart_count_total }}</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
+                    <!-- Search -->
+                    <div class="flex-grow-1 search-form-mobile">
+                        <form action="{{ route('web.products.index') }}" class="input-group input-group-sm">
+                            <select class="form-select" name="category_id" style="max-width: 160px;">
+                                <option selected disabled hidden>Select Category</option>
+                                @foreach(getCategories() as $category)
+                                    <option value="{{ $category->id }}" {{ request()->category_id == $category->id ? 'selected' : '' }}>
+                                        {{ $category->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <input type="text" class="form-control" name="keyword" value="{{ request()->keyword }}" placeholder="Search products...">
+                            <button class="btn btn-outline-light" type="submit">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </form>
                     </div>
                 </div>
+
+                <!-- Right side icons / user / cart -->
+                <div class="d-flex align-items-center gap-3 gap-md-4 headd-sty-last">
+
+                    <!-- Order Tracking -->
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#orderTrack" class="text-white">
+                        <i class="lni lni-map-marker" style="font-size: 1.6rem;"></i>
+                    </a>
+
+                    <!-- Cart -->
+                    <a href="#" onclick="openCart()" class="text-white position-relative d-flex flex-column align-items-center text-decoration-none" style="min-width: 50px;">
+                        <i class="fas fa-shopping-cart fs-3"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger small" id="cart-count-badge">@{{ cart_count_total ?? 0 }}</span>
+                        <span class="small d-none d-md-block">Cart</span>
+                    </a>
+
+                    <!-- Wishlist -->
+                    <a href="{{ route('web.user.wishlist') }}" class="text-white position-relative d-flex flex-column align-items-center text-decoration-none" style="min-width: 50px;">
+                        <i class="far fa-heart fs-3"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger small">
+                            {{ $wishlist_count_total ?? 0 }}
+                        </span>
+                        <span class="small d-none d-md-block">Wishlist</span>
+                    </a>
+
+                    <!-- User / Login -->
+                    @if(auth('web')->check())
+                        <div class="dropdown">
+                            <a class="text-white d-flex align-items-center gap-2 dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                                <i class="fas fa-user-circle fs-4"></i>
+                                <span class="d-none d-md-inline">{{ auth('web')->user()->name }}</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="{{ route('web.user.profile') }}">Profile</a></li>
+                                <li><a class="dropdown-item" href="{{ route('web.user.orders') }}">My Orders</a></li>
+                                <li><a class="dropdown-item" href="{{ route('web.user.user_addresses.index') }}">Addresses</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item text-danger" href="#"
+                                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        Logout
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">@csrf</form>
+                                </li>
+                            </ul>
+                        </div>
+                    @else
+                        <a href="{{ route('login') }}" class="text-white">
+                            <i class="lni lni-user fs-4"></i>
+                        </a>
+                    @endif
+
+                    <!-- Hamburger – only ONE, only visible < lg -->
+                    <button class="hamburger-btn d-lg-none p-0 ms-2"
+                            type="button"
+                            data-bs-toggle="offcanvas"
+                            data-bs-target="#mainOffcanvas">
+                        ☰
+                    </button>
+                </div>
+
             </div>
-        </div>
-        
+        </nav>
+    </div>
+</header>
+
+<!-- Secondary Navigation Bar (NO toggler button here) -->
+<div class="bg-dark border-top border-bottom border-secondary">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark px-0 py-2">
+            <div class="container-fluid p-0">
+
+                <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                    <ul class="navbar-nav gap-4 gap-lg-5">
+                        <li class="nav-item"><a class="nav-link" href="{{ route('web.home') }}"><i class="fas fa-home"></i> Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('web.categories') }}"><i class="fas fa-cube"></i> Categories</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('web.products.index') }}"><i class="fas fa-shopping-cart"></i> All Products</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-address-card"></i> About Us</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('web.contactUs') }}"><i class="fas fa-address-book"></i> Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="d-none d-lg-block">
+                    <img src="{{ asset('common tread.png') }}" alt="" style="height: 42px; width: auto;">
+                </div>
+            </div>
+        </nav>
+    </div>
 </div>
 
-<!-- Top Navbar Wrapper -->
-<div class="header head-style-2">
-  <div class="container">
-    <nav id="navigation" class="navigation navigation-landscape">
-      <div class="nav-header d-flex align-items-center justify-content-between" style="width: 100%;">
-        
-        <!-- Hamburger Button -->
-        <button class="hamburger-btn ms-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#mainOffcanvas" aria-controls="mainOffcanvas">
-          ☰
-        </button>
-
-        <!-- Centered Menu -->
-        <div class="nav-menus-wrapper flex-grow-1 d-flex justify-content-center">
-          <ul class="nav-menu d-flex gap-3 list-unstyled mb-0">
-            <li><a href="{{ route('web.home') }}"><i class="fas fa-home"></i> Home</a></li>
-            <li><a href="{{ route('web.categories') }}"><i class="fas fa-cube"></i> Categories</a></li>
-            <li><a href="{{ route('web.products.index') }}"><i class="fas fa-shopping-cart"></i> All Products</a></li>
-            <li><a href="#"><i class="fas fa-address-card"></i> About Us</a></li>
-            <li><a href="{{ route('web.contactUs') }}"><i class="fas fa-address-book"></i> Contact</a></li>
-          </ul>
-        </div>
-        <!-- Right Side Menu -->
-        <img src="{{ asset('common tread.png') }}" class="logo" alt="" style="height: 50px; width: auto; margin-right: 20px;" />        
-
-      </div>
-    </nav>
-  </div>
-  <hr style="
-  border: none;
-  height: 1.5px;
-  background-color: #fa4c06;
-  margin: 0;
-  width: 100vw;
-" />
-
+<!-- Mobile Bottom Navigation Bar -->
+<div class="fixed-bottom bg-black border-top border-secondary d-lg-none" style="z-index: 1030;">
+    <div class="d-flex justify-content-around align-items-center py-2 text-white">
+        <a href="{{ route('web.home') }}" class="text-white text-center text-decoration-none">
+            <i class="fas fa-home fs-4"></i><br>
+            <span class="small">Home</span>
+        </a>
+        <a href="{{ route('web.categories') }}" class="text-white text-center text-decoration-none">
+            <i class="fas fa-th-large fs-4"></i><br>
+            <span class="small">Categories</span>
+        </a>
+        <a href="#" id="mobileSearchToggle" class="text-white text-center text-decoration-none">
+            <i class="fas fa-search fs-4"></i><br>
+            <span class="small">Search</span>
+        </a>
+        <a href="#" onclick="openCart()" class="text-white text-center text-decoration-none position-relative">
+            <i class="fas fa-shopping-cart fs-4"></i>
+            <span class="position-absolute top-0 start-100 translate-middle badge bg-danger small" id="cart-count-badge-mobile">@{{ cart_count_total ?? 0 }}</span><br>
+            <span class="small">Cart</span>
+        </a>
+        <a href="{{ auth('web')->check() ? route('web.user.profile') : route('login') }}" class="text-white text-center text-decoration-none">
+            <i class="fas fa-user fs-4"></i><br>
+            <span class="small">Account</span>
+        </a>
+    </div>
 </div>
 
-
-
-<!-- Full-width HR outside .container -->
-
-
-<!-- Offcanvas for mobile view -->
-<div class="offcanvas offcanvas-start" tabindex="-1" id="mainOffcanvas" aria-labelledby="mainOffcanvasLabel">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="mainOffcanvasLabel">Navigation</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body">
-    <ul class="nav flex-column nav-menu">
-      <li class="nav-item"><a class="nav-link" href="{{ route('web.home') }}"><i class="fas fa-home"></i> Home</a></li>
-      <li class="nav-item"><a class="nav-link" href="{{ route('web.categories') }}"><i class="fas fa-cube"></i> Categories</a></li>
-      <li class="nav-item"><a class="nav-link" href="{{ route('web.products.index') }}"><i class="fas fa-shopping-cart"></i> All Products</a></li>
-      <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-address-card"></i> About Us</a></li>
-      <li class="nav-item"><a class="nav-link" href="{{ route('web.contactUs') }}"><i class="fas fa-address-book"></i> Contact</a></li>
-    </ul>
-    
- 
-  </div>
+<!-- Offcanvas Menu (mobile) -->
+<div class="offcanvas offcanvas-start bg-dark text-white" tabindex="-1" id="mainOffcanvas">
+    <div class="offcanvas-header border-bottom border-secondary">
+        <h5 class="offcanvas-title">Menu</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body">
+        <ul class="nav flex-column nav-pills gap-2">
+            <li class="nav-item"><a class="nav-link text-white" href="{{ route('web.home') }}"><i class="fas fa-home me-2"></i>Home</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="{{ route('web.categories') }}"><i class="fas fa-cube me-2"></i>Categories</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="{{ route('web.products.index') }}"><i class="fas fa-shopping-cart me-2"></i>All Products</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="#"><i class="fas fa-address-card me-2"></i>About Us</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="{{ route('web.contactUs') }}"><i class="fas fa-address-book me-2"></i>Contact</a></li>
+        </ul>
+    </div>
 </div>
-<!-- End Navigation -->
+
 <div class="clearfix"></div>
+
+<script>
+    function updateCartUI(count, total) {
+        const badge = document.getElementById('cart-count-badge');
+        const badgeMobile = document.getElementById('cart-count-badge-mobile');
+        if (badge) badge.textContent = count;
+        if (badgeMobile) badgeMobile.textContent = count;
+    }
+</script>
