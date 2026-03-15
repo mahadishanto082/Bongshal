@@ -648,8 +648,6 @@
                 </button>
             </div>
                 </div>
-                    
-                </div>
             </section>
         @endforeach
 
@@ -814,9 +812,8 @@
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden"></span>
                             </button>
-                         </div>
-                    </div>
-                 </div>
+                </div>
+            </div>
     </section>
     @endif
 

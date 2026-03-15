@@ -615,7 +615,6 @@
                                         </div>
                                     </div>
                                  </div>
-                                </div>
                                 <!--end of video section-->
 
                                 <!-- Product Reviews -->
@@ -644,11 +643,4 @@
 
                             </div>
                         </section>
-                    </div>
-                 </div>
-                </div>
-            </div>
-        </section>
-        
-
 @endsection

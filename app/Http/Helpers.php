@@ -7,25 +7,28 @@ use App\Models\UserPoint;
 
 if (!function_exists('numberFormatBD')) {
     function numberFormatBD($number, $decimals=0) {
-        if (strpos($number,'.')!=null) {
-            $decimalNumbers = substr($number, strpos($number,'.'));
-            $decimalNumbers = substr($decimalNumbers, 1, $decimals);
+        if (is_string($number)) {
+            $number = str_replace(',', '', $number);
+        }
+        $number = (float) $number;
+        $number_str = (string) $number;
+
+        if (strpos($number_str,'.')!==false) {
+            $decimalNumbers = substr($number_str, strpos($number_str,'.') + 1);
+            $decimalNumbers = str_pad(substr($decimalNumbers, 0, $decimals), $decimals, '0');
         } else {
-            $decimalNumbers = 0;
-            for ($i = 2; $i <=$decimals ; $i++) {
-                $decimalNumbers = $decimalNumbers.'0';
-            }
+            $decimalNumbers = str_repeat('0', $decimals);
         }
 
-        $number = (int) $number;
-        $number = strrev($number);
+        $intNumber = (int) $number;
+        $number_rev = strrev((string)$intNumber);
         $n = '';
-        $stringlength = strlen($number);
+        $stringlength = strlen($number_rev);
         for ($i = 0; $i < $stringlength; $i++) {
             if ($i%2==0 && $i!=$stringlength-1 && $i>1) {
-                $n = $n.$number[$i].',';
+                $n = $n.$number_rev[$i].',';
             } else {
-                $n = $n.$number[$i];
+                $n = $n.$number_rev[$i];
             }
         }
         $number = $n;

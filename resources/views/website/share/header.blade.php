@@ -124,15 +124,15 @@
                     <!-- Cart -->
                     <a href="#" onclick="openCart()" class="text-white position-relative d-flex flex-column align-items-center text-decoration-none" style="min-width: 50px;">
                         <i class="fas fa-shopping-cart fs-3"></i>
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger small" id="cart-count-badge">@{{ cart_count_total || 0 }}</span>
+                        <span v-cloak class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger small" id="cart-count-badge">@{{ cart_count_total || 0 }}</span>
                         <span class="small d-none d-md-block">Cart</span>
                     </a>
 
                     <!-- Wishlist -->
                     <a href="{{ route('web.user.wishlist') }}" class="text-white position-relative d-flex flex-column align-items-center text-decoration-none" style="min-width: 50px;">
                         <i class="far fa-heart fs-3"></i>
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger small">
-                            {{ $wishlist_count_total || 0 }}
+                        <span v-cloak class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger small">
+                            {{ $wishlist_count_total ?? 0 }}
                         </span>
                         <span class="small d-none d-md-block">Wishlist</span>
                     </a>
@@ -219,7 +219,7 @@
         </a>
         <a href="#" onclick="openCart()" class="text-white text-center text-decoration-none position-relative">
             <i class="fas fa-shopping-cart fs-4"></i>
-            <span class="position-absolute top-0 start-100 translate-middle badge bg-danger small" id="cart-count-badge-mobile">@{{ cart_count_total || 0 }}</span><br>
+            <span v-cloak class="position-absolute top-0 start-100 translate-middle badge bg-danger small" id="cart-count-badge-mobile">@{{ cart_count_total || 0 }}</span><br>
             <span class="small">Cart</span>
         </a>
         <a href="{{ auth('web')->check() ? route('web.user.profile') : route('login') }}" class="text-white text-center text-decoration-none">

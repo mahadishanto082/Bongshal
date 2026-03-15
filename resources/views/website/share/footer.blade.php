@@ -145,7 +145,7 @@
         </a>
     </div>
 
-    <div class="mb-nav-item" {{ Request::routeIs('web.user*') ? 'active' : '' }}>
+    <div class="mb-nav-item {{ Request::routeIs('web.user*') ? 'active' : '' }}">
         <a href="{{ route('web.user.profile') }}">
             <span class="text-white"><i class="fas fa-user"></i></span>
             <div class="title">Profile</div>

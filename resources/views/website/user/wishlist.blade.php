@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-<!-- @include('website.share.user-custom-feature') -->
+{{-- @include('website.share.user-custom-feature') --}}
     <div class="gray py-3">
         <div class="container">
             <div class="row">
@@ -111,7 +111,7 @@
             <!-- Add to Cart -->
             @if($product->size || $product->color)
                 <a href="javascript:void(0)"
-                   onclick="productQuckView('{{ route('web.products.quickView', $product->slug) }}"
+                   onclick="productQuckView('{{ route('web.products.quickView', $product->slug) }}')"
                    class="btn btn-outline-dark btn-sm w-100 d-flex align-items-center justify-content-center"
                    style="transition: 0.3s;color :blue">
                     <i class="lni lni-shopping-basket me-2" style="color:blue"></i> Add to cart

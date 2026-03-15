@@ -23,6 +23,9 @@
 
 
     @yield('_css')
+    <style>
+        [v-cloak] { display: none !important; }
+    </style>
 </head>
 <body>
 <div class='loader'>
