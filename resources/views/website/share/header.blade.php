@@ -1,175 +1,273 @@
 @section('css')
-<style>
-    .hamburger-btn {
-        font-size: 1.8rem;
-        border: none;
-        background: none;
-        color: white;
-    }
+    <style>
+        :root {
+            --header-bg: #000000;
+            --search-bg: rgba(255, 255, 255, 0.1);
+            --border-light: rgba(255, 255, 255, 0.15);
+            --primary-glow: rgba(250, 76, 6, 0.3);
+        }
 
-    .nav-menu i {
-        margin-right: 6px;
-    }
+        .premium-header {
+            background-color: var(--header-bg);
+            border-bottom: 1px solid var(--border-light);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
 
-    .welcome-bar {
-        background-color: #fa4c06;
-        color: white;
-        font-weight: bold;
-    }
+        .welcome-bar {
+            background: linear-gradient(90deg, #fa4c06 0%, #ff6a2e 100%);
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
 
-    .btn-shop-ride {
-        background-color: #fa4c06;
-        color: white;
-        border: none;
-        transition: background-color 0.25s ease;
-    }
+        .search-wrap-premium {
+            background: var(--search-bg);
+            border: 1px solid var(--border-light);
+            border-radius: 50px;
+            padding: 4px 15px;
+            transition: all 0.3s ease;
+        }
 
-    .btn-shop-ride:hover {
-        background-color: #e64300;
-    }
+        .search-wrap-premium:focus-within {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: #fa4c06;
+            box-shadow: 0 0 15px var(--primary-glow);
+        }
 
-    .cart-subtotal {
-        font-size: 0.9rem;
-    }
+        .search-wrap-premium .form-select,
+        .search-wrap-premium .form-control {
+            background: transparent !important;
+            color: #fff !important;
+            border: none !important;
+            box-shadow: none !important;
+            font-size: 0.9rem;
+        }
 
-    .welcome-text-bar span {
-        font-size: 0.95rem;
-        line-height: 1.4;
-    }
+        .search-wrap-premium .form-select {
+            max-width: 130px;
+            border-right: 1px solid var(--border-light) !important;
+            border-radius: 0;
+            padding-right: 25px;
+        }
 
-    @media (max-width: 991px) {
-        .desktop-only { display: none !important; }
-        .search-form-mobile { width: 100%; }
-        .headd-sty-wrap { flex-wrap: wrap; gap: 12px; }
-        .headd-sty-last ul { gap: 12px !important; }
-    }
+        .search-wrap-premium .form-select option {
+            background: #2d3436;
+            color: white;
+        }
 
-    @media (min-width: 992px) {
-        .mobile-only { display: none !important; }
-    }
-</style>
+        .utility-icon-premium {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            padding: 5px 10px;
+        }
+
+        .utility-icon-premium:hover {
+            color: #fa4c06;
+            transform: translateY(-3px);
+        }
+
+        .utility-icon-premium i {
+            font-size: 1.4rem;
+            margin-bottom: 4px;
+        }
+
+        .utility-icon-premium .badge {
+            position: absolute;
+            top: 0;
+            right: 2px;
+            font-size: 0.65rem;
+            padding: 3px 6px;
+            border: 2px solid var(--header-bg);
+        }
+
+        .btn-shop-ride {
+            background: #fa4c06;
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            padding: 8px 20px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            transition: all 0.4s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(250, 76, 6, 0.2);
+        }
+
+        .btn-shop-ride:hover {
+            background: #e64300;
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(250, 76, 6, 0.4);
+            color: #fff;
+        }
+
+        .secondary-nav-premium {
+            background: #000000;
+            border-bottom: 1px solid var(--border-light);
+            border-top: 1px solid var(--border-light);
+        }
+
+        .secondary-nav-premium .nav-link {
+            color: rgba(255,255,255,0.7);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            padding: 12px 15px !important;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .secondary-nav-premium .nav-link:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: #fa4c06;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .secondary-nav-premium .nav-link:hover {
+            color: #fff;
+        }
+
+        .secondary-nav-premium .nav-link:hover:after {
+            width: 70%;
+        }
+
+        .hamburger-btn {
+            color: #fff;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .hamburger-btn:hover {
+            color: #fa4c06;
+        }
+
+        @media (max-width: 991px) {
+            .search-form-mobile { margin-top: 10px; order: 3; }
+        }
+    </style>
 @endsection
 
 <!-- Welcome Carousel Bar -->
 @if(!empty($welcome_text) && count($welcome_text) > 0)
-<div id="textCarousel" class="carousel slide welcome-bar" data-bs-ride="carousel" data-bs-interval="3000">
-    <div class="carousel-inner text-center py-2 py-md-3">
-        @foreach($welcome_text as $index => $text)
-        <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-            <div class="d-flex justify-content-center align-items-center gap-2 gap-md-3 px-3">
-                <i class="fas fa-info-circle"></i>
-                <span>{{ $text->content }}</span>
-            </div>
+    <div id="textCarousel" class="carousel slide welcome-bar" data-bs-ride="carousel" data-bs-interval="3000">
+        <div class="carousel-inner text-center py-2 py-md-3">
+            @foreach($welcome_text as $index => $text)
+                <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                    <div class="d-flex justify-content-center align-items-center gap-2 gap-md-3 px-3">
+                        <i class="fas fa-info-circle"></i>
+                        <span>{{ $text->content }}</span>
+                    </div>
+                </div>
+            @endforeach
         </div>
-        @endforeach
+        <button class="carousel-control-prev" type="button" data-bs-target="#textCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#textCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#textCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#textCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
-</div>
 @endif
 
 <!-- Main Header -->
-<header class="bg-dark">
+<header class="premium-header sticky-top">
     <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-dark px-0">
+        <nav class="navbar navbar-expand-lg px-0 py-0">
             <div class="d-flex align-items-center justify-content-between w-100 flex-wrap gap-3 py-2 py-lg-3">
 
-                <!-- Left – Logo + Category button + Search -->
-                <div class="d-flex align-items-center flex-grow-1 gap-3">
-
-                    <!-- Logo -->
-                    <a class="navbar-brand p-0 me-2" href="{{ route('web.home') }}">
-                        <img src="{{ asset('Bongshal.jpeg') }}" class="logo" alt="Logo" style="height: 48px; width: auto;">
+                <!-- Left – Logo + Category button -->
+                <div class="d-flex align-items-center gap-4">
+                    <a class="navbar-brand p-0" href="{{ route('web.home') }}">
+                        <img src="{{ asset('Bongshal.jpeg') }}" class="logo rounded-3" alt="Logo" style="height: 50px; width: auto; border: 1px solid var(--border-light);">
                     </a>
 
-                    <!-- Shop Your Ride Button -->
-                    <button class="btn btn-shop-ride px-3 py-2 d-none d-md-flex align-items-center gap-2">
-                        <img src="football (2).png" alt="icon" style="width:32px; height:32px;"/>
-                        SHOP YOUR RIDE
+                    <button class="btn-shop-ride d-none d-xl-flex">
+                        <i class="fas fa-motorcycle fa-lg"></i>
+                        <span>SHOP YOUR RIDE</span>
                     </button>
-
-                    <!-- Search -->
-                    <div class="flex-grow-1 search-form-mobile">
-                        <form action="{{ route('web.products.index') }}" class="input-group input-group-sm">
-                            <select class="form-select" name="category_id" style="max-width: 160px;">
-                                <option selected disabled hidden>Select Category</option>
-                                @foreach(getCategories() as $category)
-                                    <option value="{{ $category->id }}" {{ request()->category_id == $category->id ? 'selected' : '' }}>
-                                        {{ $category->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            <input type="text" class="form-control" name="keyword" value="{{ request()->keyword }}" placeholder="Search products...">
-                            <button class="btn btn-outline-light" type="submit">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </form>
-                    </div>
                 </div>
 
-                <!-- Right side icons / user / cart -->
-                <div class="d-flex align-items-center gap-3 gap-md-4 headd-sty-last">
+                <!-- Center - Search -->
+                <div class="flex-grow-1 mx-lg-4 search-form-mobile">
+                    <form action="{{ route('web.products.index') }}" class="search-wrap-premium d-flex align-items-center">
+                        <select class="form-select" name="category_id">
+                            <option selected disabled hidden>Categories</option>
+                            @foreach(getCategories() as $category)
+                                <option value="{{ $category->id }}" {{ request()->category_id == $category->id ? 'selected' : '' }}>
+                                    {{ $category->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        <input type="text" class="form-control px-3" name="keyword" value="{{ request()->keyword }}" placeholder="Search gear, parts, and more...">
+                        <button class="btn btn-link text-white p-2" type="submit">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </form>
+                </div>
 
-                    <!-- Order Tracking -->
-                    <a href="#" data-bs-toggle="modal" data-bs-target="#orderTrack" class="text-white">
-                        <i class="lni lni-map-marker" style="font-size: 1.6rem;"></i>
+                <!-- Right side icons -->
+                <div class="d-flex align-items-center gap-2 gap-md-3">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#orderTrack" class="utility-icon-premium" title="Track Order">
+                        <i class="fas fa-shipping-fast"></i>
+                        <span class="small d-none d-lg-block">Track</span>
                     </a>
 
-                    <!-- Cart -->
-                    <a href="#" onclick="openCart()" class="text-white position-relative d-flex flex-column align-items-center text-decoration-none" style="min-width: 50px;">
-                        <i class="fas fa-shopping-cart fs-3"></i>
-                        <span v-cloak class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger small" id="cart-count-badge">@{{ cart_count_total || 0 }}</span>
-                        <span class="small d-none d-md-block">Cart</span>
+                    <a href="{{ route('web.user.wishlist') }}" class="utility-icon-premium">
+                        <i class="far fa-heart"></i>
+                        <span class="badge rounded-pill bg-danger">{{ $wishlist_count_total ?? 0 }}</span>
+                        <span class="small d-none d-lg-block">Wishlist</span>
                     </a>
 
-                    <!-- Wishlist -->
-                    <a href="{{ route('web.user.wishlist') }}" class="text-white position-relative d-flex flex-column align-items-center text-decoration-none" style="min-width: 50px;">
-                        <i class="far fa-heart fs-3"></i>
-                        <span v-cloak class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger small">
-                            {{ $wishlist_count_total ?? 0 }}
-                        </span>
-                        <span class="small d-none d-md-block">Wishlist</span>
+                    <a href="#" onclick="openCart()" class="utility-icon-premium">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span class="badge rounded-pill bg-primary" id="cart-count-badge">@{{ cart_count_total || 0 }}</span>
+                        <span class="small d-none d-lg-block">Cart</span>
                     </a>
 
-                    <!-- User / Login -->
                     @if(auth('web')->check())
                         <div class="dropdown">
-                            <a class="text-white d-flex align-items-center gap-2 dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                                <i class="fas fa-user-circle fs-4"></i>
-                                <span class="d-none d-md-inline">{{ auth('web')->user()->name }}</span>
+                            <a class="utility-icon-premium dropdown-toggle border-0 bg-transparent" href="#" data-bs-toggle="dropdown">
+                                <i class="fas fa-user-circle"></i>
+                                <span class="small d-none d-lg-block">{{ explode(' ', auth('web')->user()->name)[0] }}</span>
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="{{ route('web.user.profile') }}">Profile</a></li>
-                                <li><a class="dropdown-item" href="{{ route('web.user.orders') }}">My Orders</a></li>
-                                <li><a class="dropdown-item" href="{{ route('web.user.user_addresses.index') }}">Addresses</a></li>
-                                <li><hr class="dropdown-divider"></li>
+                            <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 mt-3 p-2" style="background: #2d3436; border-radius: 12px;">
+                                <li><a class="dropdown-item text-white py-2" href="{{ route('web.user.profile') }}"><i class="fas fa-id-card me-2 text-primary"></i> Profile</a></li>
+                                <li><a class="dropdown-item text-white py-2" href="{{ route('web.user.orders') }}"><i class="fas fa-box me-2 text-primary"></i> My Orders</a></li>
+                                <li><hr class="dropdown-divider bg-light opacity-10"></li>
                                 <li>
-                                    <a class="dropdown-item text-danger" href="#"
+                                    <a class="dropdown-item text-danger py-2" href="#"
                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                        Logout
+                                        <i class="fas fa-sign-out-alt me-2"></i> Logout
                                     </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">@csrf</form>
                                 </li>
                             </ul>
                         </div>
                     @else
-                        <a href="{{ route('login') }}" class="text-white">
-                            <i class="lni lni-user fs-4"></i>
+                        <a href="{{ route('login') }}" class="utility-icon-premium">
+                            <i class="fas fa-user"></i>
+                            <span class="small d-none d-lg-block">Login</span>
                         </a>
                     @endif
 
-                    <!-- Hamburger – only ONE, only visible < lg -->
-                    <button class="hamburger-btn d-lg-none p-0 ms-2"
-                            type="button"
-                            data-bs-toggle="offcanvas"
-                            data-bs-target="#mainOffcanvas">
-                        ☰
+                    <button class="hamburger-btn d-lg-none bg-transparent border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#mainOffcanvas">
+                        <i class="fas fa-bars"></i>
                     </button>
                 </div>
 
@@ -178,27 +276,16 @@
     </div>
 </header>
 
-<!-- Secondary Navigation Bar (NO toggler button here) -->
-<div class="bg-dark border-top border-bottom border-secondary">
+<!-- Secondary Navigation Bar -->
+<div class="secondary-nav-premium d-none d-lg-block">
     <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-dark px-0 py-2">
-            <div class="container-fluid p-0">
-
-                <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-                    <ul class="navbar-nav gap-4 gap-lg-5">
-                        <li class="nav-item"><a class="nav-link" href="{{ route('web.home') }}"><i class="fas fa-home"></i> Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ route('web.categories') }}"><i class="fas fa-cube"></i> Categories</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ route('web.products.index') }}"><i class="fas fa-shopping-cart"></i> All Products</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-address-card"></i> About Us</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ route('web.contactUs') }}"><i class="fas fa-address-book"></i> Contact</a></li>
-                    </ul>
-                </div>
-
-                <div class="d-none d-lg-block">
-                    <img src="{{ asset('common tread.png') }}" alt="" style="height: 42px; width: auto;">
-                </div>
-            </div>
-        </nav>
+        <ul class="nav justify-content-center">
+            <li class="nav-item"><a class="nav-link" href="{{ route('web.home') }}">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ route('web.categories') }}">Categories</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ route('web.products.index') }}">Shop All</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">About Us</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ route('web.contactUs') }}">Contact</a></li>
+        </ul>
     </div>
 </div>
 
@@ -219,7 +306,7 @@
         </a>
         <a href="#" onclick="openCart()" class="text-white text-center text-decoration-none position-relative">
             <i class="fas fa-shopping-cart fs-4"></i>
-            <span v-cloak class="position-absolute top-0 start-100 translate-middle badge bg-danger small" id="cart-count-badge-mobile">@{{ cart_count_total || 0 }}</span><br>
+            <span class="position-absolute top-0 start-100 translate-middle badge bg-danger small" id="cart-count-badge-mobile">@{{ cart_count_total ?? 0 }}</span><br>
             <span class="small">Cart</span>
         </a>
         <a href="{{ auth('web')->check() ? route('web.user.profile') : route('login') }}" class="text-white text-center text-decoration-none">

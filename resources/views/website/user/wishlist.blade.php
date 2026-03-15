@@ -58,9 +58,7 @@
         class="position-absolute" 
         style="top: 10px; right: 10px; background: none; border: none; padding: 0;">
     <i class="lni lni-close" style="color: red; font-size: 16px;"></i>
-</button>
-
-                                            </button>
+                                          </button>
                                          </form>
 
 

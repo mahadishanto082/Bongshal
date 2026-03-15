@@ -69,23 +69,6 @@
                             @foreach(getCategories(5) as $category)
                                 <li><a href="{{ route('web.categories.products', $category->slug) }}">{{ $category->name }}</a></li>
                             @endforeach
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-6 col-6">
-                    <div class="footer_widget">
-                        <h4 class="widget_title">Company</h4>
-                        <ul class="footer-menu">
-                            <li><a href="#">About Us</a></li>
-                            <li><a href="{{ route('web.contactUs') }}">Contact</a></li>
-                            <li><a href="{{ route('login') }}">Login</a></li>
-                            <li><a href="{{ route('register') }}">Regsiter</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-6">
                     <div class="footer_widget">
                         <h4 class="widget_title">Subscribe</h4>
                         <p>Bongshal.com is a new breed of motorcycle community. Providing the best experience of today's online shopping mall enhanced with useful features and categories tailored to motorcycle enthusiasts of all types, Bongshal.com is an open platform for the exchange of everything related to motorcycle.</p>
