@@ -232,7 +232,7 @@
                 </div>
 
                 <!-- Right side icons -->
-                <div class="d-flex align-items-center gap-2 gap-md-3">
+                <div class="d-flex align-items-center gap-2 gap-md-2">
                     <a href="#" data-bs-toggle="modal" data-bs-target="#orderTrack" class="utility-icon-premium" title="Track Order">
                         <i class="fas fa-shipping-fast"></i>
                         <span class="small d-none d-lg-block">Track</span>
