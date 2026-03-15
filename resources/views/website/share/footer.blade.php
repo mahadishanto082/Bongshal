@@ -133,7 +133,7 @@
 
     <div class="mb-nav-item {{ Request::routeIs('web.cart*') ? 'active' : '' }}">
         <a href="{{ route('web.cart.view') }}">
-            <span class="text-white"><i class="fas fa-shopping-cart"></i> <span style="font-size: 16px;" class="dn-counter">@{{ cart_count_total }}</span> </span>
+            <span class="text-white"><i class="fas fa-shopping-cart"></i> <span style="font-size: 16px;" class="dn-counter">@{{ cart_count_total || 0 }}</span> </span>
             <div class="title">Cart </div>
         </a>
     </div>

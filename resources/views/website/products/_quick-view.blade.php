@@ -159,10 +159,15 @@
                             </div>
                         </div>
                         <div class="col-4 col-lg">
-                            <!-- Submit -->
-                            <button type="submit" class="btn btn-block custom-height bg-dark mb-2">
-                                <i class="lni lni-shopping-basket mr-2"></i>Add to Cart
-                            </button>
+                            @if(auth('web')->check())
+                                <button type="submit" class="btn btn-block custom-height bg-dark mb-2">
+                                    <i class="lni lni-shopping-basket mr-2"></i>Add to Cart
+                                </button>
+                            @else
+                                <a href="{{ route('login') }}" class="btn btn-block custom-height bg-dark mb-2 text-white d-flex align-items-center justify-content-center">
+                                    <i class="lni lni-shopping-basket mr-2"></i>Login to Add
+                                </a>
+                            @endif
                         </div>
                     </div>
                 </div>

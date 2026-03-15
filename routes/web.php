@@ -34,12 +34,14 @@ Route::group(['as' => 'web.'], function () {
     Route::group(['prefix' => 'cart', 'as' => 'cart.'], function () {
         Route::get('view', [CartController::class, 'view'])->name('view');
         Route::get('all', [CartController::class, 'getAllCart'])->name('all');
-        Route::post('add/{product_slug}', [CartController::class, 'addToCart'])->name('add');
-        Route::post('update/{cart_id}', [CartController::class, 'updateCart'])->name('update');
-        Route::get('remove/{cart_id}', [CartController::class, 'removeCart'])->name('remove');
-        Route::get('destroy', [CartController::class, 'destroyCart'])->name('destroy');
 
-        Route::post('quick-add-to-cart/{product_slug}', [CartController::class, 'quickAddCart'])->name('quickAddCart');
+        Route::group(['middleware' => ['auth:web', 'verified']], function () {
+            Route::post('add/{product_slug}', [CartController::class, 'addToCart'])->name('add');
+            Route::post('update/{cart_id}', [CartController::class, 'updateCart'])->name('update');
+            Route::get('remove/{cart_id}', [CartController::class, 'removeCart'])->name('remove');
+            Route::get('destroy', [CartController::class, 'destroyCart'])->name('destroy');
+            Route::post('quick-add-to-cart/{product_slug}', [CartController::class, 'quickAddCart'])->name('quickAddCart');
+        });
     });
 
 

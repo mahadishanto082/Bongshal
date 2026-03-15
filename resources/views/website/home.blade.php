@@ -211,57 +211,77 @@
                 <div class="carousel-item active">
                     <div class="d-flex justify-content-start flex-wrap gap-3">
 
-                        <!-- Product Card Dummy -->
+                        @foreach($new_arrival_products->take(4) as $product)
                         <div class="col-xl-3 col-lg-4 col-md-6 col-6">
-                            <div class="card border-0 shadow-sm position-relative mb-4" style="width: 280px; height: 380px;">
+                            <div class="card border-0 shadow-sm position-relative mb-4" style="width: 250px; height: 380px;">
                                 <!-- Badge -->
-                                <div class="position-absolute top-0 start-0 bg-info text-white px-2 py-1 m-2 rounded">
-                                    <small class="fw-bold text-uppercase">Staff Pick</small>
+                                <div class="position-absolute top-0 start-0 bg-info text-white px-2 py-1 m-2 rounded" style="z-index: 10;">
+                                    <small class="fw-bold text-uppercase">
+                                        {{ $product->stock > 0 ? 'Staff Pick' : 'Out of Stock' }}
+                                    </small>
                                 </div>
 
-                                <!-- Dummy Action Buttons -->
-                                <div class="product-actions position-absolute start-0 ms-1 mt-5 d-flex flex-column gap-2" style="top: 10px; opacity: 0;">
-                                    <button type="button"><i class="fas fa-heart text-danger"></i></button>
-                                    <button type="button"><i class="fas fa-shopping-cart text-success"></i></button>
-                                    <button type="button"><i class="fas fa-exchange-alt text-primary"></i></button>
+                                <!-- Action Buttons -->
+                                <div class="product-actions position-absolute start-0 ms-1 mt-5 d-flex flex-column gap-2" style="top: 10px; opacity: 0; transition: opacity 0.3s ease; z-index: 11;">
+                                    <form id="wishlist-form-{{ $product->id }}-hot" action="{{ route('web.user.wishlist.add', $product->id) }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                    <button type="button" onclick="document.getElementById('wishlist-form-{{ $product->id }}-hot').submit();">
+                                        <i class="fas fa-heart text-danger"></i>
+                                    </button>
+                                    @if (!empty($product->slug))
+                                        @if(auth('web')->check())
+                                            <button type="button" @click="addToCart('{{ route('web.cart.add', $product->slug) }}')" >
+                                                <i class="fas fa-shopping-cart text-success"></i>
+                                            </button>
+                                        @else
+                                            <a href="{{ route('login') }}" class="btn p-0 border-0">
+                                                <i class="fas fa-shopping-cart text-success"></i>
+                                            </a>
+                                        @endif
+                                    @endif
+                                    <form action="{{ route('web.user.compare.add', $product->id) }}" method="POST" class="m-0 p-0 flex-fill">
+                                        @csrf
+                                        <button type="submit" >
+                                            <i class="fas fa-exchange-alt text-primary"></i>
+                                        </button>
+                                    </form>
                                 </div>
 
                                 <!-- Product Image -->
-                                <a href="#">
-                                    <img src="https://via.placeholder.com/280x200" class="card-img-top" alt="Product" style="object-fit: cover; height: 200px;">
-                                </a>
+                                @if(!empty($product->slug))
+                                    <a href="{{ route('web.products.details', $product->slug) }}">
+                                        <img src="{{ asset('storage/products/' . $product->image) }}" class="card-img-top" alt="{{ $product->name }}" style="object-fit: contain; height: 200px;">
+                                    </a>
+                                @else
+                                    <img src="{{ asset('storage/products/' . $product->image) }}" class="card-img-top" alt="{{ $product->name }}" style="object-fit: contain; height: 200px;">
+                                @endif
 
                                 <!-- Card Body -->
                                 <div class="card-body text-center p-2">
-                                    <h6 class="fw-semibold mb-2">Smartphone X</h6>
+                                    <h6 class="fw-semibold mb-2">{{ $product->name }}</h6>
 
                                     <!-- Price -->
                                     <div class="mb-1">
-                                        <span class="fw-bold fs-5 text-danger">Tk. 800</span>
-                                        <span class="text-muted text-decoration-line-through small">Tk. 1000</span>
+                                        @if($product->discount_value > 0)
+                                            <span class="fw-bold fs-5 text-danger">Tk. {{ discountCal($product->price, $product->discount_type, $product->discount_value) }}</span>
+                                            <span class="text-muted text-decoration-line-through small">Tk. {{ $product->price }}</span>
+                                        @else
+                                            <span class="fw-bold fs-5 text-dark">Tk. {{ $product->price }}</span>
+                                        @endif
                                     </div>
-                                    <span class="badge bg-danger">Save 20%</span>
+                                    @if($product->discount_value > 0)
+                                        <span class="badge bg-danger">Save {{ $product->discount_type === 'Taka' ? $product->discount_value . ' Tk' : $product->discount_value . '%' }}</span>
+                                    @endif
 
                                     <!-- Free Shipping -->
                                     <div class="d-flex align-items-center justify-content-center small mt-2">
                                         <i class="fas fa-shipping-fast text-dark me-1"></i> Free Shipping
                                     </div>
-
-                                    <!-- Rating -->
-                                    <div class="mt-1">
-                                        <i class="fas fa-star text-warning"></i>
-                                        <i class="fas fa-star text-warning"></i>
-                                        <i class="fas fa-star text-warning"></i>
-                                        <i class="fas fa-star text-warning"></i>
-                                        <i class="far fa-star text-muted"></i>
-                                        <span class="small text-muted">(4.0/5)</span>
-                                    </div>
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Repeat above card 3 more times to simulate 4-card carousel -->
-                        <!-- ...copy/paste above card block 3 more times... -->
+                        @endforeach
 
                     </div>
                 </div>
@@ -532,9 +552,15 @@
                                             </button>
                                       
                                             @if (!empty($product->slug))
-                                            <button type="button" @click="addToCart('{{ route('web.cart.add', $product->slug) }}')" >
-                                                <i class="fas fa-shopping-cart text-success"></i>
-                                            </button>
+                                                @if(auth('web')->check())
+                                                    <button type="button" @click="addToCart('{{ route('web.cart.add', $product->slug) }}')" >
+                                                        <i class="fas fa-shopping-cart text-success"></i>
+                                                    </button>
+                                                @else
+                                                    <a href="{{ route('login') }}" class="btn p-0 border-0">
+                                                        <i class="fas fa-shopping-cart text-success"></i>
+                                                    </a>
+                                                @endif
                                             @endif
                                             <form action="{{ route('web.user.compare.add', $product->id) }}" method="POST" class="m-0 p-0 flex-fill">
                                                 @csrf
@@ -689,9 +715,15 @@
                                                 <i class="fas fa-heart text-danger"></i>
                                             </button>
                                             @if (!empty($product->slug))
-                                            <button type="button" @click="addToCart('{{ route('web.cart.add', $product->slug) }}')" >
-                                                <i class="fas fa-shopping-cart text-success"></i>
-                                            </button>
+                                                @if(auth('web')->check())
+                                                    <button type="button" @click="addToCart('{{ route('web.cart.add', $product->slug) }}')" >
+                                                        <i class="fas fa-shopping-cart text-success"></i>
+                                                    </button>
+                                                @else
+                                                    <a href="{{ route('login') }}" class="btn p-0 border-0">
+                                                        <i class="fas fa-shopping-cart text-success"></i>
+                                                    </a>
+                                                @endif
                                             @endif
                                               <form action="{{ route('web.user.compare.add', $product->id) }}" method="POST" class="m-0 p-0 flex-fill">
                                                 @csrf

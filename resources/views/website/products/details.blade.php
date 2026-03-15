@@ -387,7 +387,7 @@
                                                     </div>
                                                      <!-- Add to cart form -->
                                                     <div class="col-6">
-                                                        <button type="button" @click="addToCart('{{ route('web.cart.add', $product->slug) }}')" class="btn btn-dark btn-block" style="height: 65px;">
+                                                        <button type="button" @if(auth('web')->check()) @click="addToCart('{{ route('web.cart.add', $product->slug) }}')" @else onclick="window.location.href='{{ route('login') }}'" @endif class="btn btn-dark btn-block" style="height: 65px;">
                                                             <i class="lni lni-shopping-basket mr-2"></i>Add to Cart
                                                         </button>
                                                     </div>

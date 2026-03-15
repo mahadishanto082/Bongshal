@@ -170,12 +170,18 @@
                                                 <i class="lni lni-shopping-basket me-2"></i> Add to Cart
                                             </a>
                                         @elseif($product['stock'] > 0 && $product['is_add_to_cart'] == 1)
-                                            <form action="{{ route('web.cart.quickAddCart', $product['slug']) }}" method="post">
-                                                @csrf
-                                                <button type="submit" class="btn btn-outline-warning btn-sm d-flex align-items-center justify-content-center w-100">
-                                                    <i class="lni lni-shopping-basket me-2"></i> Add to Cart
-                                                </button>
-                                            </form>
+                                            @if(auth('web')->check())
+                                                <form action="{{ route('web.cart.quickAddCart', $product['slug']) }}" method="post">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-outline-warning btn-sm d-flex align-items-center justify-content-center w-100">
+                                                        <i class="lni lni-shopping-basket me-2"></i> Add to Cart
+                                                    </button>
+                                                </form>
+                                            @else
+                                                <a href="{{ route('login') }}" class="btn btn-outline-warning btn-sm d-flex align-items-center justify-content-center w-100">
+                                                    <i class="lni lni-shopping-basket me-2"></i> Login to Add
+                                                </a>
+                                            @endif
                                         @endif
 
                                         {{-- Details --}}
