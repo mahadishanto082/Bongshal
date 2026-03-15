@@ -222,10 +222,12 @@
                                 @endforeach
 
                         </select>
-                        <input type="text" class="form-control px-3" name="keyword" value="{{ request()->keyword }}" placeholder="Search gear, parts, and more...">
-                        <button class="btn btn-link text-white p-2" type="submit">
-                            <i class="fas fa-search"></i>
-                        </button>
+                        <input type="text"
+       class="form-control px-3"
+       name="keyword"
+       value="{{ request()->keyword }}"
+       placeholder="Search gear, parts, and more..."
+       style="flex:0 0 200px;">
                     </form>
                 </div>
 
