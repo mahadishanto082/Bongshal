@@ -444,92 +444,92 @@
 
 
 @if(!empty($new_arrival_products) && !empty($feature_categories))
-<div class="container my-5">
-    <div class="row align-items-start">
+    <div class="container my-5">
+        <div class="row align-items-start">
 
-        {{-- LEFT: New Product --}}
-        <div class="col-md-6"> <!-- Changed to col-md-6 for better layout -->
-            
-            @foreach($new_arrival_products->take(1) as $product)
-                <div class="card border-0 shadow-sm position-relative"
-                    style="transition: 0.3s ease;">
-                    <div class="position-absolute top-0 start-0 ms-2 mt-2 bg-info text-white px-2 py-1 rounded z-1">
-                        <small class="fw-bold text-uppercase">
-                            {{ $product->stock > 0 ? 'Staff Pick' : 'Out of Stock' }}
-                        </small>
-                    </div>
-
-                    <a href="{{ route('web.products.details', $product->slug) }}">
-                        <img class="card-img-top"
-                            src="{{ asset('storage/products/' . $product->image) }}"
-                            alt="{{ $product->name }}"
-                            style="height: 300px; object-fit: cover;">
-                    </a>
-
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h6 class="fw-semibold mb-0">{{ $product->name }}</h6>
-                            <a href="#" class="btn px-4 py-2 fw-semibold" style="background-color:#fa4c06; color:white;">
-                                SHOP NOW
-                            </a>
+            {{-- LEFT: New Product --}}
+            <div class="col-md-6">
+                
+                @foreach($new_arrival_products->take(1) as $product)
+                    <div class="card border-0 shadow-sm position-relative"
+                        style="transition: 0.3s ease;">
+                        <div class="position-absolute top-0 start-0 ms-2 mt-2 bg-info text-white px-2 py-1 rounded z-1">
+                            <small class="fw-bold text-uppercase">
+                                {{ $product->stock > 0 ? 'Staff Pick' : 'Out of Stock' }}
+                            </small>
                         </div>
+
+                        <a href="{{ route('web.products.details', $product->slug) }}">
+                            <img class="card-img-top"
+                                src="{{ asset('storage/products/' . $product->image) }}"
+                                alt="{{ $product->name }}"
+                                style="height: 300px; object-fit: cover;">
+                        </a>
+
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h6 class="fw-semibold mb-0">{{ $product->name }}</h6>
+                                <a href="#" class="btn px-4 py-2 fw-semibold" style="background-color:#fa4c06; color:white;">
+                                    SHOP NOW
+                                </a>
+                            </div>
+                        </div>
+
                     </div>
+                @endforeach
+            </div>
 
-                </div>
-            @endforeach
-        </div>
+            {{-- RIGHT: Featured Products --}}
+            <div class="col-md-6">
+                
+                @foreach($feature_categories->take(1) as $category)
+                    <div class="row">
+                        @foreach($category->products->take(2) as $product)
 
-        {{-- RIGHT: Featured Products --}}
-        <div class="col-md-6"><!-- Changed to col-md-6 for better layout -->
-            
-            @foreach($feature_categories->take(1) as $category)
-                <div class="row">
-                    @foreach($category->products->take(2) as $product)
-
-                        <div class="col-md-6 mb-4">
-                            <div class="card border-0 shadow-sm position-relative"
-                                style="height: 100%; transition: 0.3s ease;">
-                                <div class="position-absolute top-0 start-0 ms-2 mt-2 bg-info text-white px-2 py-1 rounded z-1">
-                                    <small class="fw-bold text-uppercase">
-                                        {{ $product->stock > 0 ? 'Staff Pick' : 'Out of Stock' }}
-                                    </small>
-                                </div>
-
-                                @if (!empty($product->slug))
-                                    <a href="{{ route('web.products.details', $product->slug) }}">
-                                        <img class="card-img-top"
-                                            src="{{ asset('storage/products/' . $product->image) }}"
-                                            alt="{{ $product->name }}"
-                                            style="height: 200px; object-fit: cover;">
-                                    </a>
-                                
-                                @endif
-                                <div class="card-body text-center">
-                                  {{-- Price Section --}}
-                                    <div>
-                                        @if($product->discount_value > 0)
-                                            <div class="mb-1">
-                                                <span class="fw-bold fs-5 text-danger">
-                                                    Tk. {{ discountCal($product->price, $product->discount_type, $product->discount_value) }}
-                                                </span>
-                                                <span class="text-muted text-decoration-line-through small">
-                                                    Tk. {{ $product->price }}
-                                                </span>
-                                            </div>
-                                            <span class="badge bg-danger">
-                                                Save {{ $product->discount_type === 'Taka' ? $product->discount_value . ' Tk' : $product->discount_value . '%' }}
-                                            </span>
-                                        @else
-                                            <div class="mb-2 fw-bold fs-5 text-dark">Tk. {{ $product->price }}</div>
-                                        @endif
+                            <div class="col-md-6 mb-4">
+                                <div class="card border-0 shadow-sm position-relative"
+                                    style="height: 100%; transition: 0.3s ease;">
+                                    <div class="position-absolute top-0 start-0 ms-2 mt-2 bg-info text-white px-2 py-1 rounded z-1">
+                                        <small class="fw-bold text-uppercase">
+                                            {{ $product->stock > 0 ? 'Staff Pick' : 'Out of Stock' }}
+                                        </small>
                                     </div>
-                                    
-                                               <!-- Shipping -->
+
+                                    @if (!empty($product->slug))
+                                        <a href="{{ route('web.products.details', $product->slug) }}">
+                                            <img class="card-img-top"
+                                                src="{{ asset('storage/products/' . $product->image) }}"
+                                                alt="{{ $product->name }}"
+                                                style="height: 200px; object-fit: cover;">
+                                        </a>
+                                    @endif
+
+                                    <div class="card-body text-center">
+                                        {{-- Price Section --}}
+                                        <div>
+                                            @if($product->discount_value > 0)
+                                                <div class="mb-1">
+                                                    <span class="fw-bold fs-5 text-danger">
+                                                        Tk. {{ discountCal($product->price, $product->discount_type, $product->discount_value) }}
+                                                    </span>
+                                                    <span class="text-muted text-decoration-line-through small">
+                                                        Tk. {{ $product->price }}
+                                                    </span>
+                                                </div>
+                                                <span class="badge bg-danger">
+                                                    Save {{ $product->discount_type === 'Taka' ? $product->discount_value . ' Tk' : $product->discount_value . '%' }}
+                                                </span>
+                                            @else
+                                                <div class="mb-2 fw-bold fs-5 text-dark">Tk. {{ $product->price }}</div>
+                                            @endif
+                                        </div>
+
+                                        {{-- Shipping --}}
                                         <div class="d-flex align-items-center justify-content-center small mt-2">
                                             <i class="fas fa-shipping-fast text-dark me-1"></i> Free Shipping
                                         </div>
 
-                                        <!-- 👇 Added Rating Section -->
+                                        {{-- Rating --}}
                                         <div class="mt-1">
                                             @php $rating = $product->rating ?? 4; @endphp
                                             @for ($i = 1; $i <= 5; $i++)
@@ -541,17 +541,18 @@
                                             @endfor
                                             <span class="small text-muted">({{ number_format($rating, 1) }}/5)</span>
                                         </div>
-                                        <!-- ☝️ End Rating Section -->
 
-                                                  
+                                    </div>
                                 </div>
-                                
                             </div>
-                        </div>
-                    @endforeach
 
+                        @endforeach
+                    </div>
+                @endforeach
+
+            </div>
+        </div>
     </div>
-</div>
 @endif
 
 <!-- Brand Section -->
